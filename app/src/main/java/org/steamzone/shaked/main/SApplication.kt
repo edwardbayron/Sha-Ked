@@ -1,6 +1,7 @@
 package org.steamzone.shaked.app
 
 import android.app.Application
+import androidx.annotation.NonNull
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import org.steamzone.shaked.BuildConfig
@@ -9,7 +10,15 @@ import io.objectbox.android.AndroidObjectBrowser
 import org.steamzone.shaked.box.MyObjectBox
 
 
-class SApplication : Application() {
+class SApplication() : Application() {
+
+    companion object {
+        lateinit var instance: SApplication
+    }
+
+    init {
+        instance = this
+    }
 
     private var boxStore: BoxStore? = null
 
@@ -36,5 +45,6 @@ class SApplication : Application() {
             }
         })
     }
+
 
 }

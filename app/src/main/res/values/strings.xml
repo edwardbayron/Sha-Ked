@@ -26,4 +26,10 @@
     <string name="action_example">Example action</string>
 
     <string name="action_settings">Settings</string>
+    <string name="no_permission">No permissions granted!</string>
+    <string name="bluetooth_not_found">Bluetooth adapter not found</string>
+    <string name="bt_is_off">Bluetooth is off</string>
+    <string name="need_enable_bt">You need enable bluetooth to application can work normally.</string>
+    <string name="enable">Enable</string>
+    <string name="cancel">Cancel</string>
 </resources>

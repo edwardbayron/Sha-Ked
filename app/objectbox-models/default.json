@@ -38,10 +38,55 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "3:9053643509948344068",
+      "lastPropertyId": "9:7352848375129878553",
+      "name": "DeviceBox",
+      "properties": [
+        {
+          "id": "1:318282214812407865",
+          "name": "id"
+        },
+        {
+          "id": "2:6351960044837531543",
+          "indexId": "1:5865450601092499716",
+          "name": "hardwareId"
+        },
+        {
+          "id": "3:764435356010642849",
+          "name": "name"
+        },
+        {
+          "id": "4:7947729964244545132",
+          "name": "type"
+        },
+        {
+          "id": "5:4297001867406361668",
+          "name": "connected"
+        },
+        {
+          "id": "6:4271815164816794416",
+          "name": "rssi"
+        },
+        {
+          "id": "7:8728434459968167976",
+          "name": "distance"
+        },
+        {
+          "id": "8:5725524258423754579",
+          "name": "batteryInfo"
+        },
+        {
+          "id": "9:7352848375129878553",
+          "name": "batteryInfoVoltage"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "2:7312282693669423250",
-  "lastIndexId": "0:0",
+  "lastEntityId": "3:9053643509948344068",
+  "lastIndexId": "1:5865450601092499716",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,

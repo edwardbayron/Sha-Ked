@@ -1,4 +1,4 @@
-package org.steamzone.shaked.bt;
+package org.steamzone.shaked.bt.old;
 
 public class gps_parser {
 

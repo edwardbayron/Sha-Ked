@@ -1,4 +1,4 @@
-package org.steamzone.shaked.bt;
+package org.steamzone.shaked.bt.old;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -18,8 +18,8 @@ import android.util.Log;
 
 import com.orhanobut.logger.Logger;
 
-import org.steamzone.shaked.bt.models.cus_mydev_item;
-import org.steamzone.shaked.bt.models.cus_search_item;
+import org.steamzone.shaked.bt.old.models.cus_mydev_item;
+import org.steamzone.shaked.bt.old.models.cus_search_item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +28,10 @@ import java.util.TimerTask;
 import java.util.UUID;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
-import static org.steamzone.shaked.bt.BTClient.Scan_type.SCAN_NEW_DEVICES;
-import static org.steamzone.shaked.bt.BTClient.Scan_type.SCAN_NONE;
-import static org.steamzone.shaked.bt.BTClient.Scan_type.SCAN_UPDATE_DATA;
-import static org.steamzone.shaked.bt.models.cus_mydev_item.devType.shaKedTypeDev;
+import static org.steamzone.shaked.bt.old.BTClient.Scan_type.SCAN_NEW_DEVICES;
+import static org.steamzone.shaked.bt.old.BTClient.Scan_type.SCAN_NONE;
+import static org.steamzone.shaked.bt.old.BTClient.Scan_type.SCAN_UPDATE_DATA;
+import static org.steamzone.shaked.bt.old.models.cus_mydev_item.devType.shaKedTypeDev;
 
 //FIXME: Добавить удаление метода. Для закрытия соедениения. При закрытии формы bt_close
 //FIXME: перенести в сервис?
@@ -472,7 +472,7 @@ public class BTClient {
             for (int i = 0; i < BTmyDevArrayList.size(); i++) {
                 if (srcStrMAC.equals(BTmyDevArrayList.get(i).bleDev.getAddress())) {
                     //FIXME: Не нужно каждый раз обновлять устройство. Достаточно обновлять только RSSI и advert data
-                    cus_mydev_item update_item = new cus_mydev_item(result.getDevice(), result.getRssi(), calculateDistance(result.getRssi()), shaKedTypeDev);
+                    cus_mydev_item update_item = new cus_mydev_item(result.getDevice(), result.getRssi(), calculateDistance(result.getRssi()), cus_mydev_item.devType.shaKedTypeDev);
                     update_item.set_rsii_valid(true);
                     update_item.set_update_flag(true);
                     BTmyDevArrayList.set(i, update_item);

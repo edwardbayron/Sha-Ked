@@ -1,10 +1,8 @@
-package org.steamzone.shaked.bt.models;
+package org.steamzone.shaked.bt.old.models;
 
 import android.content.Context;
 import android.os.Environment;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -118,7 +116,6 @@ public class logger_flash_data {
     public ArrayList<logger_flash_data_item> logger_flash_data_items;
 
 
-
     public logger_flash_data() {
         logger_flash_data_items = new ArrayList<logger_flash_data_item>();
     }
@@ -196,14 +193,13 @@ public class logger_flash_data {
         idx_buffer = IDX_FRAME_1_ID_IN_SECTOR;
 
 
-
         //FIXME проверка на количество фреймов и длину буффера
         //Разбор фреймов
         for (int i = 0; i < frame_in_pkt; i++) {
 
             logger_flash_data_item local_data_item = new logger_flash_data_item();
 
-            local_data_item.sysinfo_set(ids, sector_select,frame_id_in_sector);
+            local_data_item.sysinfo_set(ids, sector_select, frame_id_in_sector);
             ids++;
 
             local_data_item.pkt_type_set(buff[idx_buffer++]);
@@ -228,7 +224,7 @@ public class logger_flash_data {
             tmp4[3] = buff[idx_buffer++];
             xyz_scale = BytesToInt4(tmp4);
 
-            xyz = (double )xyz_val / (double ) xyz_scale;
+            xyz = (double) xyz_val / (double) xyz_scale;
             local_data_item.gnss_latitude_set(xyz);
 
 
@@ -244,7 +240,7 @@ public class logger_flash_data {
             tmp4[3] = buff[idx_buffer++];
             xyz_scale = BytesToInt4(tmp4);
 
-            xyz = (double )xyz_val / (double ) xyz_scale;
+            xyz = (double) xyz_val / (double) xyz_scale;
 
             local_data_item.gnss_longitude_set(xyz);
 
@@ -256,7 +252,11 @@ public class logger_flash_data {
             tmp2[1] = buff[idx_buffer++];
             local_data_item.gnss_angle_set(BytesToInt2(tmp2));
 
-             if(buff[idx_buffer++] == 1){local_data_item.gnss_valid_data_set(true);}else{local_data_item.gnss_valid_data_set(false);}
+            if (buff[idx_buffer++] == 1) {
+                local_data_item.gnss_valid_data_set(true);
+            } else {
+                local_data_item.gnss_valid_data_set(false);
+            }
             local_data_item.gnss_fix_type_set(buff[idx_buffer++]);
             local_data_item.gnss_satellites_set(buff[idx_buffer++]);
             local_data_item.gnss_hdop_set(buff[idx_buffer++]);
@@ -283,12 +283,11 @@ public class logger_flash_data {
 
     String jsonString;
 
-    public void test()
-    {
+    public void test() {
         logger_flash_data_items = new ArrayList<logger_flash_data_item>();
         logger_flash_data_item local_data_item;
 
-        for(int i=0; i<100; i++) {
+        for (int i = 0; i < 100; i++) {
             local_data_item = new logger_flash_data_item();
             local_data_item.sysinfo_set(0, 1, 5);
             local_data_item.timestamp_set(18, 8, 14, 18, 45, 10);
@@ -307,14 +306,12 @@ public class logger_flash_data {
         }
 
 
-            //FIXME: костыль. переполняеться если больше 100к фреймов.
+        //FIXME: костыль. переполняеться если больше 100к фреймов.
         jsonString = log_item_to_JSON_String(logger_flash_data_items, "test_dev_id");
     }
 
 
-
-    public void convert_data(Context context, String device_id)
-    {
+    public void convert_data(Context context, String device_id) {
         String json_string;
 
         json_string = log_item_to_JSON_String(logger_flash_data_items, device_id);
@@ -323,17 +320,17 @@ public class logger_flash_data {
     }
 
 
-    public String log_item_to_JSON_String(ArrayList<logger_flash_data_item> log_item_array, String device_id)
-    {
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-
-        logfile_item logfile_item = new logfile_item();
-
-        logfile_item.set_data_item_array(log_item_array);
-        logfile_item.set_device_id(device_id);
-
-         return gson.toJson(logfile_item);
+    public String log_item_to_JSON_String(ArrayList<logger_flash_data_item> log_item_array, String device_id) {
+//        GsonBuilder builder = new GsonBuilder();
+//        Gson gson = builder.create();
+//
+//        logfile_item logfile_item = new logfile_item();
+//
+//        logfile_item.set_data_item_array(log_item_array);
+//        logfile_item.set_device_id(device_id);
+//
+//         return gson.toJson(logfile_item);
+        return null;
     }
 
 

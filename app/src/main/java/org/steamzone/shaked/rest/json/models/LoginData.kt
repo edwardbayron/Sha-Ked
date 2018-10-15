@@ -1,15 +1,15 @@
 package org.steamzone.shaked.rest.json.models
 
-import com.squareup.moshi.Json
+import org.steamzone.shaked.box.DeviceBox
 
 
-data class LoginData(@Json(name = "deviceAssignments")
-                     var deviceAssignments: List<DeviceAssignment>? = null,
-                     @Json(name = "fullName")
-                     var fullName: String? = null,
-                     @Json(name = "userRoles")
-                     var userRoles: List<UserRole>? = null,
-                     @Json(name = "userTeams")
-                     var userTeams: List<Any>? = null,
-                     @Json(name = "username")
-                     var username: String? = null)
+data class LoginData(
+        var deviceAssignments: List<DeviceBox>? = null,
+
+        var fullName: String? = null,
+
+        var userRoles: List<UserRole>? = null,
+//                     @field:JsonUtil(name = "userTeams")
+//                     var userTeams: List<Any>? = null,
+
+        var username: String? = null)

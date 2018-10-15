@@ -1,6 +1,7 @@
 package org.steamzone.shaked.rest
 
 
+import com.google.gson.Gson
 import org.steamzone.shaked.global.GlobalConstants
 import org.steamzone.shaked.rest.api.API
 import org.steamzone.shaked.rest.auth.AuthenticationRequestInterceptor
@@ -12,8 +13,9 @@ import java.util.concurrent.TimeUnit
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.steamzone.shaked.utils.JsonUtil
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class Rest {
@@ -55,7 +57,7 @@ class Rest {
         } else {
             restBuilder.baseUrl(GlobalConstants.SERVER_SSL_URL)
         }
-        restBuilder.addConverterFactory(MoshiConverterFactory.create())
+        restBuilder.addConverterFactory(GsonConverterFactory.create(JsonUtil.gson))
         restBuilder.addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
         restBuilder.client(clientBuilder.build())
         //  restBuilder.addCallAdapterFactory(RxJavaCallAdapterFactory.createDefault());

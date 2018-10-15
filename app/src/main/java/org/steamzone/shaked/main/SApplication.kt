@@ -8,6 +8,11 @@ import org.steamzone.shaked.BuildConfig
 import io.objectbox.BoxStore
 import io.objectbox.android.AndroidObjectBrowser
 import org.steamzone.shaked.box.MyObjectBox
+import com.polidea.rxandroidble2.RxBleClient
+import com.polidea.rxandroidble2.internal.RxBleLog
+import me.aflak.bluetooth.Bluetooth
+
+
 
 
 class SApplication() : Application() {
@@ -21,14 +26,23 @@ class SApplication() : Application() {
     }
 
     private var boxStore: BoxStore? = null
-
+    lateinit var rxBleClient: RxBleClient
+    lateinit var bluetooth:Bluetooth
     override fun onCreate() {
         super.onCreate()
+        setupBTE()
         setupDB()
         setupLogger()
     }
 
+    private fun setupBTE() {
+        rxBleClient = RxBleClient.create(this)
+        RxBleClient.setLogLevel(RxBleLog.VERBOSE)
+        bluetooth = Bluetooth(this)
+    }
+
     private fun setupDB() {
+        Logger.wtf("BUILD DB")
         boxStore = MyObjectBox.builder().androidContext(this)
                 //.debugFlags(DebugFlags.LOG_QUERY_PARAMETERS)
                 .buildDefault()

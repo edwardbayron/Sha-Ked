@@ -12,8 +12,8 @@ buildscript {
                 kotlin_version = '1.2.71'
                 gradlePlugin = '3.2.0'
                 arcComponents = '2.0.0'
-                gradlePlugin = '3.2.0'
-                dataBinding = '3.2.0'
+                gradlePlugin = '3.2.1'
+                dataBinding = '3.2.1'
                 objectboxVersion = '2.1.0'
                 nav_version = "1.0.0-alpha06"
                 work_version = "1.0.0-alpha04"
@@ -26,9 +26,10 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:$gradlePlugin"
+        classpath "com.android.tools.build:gradle:3.2.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
+        classpath "org.jetbrains.kotlin:kotlin-allopen:$kotlin_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

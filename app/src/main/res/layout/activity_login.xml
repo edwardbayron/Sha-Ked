@@ -47,6 +47,7 @@
                     android:drawableStart="@drawable/ic_email_white_24dp"
                     android:drawablePadding="10dp"
                     android:hint="@string/user_id"
+                    android:text="sha-ked-client"
                     android:textColor="#FFFFFF"
                     android:textColorHint="#dddddddd" />
 
@@ -73,6 +74,8 @@
                     android:drawableStart="@drawable/ic_password_white_24dp"
                     android:drawablePadding="10dp"
                     android:hint="@string/user_password"
+                    android:text="2shakeD-.Device"
+                    android:inputType="textPassword"
                     android:textColor="#FFFFFF"
                     android:textColorHint="#dddddddd" />
 

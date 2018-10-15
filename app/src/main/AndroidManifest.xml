@@ -9,16 +9,14 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission
         android:name="android.permission.ACCESS_COARSE_LOCATION"
-        android:maxSdkVersion="22"/>
+        android:maxSdkVersion="22" />
     <!-- Internet and storage -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
-
-
     <application
+        android:name=".app.SApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -35,10 +33,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".app.home.HomeActivity" />
         <activity android:name=".app.login.ForgotPassword" />
-
+        <activity android:name=".app.add.AddDeviceActivity"></activity>
     </application>
 
 </manifest>

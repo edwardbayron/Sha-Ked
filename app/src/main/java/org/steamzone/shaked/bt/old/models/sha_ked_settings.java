@@ -1,4 +1,4 @@
-package org.steamzone.shaked.bt.models;
+package org.steamzone.shaked.bt.old.models;
 
 public class sha_ked_settings {
     //Const

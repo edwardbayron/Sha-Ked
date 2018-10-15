@@ -1,122 +1,92 @@
 package org.steamzone.shaked.app.home
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.app.PendingIntent.getActivity
-import android.app.ProgressDialog.show
-import android.bluetooth.BluetoothAdapter
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.core.view.GravityCompat
 import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AlertDialog
-import com.tbruyelle.rxpermissions2.RxPermissions
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.trello.rxlifecycle2.android.ActivityEvent
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import org.steamzone.shaked.R
 import org.steamzone.shaked.app.SActivity
-import org.steamzone.shaked.bt.BTClient
+import org.steamzone.shaked.app.add.AddDeviceActivity
+import org.steamzone.shaked.app.home.list.MainBTListAdapter
+import org.steamzone.shaked.app.home.list.MainBTViewHolder
+import org.steamzone.shaked.box.DeviceBox
+
 
 class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-
-    var btClient: BTClient? = null
+    var adapterBt: MainBTListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setupActionBar()
+        initList()
 
         fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+            startActivity(Intent(this@HomeActivity, AddDeviceActivity::class.java))
         }
 
 
         setupNavigationView()
-        setupPermissions()
+
     }
+
+    override fun onResume() {
+        super.onResume()
+        setupPublishListener()
+    }
+
 
     @SuppressLint("CheckResult")
-    private fun setupPermissions() {
-        RxPermissions(this)
-                .request(Manifest.permission.BLUETOOTH,
-                        Manifest.permission.BLUETOOTH_ADMIN,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .subscribe(
-                        {
-                            if (it) {
-                                initBT()
-                                initList()
-                            } else {
-                                Snackbar.make(root_view, R.string.no_permission, Snackbar.LENGTH_LONG).show()
-                            }
-                        },
-                        {
-                            it.printStackTrace()
-                        }
-                )
-    }
-
-    private fun initBT() {
-        btClient = BTClient(btClientInerface, this)
+    private fun setupPublishListener() {
 
 
-        when (btClient?.bt_adapter_init()) {
-            BTClient.BT_init_status.BT_OFF -> {
-                AlertDialog.Builder(this)
-                        .setTitle(R.string.bt_is_off)
-                        .setMessage(R.string.need_enable_bt)
-                        .setPositiveButton(R.string.enable) { dialog, which ->
-                            run {
-                                val REQUEST_ENABLE_BT = 1
-                                val enableBtIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
-                                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+      var scanSubjectSubscanSubjectSub = scanResultConnectedBehaviorSubject.observeOn(AndroidSchedulers.mainThread()).subscribe(
+                {
 
-                            }
-                        }
-                        .setNegativeButton(R.string.cancel) { dialog, which ->
-                            run {
+                    val combinedList = ArrayList<DeviceBox>()
+                    combinedList.addAll(DeviceBox.getAll()!!)
+                    combinedList.addAll(it)
 
-                            }
-                        }
-                        .show()
-
-
-            }
-
-            BTClient.BT_init_status.BT_INIT_OK ->
-                //FIXME: Добавить проверку из настроек: нужен ли broadcast и его содержание
-                //FIXME: Добавить фильтр по содержанию широковещательного пакета
-                //FIXME: Фильтр из настроек!
-
-                //Настраиваем широковещательную отправку
-                //Настраиваем поиск
-                //Включаем широковещательную рассылку
-                //Запускаем поиск
-                btClient?.scan_start()
-
-            BTClient.BT_init_status.BT_FATAL_ERROR_BT_NULL -> {
-
-                Snackbar.make(root_view, R.string.bluetooth_not_found, Snackbar.LENGTH_LONG).show()
-
-            }
-        }
+                    adapterBt?.setupList(combinedList)
+                },
+                {
+                    it.printStackTrace()
+                }
+        )
 
     }
+
 
     private fun initList() {
 
+        var viewManager = LinearLayoutManager(this)
+
+        adapterBt = MainBTListAdapter(object : MainBTViewHolder.OnItemClickListener {
+            override fun onItemClick(item: DeviceBox) {
+            }
+
+        })
+
+        adapterBt?.setupList(DeviceBox.getAll()!!)
+
+
+        home_bt_list.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = adapterBt
+        }
 
     }
 
@@ -185,19 +155,5 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
         return true
     }
 
-
-    var btClientInerface: BTClient.BTMessageListener = object : BTClient.BTMessageListener {
-        override fun ScanCallBack() {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun device_connect_status(connect: Boolean) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun get_data(data: ByteArray?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-    }
 
 }

@@ -1,4 +1,4 @@
-package org.steamzone.shaked.bt;
+package org.steamzone.shaked.bt.old;
 
 
 //FIXME:!!!!!!!! Решить проблему с переподключением

@@ -1,4 +1,4 @@
-package org.steamzone.shaked.bt.models;
+package org.steamzone.shaked.bt.old.models;
 
 import java.util.ArrayList;
 

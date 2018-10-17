@@ -8,6 +8,7 @@ import com.orhanobut.logger.Logger
 import com.polidea.rxandroidble2.RxBleConnection
 import com.polidea.rxandroidble2.RxBleDevice
 import com.trello.rxlifecycle2.android.ActivityEvent
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_device.*
@@ -15,6 +16,7 @@ import org.steamzone.shaked.R
 import org.steamzone.shaked.app.SActivity
 import org.steamzone.shaked.app.SApplication
 import org.steamzone.shaked.box.DeviceBox
+import java.util.concurrent.TimeUnit
 
 
 class DeviceActivity : SActivity() {
@@ -150,26 +152,45 @@ class DeviceActivity : SActivity() {
 
 
         connection.discoverServices()
+                .toObservable()
+                .take(1)
                 .compose(bindUntilEvent(ActivityEvent.PAUSE))
+
                 .subscribe({
 
-                },{
-                    it.printStackTrace()
-                })
-
-        connection.readRssi()
-                .compose(bindUntilEvent(ActivityEvent.PAUSE))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    Logger.wtf("rssie: " + it)
-
-                    distance_text.text = "" + Math.floor(DeviceBox.calculateDistance(it)) + " M"
-                    rssi_text.text = "" + it + " dBM"
                 }, {
                     it.printStackTrace()
                 })
 
+        readRssi(connection)
 
+    }
+
+    var readRSSIDisposable: Disposable? = null
+    private fun readRssi(connection: RxBleConnection) {
+        readRSSIDisposable?.dispose()
+
+        readRSSIDisposable = connection.readRssi()
+                ?.compose(bindUntilEvent(ActivityEvent.PAUSE))
+                ?.toObservable()
+                ?.flatMap { t: Int ->
+                    Observable.interval(2, TimeUnit.SECONDS)
+                            .flatMapSingle { timer: Long -> connection.readRssi() }
+                }
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({
+                    showRssi(it)
+
+                },
+                        {
+                            it.printStackTrace()
+                        })
+
+    }
+
+    private fun showRssi(rssi: Int) {
+        distance_text.text = "" + Math.floor(DeviceBox.calculateDistance(rssi)) + " M"
+        rssi_text.text = "" + rssi + " dBM"
     }
 
 
@@ -190,5 +211,6 @@ class DeviceActivity : SActivity() {
 
 
 }
+
 
 

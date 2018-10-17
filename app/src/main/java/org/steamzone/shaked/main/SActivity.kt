@@ -3,31 +3,24 @@ package org.steamzone.shaked.app
 import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxrelay2.PublishRelay
 import com.orhanobut.logger.Logger
 import com.polidea.rxandroidble2.RxBleClient
-import com.polidea.rxandroidble2.RxBleConnection
+import com.polidea.rxandroidble2.exceptions.BleScanException
 import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.trello.rxlifecycle2.android.ActivityEvent
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import io.reactivex.disposables.Disposable
-import io.reactivex.internal.disposables.DisposableHelper.dispose
 import kotlinx.android.synthetic.main.content_main.*
 import me.aflak.bluetooth.BluetoothCallback
 import org.steamzone.shaked.R
 import org.steamzone.shaked.box.DeviceBox
 import java.util.*
-import java.util.Map
 import java.util.concurrent.TimeUnit
-import kotlin.collections.HashMap
-import kotlin.reflect.jvm.internal.impl.utils.CollectionsKt
-import com.polidea.rxandroidble2.exceptions.BleScanException
-import android.widget.Toast
-import org.steamzone.shaked.utils.JsonUtil
 import kotlin.collections.LinkedHashMap
 
 
@@ -41,10 +34,11 @@ open class SActivity : RxAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bindBTLifeCycle()
+
     }
 
     private fun bindBTLifeCycle() {
+
         SApplication.instance.bluetooth.setBluetoothCallback(object : BluetoothCallback {
             override fun onUserDeniedActivation() {
                 SApplication.instance.bluetooth.showEnableDialog(this@SActivity)
@@ -137,15 +131,35 @@ open class SActivity : RxAppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        SApplication.instance.bluetooth.onStart()
+        bindBTLifeCycle()
+        try {
+            SApplication.instance.bluetooth.onStart()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+
+    }
+
+    override fun onPause() {
+        try {
+            SApplication.instance.bluetooth.onStop()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        super.onPause()
+
+
     }
 
     override fun onStop() {
         super.onStop()
+        SApplication.instance.bluetooth.setBluetoothCallback(null)
+
         if (scanSubscription != null) {
             scanSubscription?.dispose()
         }
-        SApplication.instance.bluetooth.onStop()
+
     }
 
     private fun addScanResult(bleScanResults: List<ScanResult>) {
@@ -160,8 +174,8 @@ open class SActivity : RxAppCompatActivity() {
 
 
         //sorting the list with a comparator
-                // Collections.sort(list) { o1, o2 -> (o2?.second?.rssi?.compareTo(o1?.second?.rssi!!)!!) }
-        val sortedList = list.sortedByDescending {  it.second.rssi }  //list.sortedWith(compareBy {it.second.rssi})
+        // Collections.sort(list) { o1, o2 -> (o2?.second?.rssi?.compareTo(o1?.second?.rssi!!)!!) }
+        val sortedList = list.sortedByDescending { it.second.rssi }  //list.sortedWith(compareBy {it.second.rssi})
 
 
         //convert sortedMap back to Map

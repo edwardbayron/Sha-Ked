@@ -12,7 +12,6 @@ import com.trello.rxlifecycle2.android.FragmentEvent
 import com.trello.rxlifecycle2.components.support.RxFragment
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
 import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fragment_device_get_log.*
 import org.steamzone.shaked.R
@@ -61,20 +60,12 @@ class DeviceGetLogFragment : RxFragment() {
     @SuppressLint("CheckResult")
     private fun startDownloading() {
 
-        connectionObservable.flatMap{
-            t: RxBleConnection -> t.setupNotification(CHARACTERESTIC_DATA_TRANSFER_UUID)
-
-        }       .doOnNext { activity?.runOnUiThread(this::notificationHasBeenSetUp) }
+        connectionObservable.flatMap { t: RxBleConnection ->
+            t.setupNotification(CHARACTERESTIC_DATA_TRANSFER_UUID)
+        }.doOnNext { activity?.runOnUiThread(this::notificationHasBeenSetUp) }
                 .flatMap { t: Observable<ByteArray> -> t }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onNotificationReceived, this::onNotificationSetupFailure)
-//                .doOnNext(notificationObservable -> runOnUiThread(this::notificationHasBeenSetUp) )
-//        .flatMap(notificationObservable -> notificationObservable)
-//        .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(this::onNotificationReceived, this::onNotificationSetupFailure)
-//
-
-
 
 
     }

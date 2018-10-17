@@ -189,7 +189,7 @@ class DeviceActivity : SActivity() {
     }
 
     private fun showRssi(rssi: Int) {
-        distance_text.text = "" + Math.floor(DeviceBox.calculateDistance(rssi)) + " M"
+        battery_text.text = "" + Math.floor(DeviceBox.calculateDistance(rssi)) + " M"
         rssi_text.text = "" + rssi + " dBM"
     }
 

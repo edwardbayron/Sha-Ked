@@ -141,7 +141,7 @@
 
 
                 <TextView
-                    android:id="@+id/baterry_text"
+                    android:id="@+id/distance_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -167,7 +167,7 @@
                     app:srcCompat="@drawable/ic_battery_90_black_24dp" />
 
                 <TextView
-                    android:id="@+id/distance_text"
+                    android:id="@+id/battery_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

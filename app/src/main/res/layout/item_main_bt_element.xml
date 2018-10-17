@@ -32,7 +32,7 @@
                 app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
 
             <TextView
-                android:id="@+id/distance_text"
+                android:id="@+id/battery_text"
                 android:layout_width="65dp"
                 android:layout_height="19dp"
                 android:layout_marginStart="2dp"

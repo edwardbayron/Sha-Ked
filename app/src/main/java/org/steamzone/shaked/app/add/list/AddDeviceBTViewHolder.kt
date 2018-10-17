@@ -28,7 +28,7 @@ class AddDeviceBTViewHolder(override val containerView: View) : RecyclerView.Vie
             bluetooth_status_icon.setImageResource(R.drawable.ic_bluetooth_black_24dp)
         }
 
-        distance_text.text =""+Math.floor(item.distance) + " M"
+        battery_text.text =""+Math.floor(item.distance) + " M"
         rssi_text.text ="" +item.rssi + " dBM"
         type_text.text = item.type
         name_text.text = item.name

@@ -23,7 +23,9 @@ import org.steamzone.shaked.app.device.DeviceActivity
 import org.steamzone.shaked.app.device.DeviceActivity.Companion.MAC_ADDRESS_EXTRA
 import org.steamzone.shaked.app.home.list.MainBTListAdapter
 import org.steamzone.shaked.app.home.list.MainBTViewHolder
+import org.steamzone.shaked.app.login.LoginActivity
 import org.steamzone.shaked.box.DeviceBox
+import org.steamzone.shaked.rx.DbUtil
 
 
 class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -183,23 +185,11 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
-
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
+            R.id.logout -> {
+                DbUtil.dropDatabase()
+                var intent = Intent(this@HomeActivity, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
             }
         }
 

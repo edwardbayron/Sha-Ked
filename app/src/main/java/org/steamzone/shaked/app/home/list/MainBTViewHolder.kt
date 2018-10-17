@@ -2,12 +2,10 @@ package org.steamzone.shaked.app.home.list
 
 import android.annotation.SuppressLint
 import android.view.View
-import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_main_bt_element.*
-import kotlinx.android.synthetic.main.item_main_bt_element.view.*
 import org.steamzone.shaked.R
 
 
@@ -35,7 +33,7 @@ open class MainBTViewHolder(override val containerView: View) : RecyclerView.Vie
             bluetooth_status_icon.setColorFilter(ContextCompat.getColor(containerView.context, R.color.main_gray), android.graphics.PorterDuff.Mode.SRC_IN)
         }
 
-        distance_text.text =""+Math.floor(item.distance) + " M"
+        battery_text.text =""+Math.floor(item.distance) + " M"
         type_text.text = item.type
         name_text.text = item.name
         mac_text.text = item.hardwareId

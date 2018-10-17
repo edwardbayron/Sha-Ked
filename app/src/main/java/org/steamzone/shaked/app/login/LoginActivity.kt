@@ -27,22 +27,22 @@ class LoginActivity : SActivity() {
         login_bt.setOnClickListener {
 
 
-            var loginBox = LoginBox()
-            loginBox.id = 1
-            loginBox.email = login_username_et.editText?.text.toString()
-            loginBox.password = login_password_et.editText?.text.toString()
-            LoginBox.save(loginBox)
-            startHomeActivity()
-//            LoginRx.login(login_username_et.editText?.text.toString(), login_password_et.editText?.text.toString())
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe({
-//                        //go to main screen yo
-//                        //
-//                        startHomeActivity()
-//                    }, {
-//                        it.printStackTrace()
-//                    })
+//            var loginBox = LoginBox()
+//            loginBox.id = 1
+//            loginBox.email = login_username_et.editText?.text.toString()
+//            loginBox.password = login_password_et.editText?.text.toString()
+//            LoginBox.save(loginBox)
+//            startHomeActivity()
+            LoginRx.login(login_username_et.editText?.text.toString(), login_password_et.editText?.text.toString())
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        //go to main screen yo
+                        //
+                        startHomeActivity()
+                    }, {
+                        it.printStackTrace()
+                    })
 
         }
 

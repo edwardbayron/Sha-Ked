@@ -67,14 +67,15 @@ class DeviceGetLogFragment : RxFragment() {
         if ((activity as DeviceActivity)?.isConnected()) {
             Observable.just((activity as DeviceActivity)?.connectionBle)
                     ?.compose(bindUntilEvent<RxBleConnection>(FragmentEvent.DESTROY_VIEW))
-                    ?.compose(ReplayingShare.instance())!!
-                    ?.takeUntil(disconnectTriggerSubject)
-                    .flatMap { t: RxBleConnection ->
+                   // ?.compose(ReplayingShare.instance())!!
+                  //  .takeUntil(disconnectTriggerSubject)
+                    ?.flatMap { t: RxBleConnection ->
                         t.setupNotification(CHARACTERESTIC_DATA_TRANSFER_UUID)
-                    }.doOnNext { activity?.runOnUiThread(this::notificationHasBeenSetUp) }
-                    .flatMap { t: Observable<ByteArray> -> t }
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(this::onNotificationReceived, this::onNotificationSetupFailure) {
+                    }
+                    ?.doOnNext { activity?.runOnUiThread(this::notificationHasBeenSetUp) }
+                    ?.flatMap { t: Observable<ByteArray> -> t }
+                    ?.observeOn(AndroidSchedulers.mainThread())
+                    ?.subscribe(this::onNotificationReceived, this::onNotificationSetupFailure) {
                         Logger.wtf("Finalized")
                         writeDataToSDCard()
                     }

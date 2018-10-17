@@ -6,6 +6,8 @@ import com.polidea.rxandroidble2.scan.ScanResult
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
 import io.objectbox.annotation.Index
+import io.objectbox.query.Query
+import io.objectbox.query.QueryBuilder
 
 @Entity
 class DeviceBox {
@@ -32,8 +34,22 @@ class DeviceBox {
         }
 
         fun save(model: DeviceBox): DeviceBox {
+
+            var deviceBox = getDeviceBoxByMac(model.hardwareId)
+            if (deviceBox != null) {
+                model.id = deviceBox.id
+
+            }
+            model.rssi = 0
+            model.distance = 0.0
+            model.connected = false
+
             SBox.getBox(DeviceBox::class.java).put(model)
             return model
+        }
+
+        fun getDeviceBoxByMac(hardwareId: String?): DeviceBox? {
+          return query().equal(DeviceBox_.hardwareId, hardwareId).build().findFirst()
         }
 
         fun delete(list: List<DeviceBox>): List<DeviceBox> {
@@ -89,6 +105,10 @@ class DeviceBox {
 
 
             return deviceBox
+        }
+
+        fun query(): QueryBuilder<DeviceBox> {
+            return SBox.getBox(DeviceBox::class.java).query()
         }
 
 

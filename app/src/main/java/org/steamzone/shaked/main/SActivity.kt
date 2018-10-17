@@ -3,28 +3,40 @@ package org.steamzone.shaked.app
 import android.Manifest
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.snackbar.Snackbar
 import com.jakewharton.rxrelay2.PublishRelay
 import com.orhanobut.logger.Logger
 import com.polidea.rxandroidble2.RxBleClient
 import com.polidea.rxandroidble2.RxBleConnection
+import com.polidea.rxandroidble2.scan.ScanResult
 import com.polidea.rxandroidble2.scan.ScanSettings
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.trello.rxlifecycle2.android.ActivityEvent
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import io.reactivex.disposables.Disposable
+import io.reactivex.internal.disposables.DisposableHelper.dispose
 import kotlinx.android.synthetic.main.content_main.*
 import me.aflak.bluetooth.BluetoothCallback
 import org.steamzone.shaked.R
 import org.steamzone.shaked.box.DeviceBox
+import java.util.*
+import java.util.Map
 import java.util.concurrent.TimeUnit
+import kotlin.collections.HashMap
+import kotlin.reflect.jvm.internal.impl.utils.CollectionsKt
+import com.polidea.rxandroidble2.exceptions.BleScanException
+import android.widget.Toast
+import org.steamzone.shaked.utils.JsonUtil
+import kotlin.collections.LinkedHashMap
+
 
 open class SActivity : RxAppCompatActivity() {
 
-    var scanResultNotConnectedBehaviorSubject: PublishRelay<MutableCollection<DeviceBox>> = PublishRelay.create()
-    var scanResultConnectedBehaviorSubject: PublishRelay<MutableCollection<DeviceBox>> = PublishRelay.create()
-    var scanMapConnected: HashMap<String, DeviceBox> = HashMap()
-    var scanNotMapConnected: HashMap<String, DeviceBox> = HashMap()
+    var scanResultBehaviorSubject: PublishRelay<MutableCollection<DeviceBox>> = PublishRelay.create()
+    var scanMap: LinkedHashMap<String, DeviceBox> = LinkedHashMap()
+    var tikCounter = 0
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,7 +104,7 @@ open class SActivity : RxAppCompatActivity() {
     }
 
     private fun checkBTE() {
-        Logger.wtf(SApplication.instance.rxBleClient.state.name)
+
         if (SApplication.instance.rxBleClient.state == RxBleClient.State.BLUETOOTH_NOT_ENABLED) {
             SApplication.instance.bluetooth.showEnableDialog(this@SActivity)
         } else if (SApplication.instance.rxBleClient.state == RxBleClient.State.READY) {
@@ -102,41 +114,21 @@ open class SActivity : RxAppCompatActivity() {
 
     }
 
-    var scanSubscription: Disposable? = null
+    private var scanSubscription: Disposable? = null
 
     private fun initScanning() {
 
-
-        Logger.wtf("Yolo?")
         scanSubscription = SApplication.instance.rxBleClient.scanBleDevices(
                 ScanSettings.Builder()
-                        // .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY) // change if needed
-                        // .setCallbackType(ScanSettings.CALLBACK_TYPE_ALL_MATCHES) // change if needed
+                        .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY) // change if needed
+                        .setCallbackType(ScanSettings.CALLBACK_TYPE_ALL_MATCHES) // change if needed
                         .build()
-                // add filters if needed
+
         )
                 .compose(bindUntilEvent(ActivityEvent.PAUSE))
-                .buffer(10000, TimeUnit.MILLISECONDS)
-                .subscribe(
-                        { scanResults ->
-                            for (scanResult in scanResults) {
-                                if (scanResult.bleDevice.connectionState == RxBleConnection.RxBleConnectionState.CONNECTED) {
-                                    scanMapConnected[scanResult.bleDevice.macAddress] = DeviceBox.createDevivceBoxFromScanResult(scanResult)
-                                } else {
-                                    scanNotMapConnected[scanResult.bleDevice.macAddress] = DeviceBox.createDevivceBoxFromScanResult(scanResult)
-                                }
-                                Logger.wtf("LOL: " + scanResult.bleDevice.name + ", add: " + scanResult.bleDevice.connectionState)
-                            }
-
-                            Logger.wtf("z: " + scanMapConnected.values.size)
-                            scanResultNotConnectedBehaviorSubject.accept(scanNotMapConnected.values)
-                            scanResultConnectedBehaviorSubject.accept(scanMapConnected.values)
-
-                        },
-                        { throwable ->
-                            throwable.printStackTrace()
-                        }
-                )
+                .doFinally(this::dispose)
+                .buffer(3000, TimeUnit.MILLISECONDS)
+                .subscribe(this::addScanResult, this::onScanFailure)
 
 
         //scanSubscription.dispose()
@@ -154,6 +146,83 @@ open class SActivity : RxAppCompatActivity() {
             scanSubscription?.dispose()
         }
         SApplication.instance.bluetooth.onStop()
+    }
+
+    private fun addScanResult(bleScanResults: List<ScanResult>) {
+
+        for (bleScanResult in bleScanResults) {
+            scanMap[bleScanResult.bleDevice.macAddress] = DeviceBox.createDevivceBoxFromScanResult(bleScanResult)
+
+
+        }
+        //convert map to a List
+        val list = scanMap.toList()
+
+
+        //sorting the list with a comparator
+                // Collections.sort(list) { o1, o2 -> (o2?.second?.rssi?.compareTo(o1?.second?.rssi!!)!!) }
+        val sortedList = list.sortedByDescending {  it.second.rssi }  //list.sortedWith(compareBy {it.second.rssi})
+
+
+        //convert sortedMap back to Map
+        scanMap = LinkedHashMap()
+        for (entry in sortedList) {
+            scanMap[entry.first] = entry.second
+        }
+
+
+
+        scanResultBehaviorSubject.accept(scanMap.values)
+
+    }
+
+
+    private fun dispose() {
+        if (scanSubscription != null) {
+            scanSubscription?.dispose()
+            scanSubscription = null
+        }
+
+        scanMap.clear()
+    }
+
+
+    private fun onScanFailure(throwable: Throwable) {
+
+        if (throwable is BleScanException) {
+            handleBleScanException(throwable)
+        }
+    }
+
+    private fun handleBleScanException(bleScanException: BleScanException) {
+        val text: String
+
+        when (bleScanException.reason) {
+            BleScanException.BLUETOOTH_NOT_AVAILABLE -> text = "Bluetooth is not available"
+            BleScanException.BLUETOOTH_DISABLED -> text = "Enable bluetooth and try again"
+            BleScanException.LOCATION_PERMISSION_MISSING -> text = "On Android 6.0 location permission is required. Implement Runtime Permissions"
+            BleScanException.LOCATION_SERVICES_DISABLED -> text = "Location services needs to be enabled on Android 6.0"
+            BleScanException.SCAN_FAILED_ALREADY_STARTED -> text = "Scan with the same filters is already started"
+            BleScanException.SCAN_FAILED_APPLICATION_REGISTRATION_FAILED -> text = "Failed to register application for bluetooth scan"
+            BleScanException.SCAN_FAILED_FEATURE_UNSUPPORTED -> text = "Scan with specified parameters is not supported"
+            BleScanException.SCAN_FAILED_INTERNAL_ERROR -> text = "Scan failed due to internal error"
+            BleScanException.SCAN_FAILED_OUT_OF_HARDWARE_RESOURCES -> text = "Scan cannot start due to limited hardware resources"
+            BleScanException.UNDOCUMENTED_SCAN_THROTTLE -> text = String.format(
+                    Locale.getDefault(),
+                    "Android 7+ does not allow more scans. Try in %d seconds",
+                    secondsTill(bleScanException.retryDateSuggestion)
+            )
+            BleScanException.UNKNOWN_ERROR_CODE, BleScanException.BLUETOOTH_CANNOT_START -> text = "Unable to start scanning"
+            else -> text = "Unable to start scanning"
+        }
+        Logger.e(text)
+        Logger.e(bleScanException.toString())
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
+
+
+    fun secondsTill(retryDateSuggestion: Date?): Long {
+        return TimeUnit.MILLISECONDS.toSeconds(retryDateSuggestion?.time!! - System.currentTimeMillis())
     }
 
 

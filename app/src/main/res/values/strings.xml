@@ -33,4 +33,7 @@
     <string name="enable">Enable</string>
     <string name="cancel">Cancel</string>
     <string name="add_device">Add device</string>
+    <string name="status">STATUS</string>
+    <string name="connected">CONNECTED</string>
+    <string name="disconnected">DISCONNECTED</string>
 </resources>

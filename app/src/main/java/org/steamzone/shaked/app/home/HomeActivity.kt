@@ -3,13 +3,14 @@ package org.steamzone.shaked.app.home
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.navigation.NavigationView
-import androidx.core.view.GravityCompat
-import androidx.appcompat.app.ActionBarDrawerToggle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.trello.rxlifecycle2.android.ActivityEvent
+import com.google.android.material.navigation.NavigationView
+import io.objectbox.android.AndroidScheduler
+import io.objectbox.reactive.DataSubscription
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.activity_home.*
@@ -18,6 +19,8 @@ import kotlinx.android.synthetic.main.content_main.*
 import org.steamzone.shaked.R
 import org.steamzone.shaked.app.SActivity
 import org.steamzone.shaked.app.add.AddDeviceActivity
+import org.steamzone.shaked.app.device.DeviceActivity
+import org.steamzone.shaked.app.device.DeviceActivity.Companion.MAC_ADDRESS_EXTRA
 import org.steamzone.shaked.app.home.list.MainBTListAdapter
 import org.steamzone.shaked.app.home.list.MainBTViewHolder
 import org.steamzone.shaked.box.DeviceBox
@@ -32,6 +35,7 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
         setContentView(R.layout.activity_home)
         setupActionBar()
         initList()
+        setupDeviceBoxQuery()
 
         fab.setOnClickListener { view ->
             startActivity(Intent(this@HomeActivity, AddDeviceActivity::class.java))
@@ -42,6 +46,9 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
 
     }
 
+
+    var scanSubjectSubscanSubjectSub: Disposable? = null
+
     override fun onResume() {
         super.onResume()
         setupPublishListener()
@@ -50,21 +57,39 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
 
     @SuppressLint("CheckResult")
     private fun setupPublishListener() {
+        if (scanSubjectSubscanSubjectSub != null) {
+            scanSubjectSubscanSubjectSub?.dispose()
+        }
 
-
-      var scanSubjectSubscanSubjectSub = scanResultConnectedBehaviorSubject.observeOn(AndroidSchedulers.mainThread()).subscribe(
+        scanSubjectSubscanSubjectSub = scanResultBehaviorSubject.observeOn(AndroidSchedulers.mainThread()).subscribe(
                 {
 
-                    val combinedList = ArrayList<DeviceBox>()
-                    combinedList.addAll(DeviceBox.getAll()!!)
-                    combinedList.addAll(it)
-
-                    adapterBt?.setupList(combinedList)
+                    checkDevices(it)
                 },
                 {
                     it.printStackTrace()
                 }
         )
+
+    }
+
+    private fun checkDevices(list: MutableCollection<DeviceBox>?) {
+
+        for (i in adapterBt?.list!!.indices) {
+            val deviceBox = adapterBt?.list!![i]
+            for (scannedDevicesBoxes in list?.toList()!!) {
+                if (scannedDevicesBoxes.hardwareId.equals(deviceBox.hardwareId)) {
+                    deviceBox.rssi = scannedDevicesBoxes.rssi
+                    deviceBox.distance = scannedDevicesBoxes.distance
+                    deviceBox.batteryInfo = scannedDevicesBoxes.batteryInfo
+                    deviceBox.batteryInfoVoltage = scannedDevicesBoxes.batteryInfoVoltage
+                    deviceBox.connected = scannedDevicesBoxes.connected
+                    adapterBt?.notifyItemChanged(i)
+
+                    break
+                }
+            }
+        }
 
     }
 
@@ -75,6 +100,9 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
 
         adapterBt = MainBTListAdapter(object : MainBTViewHolder.OnItemClickListener {
             override fun onItemClick(item: DeviceBox) {
+                var intent = Intent(this@HomeActivity, DeviceActivity::class.java)
+                intent.putExtra(MAC_ADDRESS_EXTRA, item.hardwareId)
+                startActivity(intent)
             }
 
         })
@@ -86,6 +114,30 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = adapterBt
+        }
+
+    }
+
+    var deviceBoxChangesListener: DataSubscription? = null
+    private fun setupDeviceBoxQuery() {
+
+        deviceBoxChangesListener = DeviceBox.query().build().subscribe()
+                .on(AndroidScheduler.mainThread())
+                .observer { updateData(it) }
+
+    }
+
+    private fun updateData(list: List<DeviceBox>) {
+        adapterBt?.setupList(list)
+        checkDevices(scanMap.values)
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if (!deviceBoxChangesListener?.isCanceled!!) {
+            deviceBoxChangesListener?.cancel()
         }
 
     }

@@ -16,9 +16,8 @@ class MainBTListAdapter(var onItemClickListener: MainBTViewHolder.OnItemClickLis
 
 
     fun setupList(listbt: List<DeviceBox>) {
-        Logger.wtf("Setup list: "+listbt.size)
         this.list = listbt
-       notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 
 
@@ -34,9 +33,7 @@ class MainBTListAdapter(var onItemClickListener: MainBTViewHolder.OnItemClickLis
 
     override fun onBindViewHolder(holder: MainBTViewHolder, position: Int) {
         var deviceBox = list?.get(position)
-
-        Logger.wtf(JsonUtil.gson.toJson(deviceBox))
-
+        //Logger.wtf(JsonUtil.gson.toJson(deviceBox))
         holder.bind(deviceBox, onItemClickListener)
 
 

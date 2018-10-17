@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+
+    <com.google.android.material.card.MaterialCardView
+
+
+        style="@style/Widget.MaterialComponents.CardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:minHeight="85dp"
+        tools:ignore="PrivateResource">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ic_chevron_right"
+                android:layout_width="41dp"
+                android:layout_height="66dp"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="8dp"
+                android:tint="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_add_white_24dp" />
+
+            <TextView
+                android:id="@+id/distance_text"
+                android:layout_width="65dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="2dp"
+                android:text="10 M"
+                android:textColor="@color/main_gray"
+                app:layout_constraintStart_toEndOf="@+id/position_icon"
+                app:layout_constraintTop_toTopOf="@+id/position_icon" />
+
+            <ImageView
+                android:id="@+id/bluetooth_status_icon"
+                android:layout_width="41dp"
+                android:layout_height="66dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:tint="@color/main_gray"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_bluetooth_black_24dp" />
+
+            <TextView
+                android:id="@+id/type_text"
+                android:layout_width="144dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="8dp"
+                android:text="Dev Type"
+                android:textColor="@color/main_gray"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/mac_text"
+                android:layout_width="wrap_content"
+                android:layout_height="21dp"
+                android:text="00:00:00:00:00:00"
+                android:textColor="@color/main_gray"
+                app:layout_constraintStart_toStartOf="@+id/type_text"
+                app:layout_constraintTop_toBottomOf="@+id/type_text" />
+
+            <TextView
+                android:id="@+id/name_text"
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:text="DEVICE Name"
+                android:textColor="@color/main_gray"
+                app:layout_constraintStart_toStartOf="@+id/mac_text"
+                app:layout_constraintTop_toBottomOf="@+id/mac_text" />
+
+            <TextView
+                android:id="@+id/rssi_text"
+                android:layout_width="65dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="2dp"
+                android:text="-56 dBm"
+                android:textColor="@color/main_gray"
+                app:layout_constraintStart_toEndOf="@+id/rssi_icon"
+                app:layout_constraintTop_toTopOf="@+id/rssi_icon" />
+
+            <ImageView
+                android:id="@+id/rssi_icon"
+                android:layout_width="21dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="10dp"
+                android:tint="@color/main_gray"
+                app:layout_constraintStart_toEndOf="@+id/type_text"
+                app:layout_constraintTop_toTopOf="@+id/type_text"
+                app:srcCompat="@drawable/ic_signal_cellular_4_bar_black_24dp" />
+
+            <ImageView
+                android:id="@+id/position_icon"
+                android:layout_width="21dp"
+                android:layout_height="19dp"
+                android:layout_marginTop="8dp"
+                android:tint="@color/main_gray"
+                app:layout_constraintStart_toStartOf="@+id/rssi_icon"
+                app:layout_constraintTop_toBottomOf="@+id/rssi_icon"
+                app:srcCompat="@drawable/ic_place_black_24dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

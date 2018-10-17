@@ -91,7 +91,8 @@ class DeviceGetLogFragment : RxFragment() {
 
     private fun onNotificationSetupFailure(throwable: Throwable) {
 
-        Snackbar.make(activity?.findViewById<View>(android.R.id.content)!!, "Notifications error: $throwable", Snackbar.LENGTH_SHORT).show()
+        throwable.printStackTrace()
+        Snackbar.make(activity?.findViewById<View>(android.R.id.content)!!, "Notifications error: ${throwable.localizedMessage}", Snackbar.LENGTH_SHORT).show()
     }
 
 }

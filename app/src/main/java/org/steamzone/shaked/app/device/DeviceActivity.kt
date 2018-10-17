@@ -47,6 +47,16 @@ class DeviceActivity : SActivity() {
         setupDeviceInfo()
 
 
+        openMainFragment()
+
+
+    }
+
+    private fun openMainFragment() {
+       supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container,DeviceFragment(),DeviceFragment::class.java.name)
+                .addToBackStack(null)
+                .commit()
     }
 
     private fun setupDeviceInfo() {

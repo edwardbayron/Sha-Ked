@@ -36,4 +36,9 @@
     <string name="status">STATUS</string>
     <string name="connected">CONNECTED</string>
     <string name="disconnected">DISCONNECTED</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="live_data">Live data</string>
+    <string name="get_gps_log">Get GPS log</string>
 </resources>

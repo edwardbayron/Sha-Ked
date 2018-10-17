@@ -128,7 +128,7 @@ class DeviceActivity : SActivity() {
     private fun triggerConnect() {
         Logger.wtf("Connect please")
         connectionDisposable = bleDevice?.establishConnection(true)
-                ?.compose(bindUntilEvent(ActivityEvent.PAUSE))
+                ?.compose(bindUntilEvent(ActivityEvent.DESTROY))
                 ?.doFinally(this::dispose)
 //                ?.flatMap { rxBleConnection ->
 //                    // Set desired interval.
@@ -196,7 +196,7 @@ class DeviceActivity : SActivity() {
     private fun dispose() {
         Logger.wtf("Disposed")
         connectionDisposable = null
-        updateConnectionButton()
+
 
 
     }

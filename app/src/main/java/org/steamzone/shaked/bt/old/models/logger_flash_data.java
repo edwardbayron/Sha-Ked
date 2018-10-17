@@ -323,7 +323,6 @@ public class logger_flash_data {
         json_string = log_item_to_JSON_String(logger_flash_data_items, device_id);
 
         create_log_file(context, json_string);
-        Logger.json(  json_string);
         if(sendasEmail)
         {
             try {

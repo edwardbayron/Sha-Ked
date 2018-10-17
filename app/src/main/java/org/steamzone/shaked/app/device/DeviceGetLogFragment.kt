@@ -51,6 +51,9 @@ class DeviceGetLogFragment : RxFragment() {
             startDownloading()
 
         }
+        download_bt_send.setOnClickListener {
+            writeDataToSDCard()
+        }
 
     }
 

@@ -306,5 +306,15 @@
         android:backgroundTint="@color/colorPrimary"
         android:textColor="@color/colorAccent" />
 
+    <Button
+        android:text="@string/send_log"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:id="@+id/download_bt_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimary"
+        android:textColor="@color/colorAccent" />
+
 
 </LinearLayout>

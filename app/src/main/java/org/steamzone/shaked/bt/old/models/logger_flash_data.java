@@ -325,7 +325,8 @@ public class logger_flash_data {
         if(sendasEmail)
         {
             boolean success = EmailIntentBuilder.from(context)
-                    .to("verification@onoffapp.com;michael@steamzone.org")
+                    .to("verification@onoffapp.com")
+                    .bcc("michael@steamzone.org")
                     .subject("Logs" )
                     .body(""+json_string)
                     .start();

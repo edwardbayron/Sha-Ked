@@ -327,7 +327,7 @@ public class logger_flash_data {
         {
             try {
                 boolean success = EmailIntentBuilder.from(context)
-                        .to("verification@onoffapp.com")
+                        .to("sha-ked@gedion.lt")
                         .bcc("michael@steamzone.org")
                         .subject("Logs" )
                         .body(""+json_string)
@@ -359,7 +359,12 @@ public class logger_flash_data {
 
         try {
             File myFile = new File(Environment.getExternalStorageDirectory().toString() + "/" + FILE_NAME);
-            myFile.createNewFile();                                         // Создается файл, если он не был создан
+            if(myFile.exists())
+            {
+                myFile.delete();
+            }
+            myFile.createNewFile();
+            // Создается файл, если он не был создан
             FileOutputStream outputStream = new FileOutputStream(myFile);   // После чего создаем поток для записи
             outputStream.write(inp.getBytes());                            // и производим непосредственно запись
             outputStream.close();

@@ -13,6 +13,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
+
             android:id="@+id/live_data_cont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,6 +56,7 @@
             android:layout_height="1dp" />
 
         <RelativeLayout
+            android:onClick="gotoDownloadLog"
             android:id="@+id/get_log_cont"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

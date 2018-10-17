@@ -1,19 +1,14 @@
 package org.steamzone.shaked.app.device
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-
 import org.steamzone.shaked.R
 
 
 class DeviceFragment : Fragment() {
-
-
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -27,6 +22,13 @@ class DeviceFragment : Fragment() {
 
     }
 
+
+    fun gotoDownloadLog(view: View) {
+        activity?.supportFragmentManager?.beginTransaction()
+                ?.add(R.id.fragment_container, DeviceGetLogFragment(), DeviceGetLogFragment::class.java.name)
+                ?.addToBackStack(DeviceGetLogFragment::class.java.name)
+                ?.commit()
+    }
 
 
 }

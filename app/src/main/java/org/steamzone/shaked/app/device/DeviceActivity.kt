@@ -53,8 +53,8 @@ class DeviceActivity : SActivity() {
     }
 
     private fun openMainFragment() {
-       supportFragmentManager.beginTransaction()
-                .add(R.id.fragment_container,DeviceFragment(),DeviceFragment::class.java.name)
+        supportFragmentManager.beginTransaction()
+                .add(R.id.fragment_container, DeviceFragment(), DeviceFragment::class.java.name)
                 .addToBackStack(null)
                 .commit()
     }
@@ -157,21 +157,10 @@ class DeviceActivity : SActivity() {
         // Snackbar.make(findViewById<View>(android.R.id.content), "Connection received", Snackbar.LENGTH_SHORT).show()
     }
 
+    var connectionBle: RxBleConnection? = null
     @SuppressLint("CheckResult")
     private fun updateStatusDataOfDevice(connection: RxBleConnection) {
-
-
-        connection.discoverServices()
-                .toObservable()
-                .take(1)
-                .compose(bindUntilEvent(ActivityEvent.PAUSE))
-
-                .subscribe({
-
-                }, {
-                    it.printStackTrace()
-                })
-
+        connectionBle = connection
         readRssi(connection)
 
     }

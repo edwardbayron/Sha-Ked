@@ -41,4 +41,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="live_data">Live data</string>
     <string name="get_gps_log">Get GPS log</string>
+    <string name="size_of">Size of:</string>
+    <string name="download_time">Download time</string>
+    <string name="speed">Speed:</string>
+    <string name="downloading">Downloading:</string>
+    <string name="time_left">Time left:</string>
+    <string name="download_log">Download log</string>
 </resources>

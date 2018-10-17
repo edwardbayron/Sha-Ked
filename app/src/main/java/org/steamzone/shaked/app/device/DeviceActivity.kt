@@ -80,7 +80,7 @@ class DeviceActivity : SActivity() {
         }
     }
 
-    private fun isConnected(): Boolean {
+    fun isConnected(): Boolean {
         return bleDevice?.connectionState === RxBleConnection.RxBleConnectionState.CONNECTED
     }
 
@@ -203,7 +203,7 @@ class DeviceActivity : SActivity() {
 
     private fun triggerDisconnect() {
 
-        if (connectionDisposable != null) {
+        if (connectionDisposable != null && !connectionDisposable?.isDisposed!!) {
             connectionDisposable?.dispose()
         }
     }

@@ -34,7 +34,7 @@ class DeviceGetLogFragment : RxFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        connectionObservable = prepareConnectionObservable()
+        //connectionObservable = prepareConnectionObservable()
         setupListener()
 
 
@@ -49,25 +49,33 @@ class DeviceGetLogFragment : RxFragment() {
 
     }
 
-    private fun prepareConnectionObservable(): Observable<RxBleConnection> {
-        return (activity as DeviceActivity)?.bleDevice
-                ?.establishConnection(false)
-                ?.takeUntil(disconnectTriggerSubject)
-                ?.compose(bindUntilEvent<RxBleConnection>(FragmentEvent.PAUSE))
-                ?.compose(ReplayingShare.instance())!!
-    }
+//    private fun prepareConnectionObservable(): Observable<RxBleConnection> {
+//        return (activity as DeviceActivity)?.connectionBle
+//                ?.establishConnection(false)
+//                ?.takeUntil(disconnectTriggerSubject)
+//                ?.compose(bindUntilEvent<RxBleConnection>(FragmentEvent.PAUSE))
+//                ?.compose(ReplayingShare.instance())!!
+//    }
 
     @SuppressLint("CheckResult")
     private fun startDownloading() {
+        if ((activity as DeviceActivity)?.isConnected()) {
+            Observable.just((activity as DeviceActivity)?.connectionBle)
+                    ?.compose(bindUntilEvent<RxBleConnection>(FragmentEvent.DESTROY_VIEW))
+                    ?.compose(ReplayingShare.instance())!!
+                    ?.takeUntil(disconnectTriggerSubject)
+                    .flatMap { t: RxBleConnection ->
+                        t.setupNotification(CHARACTERESTIC_DATA_TRANSFER_UUID)
+                    }.doOnNext { activity?.runOnUiThread(this::notificationHasBeenSetUp) }
+                    .flatMap { t: Observable<ByteArray> -> t }
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(this::onNotificationReceived, this::onNotificationSetupFailure)
 
-        connectionObservable.flatMap { t: RxBleConnection ->
-            t.setupNotification(CHARACTERESTIC_DATA_TRANSFER_UUID)
-        }.doOnNext { activity?.runOnUiThread(this::notificationHasBeenSetUp) }
-                .flatMap { t: Observable<ByteArray> -> t }
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onNotificationReceived, this::onNotificationSetupFailure)
-
-
+        }
+        else
+        {
+            Snackbar.make(activity?.findViewById<View>(android.R.id.content)!!, getString(R.string.device_not_connected), Snackbar.LENGTH_SHORT).show()
+        }
     }
 
     private fun notificationHasBeenSetUp() {

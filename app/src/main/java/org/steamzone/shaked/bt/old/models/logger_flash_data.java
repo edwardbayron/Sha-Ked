@@ -4,9 +4,14 @@ import android.content.Context;
 import android.os.Environment;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+
+import de.cketti.mailto.EmailIntentBuilder;
 
 public class logger_flash_data {
 
@@ -311,26 +316,33 @@ public class logger_flash_data {
     }
 
 
-    public void convert_data(Context context, String device_id) {
+    public void convert_data(Context context, String device_id, boolean sendasEmail) {
         String json_string;
 
         json_string = log_item_to_JSON_String(logger_flash_data_items, device_id);
 
         create_log_file(context, json_string);
+        if(sendasEmail)
+        {
+            boolean success = EmailIntentBuilder.from(context)
+                    .to("verification@onoffapp.com;michael@steamzone.org")
+                    .subject("Logs" )
+                    .body(""+json_string)
+                    .start();
+        }
     }
 
 
     public String log_item_to_JSON_String(ArrayList<logger_flash_data_item> log_item_array, String device_id) {
-//        GsonBuilder builder = new GsonBuilder();
-//        Gson gson = builder.create();
-//
-//        logfile_item logfile_item = new logfile_item();
-//
-//        logfile_item.set_data_item_array(log_item_array);
-//        logfile_item.set_device_id(device_id);
-//
-//         return gson.toJson(logfile_item);
-        return null;
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        logfile_item logfile_item = new logfile_item();
+
+        logfile_item.set_data_item_array(log_item_array);
+        logfile_item.set_device_id(device_id);
+
+         return gson.toJson(logfile_item);
     }
 
 
@@ -349,6 +361,9 @@ public class logger_flash_data {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+
     }
 }
 

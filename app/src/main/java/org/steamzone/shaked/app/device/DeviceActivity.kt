@@ -55,7 +55,7 @@ class DeviceActivity : SActivity() {
     private fun openMainFragment() {
         supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_container, DeviceFragment(), DeviceFragment::class.java.name)
-                .addToBackStack(null)
+               // .addToBackStack(null)
                 .commit()
     }
 

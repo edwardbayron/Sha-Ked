@@ -49,4 +49,9 @@
     <string name="download_log">Download log</string>
     <string name="device_not_connected">Device not connected!</string>
     <string name="send_log">Send Log</string>
+    <string name="profile">Profile:</string>
+    <string name="gps_settings">GPS settings</string>
+    <string name="bt_settings">BT settings</string>
+    <string name="event_settings">Event settings</string>
+    <string name="button_led_settings">Button / LED settings</string>
 </resources>

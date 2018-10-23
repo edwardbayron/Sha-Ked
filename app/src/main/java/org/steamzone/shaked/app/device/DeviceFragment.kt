@@ -5,11 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.trello.rxlifecycle2.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_device.*
 import org.steamzone.shaked.R
 
 
-class DeviceFragment : Fragment() {
+class DeviceFragment : RxFragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -28,6 +29,15 @@ class DeviceFragment : Fragment() {
                     ?.addToBackStack(DeviceGetLogFragment::class.java.name)
                     ?.commit()
         }
+
+        settings_cont.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()
+                    ?.hide(this)
+                    ?.add(R.id.fragment_container, DeviceSettingsFragment(), DeviceSettingsFragment::class.java.name)
+                    ?.addToBackStack(DeviceSettingsFragment::class.java.name)
+                    ?.commit()
+        }
+
 
     }
 

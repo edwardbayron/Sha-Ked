@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="array_time_interval">
+        <item>1 sec</item>
+        <item>5 sec</item>
+        <item>15 sec</item>
+        <item>30 sec</item>
+        <item>1 min</item>
+        <item>3 min</item>
+        <item>5 min</item>
+    </string-array>
+
+</resources>

@@ -54,4 +54,22 @@
     <string name="bt_settings">BT settings</string>
     <string name="event_settings">Event settings</string>
     <string name="button_led_settings">Button / LED settings</string>
+    <string name="date_time_settings">Date / Time settings</string>
+    <string name="logger_settings">Logger settings</string>
+    <string name="consumption_calculator">Consumption calculator</string>
+    <string name="firmware_update">Firmware update</string>
+    <string name="save_profile">Save profile</string>
+    <string name="send_settings">Send settings</string>
+    <string name="time_interval_mode">Time interval mode:</string>
+    <string name="time_interval">Time interval:</string>
+    <string name="distance_mode">Distance mode:</string>
+    <string name="distance">Distance:</string>
+    <string name="heading_mode">Heading mode:</string>
+    <string name="heading">Heading</string>
+    <string name="motion_sernsor">Motion sensor:</string>
+    <string name="sensitivityl">Sensetivityl:</string>
+    <string name="stationary_detect_time">Stationary detect time</string>
+    <string name="motion_detect_time">Motion detect time</string>
+    <string name="master_mode">Master mode</string>
+    <string name="gps_settings_master_mode">GPS settings \nMASTER MODE</string>
 </resources>

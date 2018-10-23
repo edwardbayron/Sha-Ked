@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="40dp"
-                android:text="@string/live_data"
+                android:text="@string/action_settings"
                 android:textSize="16dp"
                 android:textStyle="bold" />
 

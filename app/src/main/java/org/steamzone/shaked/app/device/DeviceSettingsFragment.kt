@@ -4,7 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
+import android.widget.Toast
+import com.orhanobut.logger.Logger
 import com.trello.rxlifecycle2.components.support.RxFragment
+import kotlinx.android.synthetic.main.fragment_device.*
+import kotlinx.android.synthetic.main.fragment_device_settings.*
 import org.steamzone.shaked.R
 
 class DeviceSettingsFragment : RxFragment() {
@@ -17,6 +22,16 @@ class DeviceSettingsFragment : RxFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        gps_settings_cont.setOnClickListener {
+
+            activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.hide(this)
+                    ?.add(R.id.fragment_container, GPSSettingsFragment(), GPSSettingsFragment::class.java.name)
+                    ?.addToBackStack(GPSSettingsFragment::class.java.name)
+                    ?.commit()
+
+        }
 
     }
 }

@@ -72,4 +72,12 @@
     <string name="motion_detect_time">Motion detect time</string>
     <string name="master_mode">Master mode</string>
     <string name="gps_settings_master_mode">GPS settings \nMASTER MODE</string>
+    <string name="gps_always_on">GPS Always ON</string>
+    <string name="distance_interval_filter">Distance interval filter</string>
+    <string name="distance_interval">Distance interval</string>
+    <string name="speed_filter">Speed filter</string>
+    <string name="save_frame_flash_every">Save frame to flash every</string>
+    <string name="gps_timeout">GPS Timeout</string>
+    <string name="timeout">Timeout</string>
+    <string name="save_config">Save config</string>
 </resources>

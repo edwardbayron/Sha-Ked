@@ -11,4 +11,36 @@
         <item>5 min</item>
     </string-array>
 
+    <string-array name="distance_interval">
+        <item>5 M</item>
+        <item>25 M</item>
+        <item>100 M</item>
+        <item>500 M</item>
+        <item>1 Km</item>
+        <item>2 Km</item>
+    </string-array>
+
+    <string-array name="speed_interval">
+        <item>5 KM/H</item>
+        <item>10 KM/H</item>
+        <item>50 KM/H</item>
+        <item>100 KM/H</item>
+    </string-array>
+
+    <string-array name="frame_flash_interval">
+        <item>1</item>
+        <item>5</item>
+        <item>30</item>
+        <item>50</item>
+        <item>120</item>
+    </string-array>
+
+    <string-array name="timeout_interval">
+        <item>5 min</item>
+        <item>10 min</item>
+        <item>15 min</item>
+        <item>20 min</item>
+    </string-array>
+
+
 </resources>

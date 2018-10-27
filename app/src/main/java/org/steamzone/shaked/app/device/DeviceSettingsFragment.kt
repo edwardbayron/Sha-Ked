@@ -33,5 +33,18 @@ class DeviceSettingsFragment : RxFragment() {
 
         }
 
+        bt_settings_cont.setOnClickListener {
+
+            activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.hide(this)
+                    ?.add(R.id.fragment_container, BTSettingsFragment(), BTSettingsFragment::class.java.name)
+                    ?.addToBackStack(BTSettingsFragment::class.java.name)
+                    ?.commit()
+
+        }
+
+
+
     }
 }

@@ -80,4 +80,9 @@
     <string name="gps_timeout">GPS Timeout</string>
     <string name="timeout">Timeout</string>
     <string name="save_config">Save config</string>
+    <string name="bt_activity_schedule">BT activity schedule</string>
+    <string name="bt_active_time">BT Active time</string>
+    <string name="enable_bt_on_stop">Enable BT on stop</string>
+    <string name="enable_in_geozone">Enable in geozone</string>
+    <string name="geozone">Geozone</string>
 </resources>

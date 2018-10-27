@@ -61,5 +61,11 @@
         <item>3 Min</item>
     </string-array>
 
+    <string-array name="led_mode">
+        <item>Always on</item>
+        <item>On Start</item>
+        <item>Always Off</item>
+    </string-array>
+
 
 </resources>

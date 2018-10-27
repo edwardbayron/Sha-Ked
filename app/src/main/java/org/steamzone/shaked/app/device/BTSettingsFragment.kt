@@ -4,11 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import com.trello.rxlifecycle2.components.support.RxFragment
+import kotlinx.android.synthetic.main.fragment_bluetooth_settings.*
 import org.steamzone.shaked.R
+import java.util.*
 
 
-class BTSettingsFragment: RxFragment() {
+class BTSettingsFragment: RxFragment(), AdapterView.OnItemSelectedListener {
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_bluetooth_settings, container, false)
@@ -16,5 +29,34 @@ class BTSettingsFragment: RxFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val btActivityAdapter = ArrayAdapter(activity, android.R.layout.simple_spinner_dropdown_item, resources.getStringArray(R.array.bt_activity_interval))
+        btActivityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        bt_activity_interval_spinner.adapter = btActivityAdapter
+
+        bt_activity_interval_spinner.onItemSelectedListener
+
+
+        bt_activity_interval_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val selectedItem = parent!!.getItemAtPosition(position).toString()
+                if(selectedItem == "Always ON" || selectedItem == "Button") {
+                    bt_grouped_cont.visibility = View.GONE
+                    geozone_cont_hideable.visibility = View.GONE
+                }
+                else{
+                    bt_grouped_cont.visibility = View.VISIBLE
+                    geozone_cont_hideable.visibility = View.VISIBLE
+                }
+            }
+
+        }
+
     }
+
+
 }

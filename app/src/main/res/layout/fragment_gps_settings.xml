@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <ScrollView
@@ -75,6 +76,7 @@
                     <androidx.appcompat.widget.AppCompatCheckBox
                         android:id="@+id/time_interval_checkbox"
                         android:layout_width="0dp"
+                        android:buttonTint="@color/cb_appcompat_selector"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1" />
@@ -99,9 +101,12 @@
                     android:background="@color/main_gray" />
 
                 <LinearLayout
+                    android:id="@+id/time_interval_cont_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:weightSum="2">
 
                     <TextView
@@ -161,6 +166,7 @@
                         android:id="@+id/distance_mode_checkbox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/cb_appcompat_selector"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1" />
 
@@ -184,8 +190,11 @@
                     android:background="@color/main_gray" />
 
                 <LinearLayout
+                    android:id="@+id/distance_mode_cont_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -246,6 +255,7 @@
                         android:id="@+id/heading_mode_checkbox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/cb_appcompat_selector"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1" />
 
@@ -269,8 +279,11 @@
                     android:background="@color/main_gray" />
 
                 <LinearLayout
+                    android:id="@+id/heading_mode_cont_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -347,6 +360,7 @@
                         android:id="@+id/motion_sensor_checkbox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/cb_appcompat_selector"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1" />
 
@@ -370,8 +384,11 @@
                     android:background="@color/main_gray" />
 
                 <LinearLayout
+                    android:id="@+id/hmotion_sensor_cont_1_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -415,8 +432,11 @@
                     android:background="@color/main_gray" />
 
                 <LinearLayout
+                    android:id="@+id/hmotion_sensor_cont_2_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -459,8 +479,11 @@
                     android:background="@color/main_gray" />
 
                 <LinearLayout
+                    android:id="@+id/hmotion_sensor_cont_3_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:visibility="visible"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -539,6 +562,7 @@
                         android:id="@+id/master_mode_checkbox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/cb_appcompat_selector"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1" />
 
@@ -554,6 +578,14 @@
 
             </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/master_mode_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
+            >
 
             <LinearLayout
                 android:id="@+id/master_mode_cont"
@@ -624,6 +656,7 @@
                         android:id="@+id/gps_always_on_checkbox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/cb_appcompat_selector"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1" />
 
@@ -663,6 +696,7 @@
                         android:id="@+id/distance_interval_filter_checkbox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/cb_appcompat_selector"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1" />
 
@@ -751,6 +785,7 @@
                         android:id="@+id/speed_filter_checkbox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/cb_appcompat_selector"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1" />
 
@@ -872,6 +907,7 @@
                         android:id="@+id/gps_timeout_checkbox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:buttonTint="@color/cb_appcompat_selector"
                         android:layout_marginEnd="10dp"
                         android:layout_weight="1" />
 
@@ -920,6 +956,8 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

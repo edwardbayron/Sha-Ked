@@ -44,6 +44,16 @@ class DeviceSettingsFragment : RxFragment() {
 
         }
 
+        //EVENT settings FRAGMENT
+        event_settings_cont.setOnClickListener {
+            activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.hide(this)
+                    ?.add(R.id.fragment_container, EventsSettingsFragment(), EventsSettingsFragment::class.java.name)
+                    ?.addToBackStack(EventsSettingsFragment::class.java.name)
+                    ?.commit()
+        }
+
 
 
     }

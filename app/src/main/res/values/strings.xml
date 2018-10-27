@@ -85,4 +85,6 @@
     <string name="enable_bt_on_stop">Enable BT on stop</string>
     <string name="enable_in_geozone">Enable in geozone</string>
     <string name="geozone">Geozone</string>
+    <string name="detect_gps_jamming">Detect GPS jamming</string>
+    <string name="detect_low_memory">Detect low memory</string>
 </resources>

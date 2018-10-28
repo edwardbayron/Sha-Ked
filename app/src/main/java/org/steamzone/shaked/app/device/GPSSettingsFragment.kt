@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.trello.rxlifecycle2.components.support.RxFragment
+import kotlinx.android.synthetic.main.fragment_bluetooth_settings.*
 import kotlinx.android.synthetic.main.fragment_gps_settings.*
 import org.steamzone.shaked.R
+import org.steamzone.shaked.app.device.forms.GeozoneSettingsFormEditFragment
 
 class GPSSettingsFragment:RxFragment() {
 
@@ -67,4 +69,5 @@ class GPSSettingsFragment:RxFragment() {
 
 
     }
+
 }

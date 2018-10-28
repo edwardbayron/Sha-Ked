@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.trello.rxlifecycle2.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_bluetooth_settings.*
 import org.steamzone.shaked.R
+import org.steamzone.shaked.app.device.forms.GeozoneSettingsFormEditFragment
 import org.steamzone.shaked.app.device.forms.GeozoneSettingsFormFragment
 import java.util.*
 
@@ -47,11 +48,24 @@ class BTSettingsFragment: RxFragment(), AdapterView.OnItemSelectedListener {
         }
 
         geozoneContainerNextForm()
+        geozoneEditForm()
+
+    }
+
+    fun geozoneEditForm(){
+        geozone_edit_tv.setOnClickListener {
+            activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.hide(this)
+                    ?.add(R.id.fragment_container, GeozoneSettingsFormEditFragment(), GeozoneSettingsFormEditFragment::class.java.name)
+                    ?.addToBackStack(GeozoneSettingsFormEditFragment::class.java.name)
+                    ?.commit()
+        }
 
     }
 
     fun geozoneContainerNextForm(){
-        geozone_main_cont_next_to_form.setOnClickListener {
+        geozone_ic_next_form.setOnClickListener {
             activity?.supportFragmentManager
                     ?.beginTransaction()
                     ?.hide(this)

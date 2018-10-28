@@ -44,6 +44,25 @@ class DeviceSettingsFragment : RxFragment() {
 
         }
 
+        //EVENT settings FRAGMENT
+        event_settings_cont.setOnClickListener {
+            activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.hide(this)
+                    ?.add(R.id.fragment_container, EventsSettingsFragment(), EventsSettingsFragment::class.java.name)
+                    ?.addToBackStack(EventsSettingsFragment::class.java.name)
+                    ?.commit()
+        }
+
+        button_led_settings_cont.setOnClickListener {
+            activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.hide(this)
+                    ?.add(R.id.fragment_container, ButtonLEDSettingsFragment(), ButtonLEDSettingsFragment::class.java.name)
+                    ?.addToBackStack(ButtonLEDSettingsFragment::class.java.name)
+                    ?.commit()
+        }
+
 
 
     }

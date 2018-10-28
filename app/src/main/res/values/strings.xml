@@ -86,4 +86,8 @@
     <string name="enable_in_geozone">Enable in geozone</string>
     <string name="geozone">Geozone</string>
     <string name="schedule">Schedule</string>
+    <string name="detect_gps_jamming">Detect GPS jamming</string>
+    <string name="detect_low_memory">Detect low memory</string>
+    <string name="button_enable">Button enable</string>
+    <string name="led_mode">LED mode</string>
 </resources>

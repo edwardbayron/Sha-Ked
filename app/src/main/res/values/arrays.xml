@@ -94,6 +94,9 @@
     <string-array name="timezone_interval_array">
         <item>UTC+05:00</item>
     </string-array>
+    <string-array name="save_directory_array">
+        <item>SD card</item>
+    </string-array>
 
 
 </resources>

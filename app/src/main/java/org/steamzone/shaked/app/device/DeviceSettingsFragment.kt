@@ -73,6 +73,15 @@ class DeviceSettingsFragment : RxFragment() {
 
         }
 
+        logger_settings_cont.setOnClickListener {
+            activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.hide(this)
+                    ?.add(R.id.fragment_container, LoggerSettingsFragment(), LoggerSettingsFragment::class.java.name)
+                    ?.addToBackStack(LoggerSettingsFragment::class.java.name)
+                    ?.commit()
+        }
+
 
 
     }

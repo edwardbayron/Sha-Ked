@@ -96,4 +96,8 @@
     <string name="geozone_name">Geozone name</string>
     <string name="bt_geozone">BT geozone</string>
     <string name="add">Add</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="timezone">Timezone</string>
+    <string name="use_gps_time">Use GPS time</string>
 </resources>

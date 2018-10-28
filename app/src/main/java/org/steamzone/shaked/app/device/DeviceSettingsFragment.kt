@@ -63,6 +63,16 @@ class DeviceSettingsFragment : RxFragment() {
                     ?.commit()
         }
 
+        data_time_settings_cont.setOnClickListener {
+            activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.hide(this)
+                    ?.add(R.id.fragment_container, DateTimeSettingsFragment(), DateTimeSettingsFragment::class.java.name)
+                    ?.addToBackStack(DateTimeSettingsFragment::class.java.name)
+                    ?.commit()
+
+        }
+
 
 
     }

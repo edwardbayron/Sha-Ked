@@ -108,4 +108,8 @@
     <string name="bt_debugger">BT debugger</string>
     <string name="encryption_aes_256">Encryption AES 256</string>
     <string name="KEY">KEY</string>
+    <string name="fw_update">FW Update</string>
+    <string name="device_fw_version">Device FW version</string>
+    <string name="import_fw">Import FW</string>
+    <string name="new_fw_version">New FW version</string>
 </resources>

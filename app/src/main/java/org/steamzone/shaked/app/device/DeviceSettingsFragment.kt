@@ -91,6 +91,15 @@ class DeviceSettingsFragment : RxFragment() {
                     ?.commit()
         }
 
+        firmware_update_cont.setOnClickListener {
+            activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.hide(this)
+                    ?.add(R.id.fragment_container, FirmwareUpdateFragment(), FirmwareUpdateFragment::class.java.name)
+                    ?.addToBackStack(FirmwareUpdateFragment::class.java.name)
+                    ?.commit()
+        }
+
 
 
     }

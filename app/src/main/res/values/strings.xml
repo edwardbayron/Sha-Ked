@@ -85,4 +85,5 @@
     <string name="enable_bt_on_stop">Enable BT on stop</string>
     <string name="enable_in_geozone">Enable in geozone</string>
     <string name="geozone">Geozone</string>
+    <string name="schedule">Schedule</string>
 </resources>

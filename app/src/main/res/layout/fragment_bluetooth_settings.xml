@@ -126,10 +126,8 @@
                         android:orientation="horizontal"
                         tools:visibility="visible"
                         android:weightSum="2">
-
-
-
                         <TextView
+                            android:id="@+id/time_interval_schedule_tv"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
@@ -138,6 +136,8 @@
                             android:textSize="16dp"
                             android:textStyle="bold" />
 
+
+
                         <androidx.appcompat.widget.AppCompatSpinner
                             android:id="@+id/bt_time_interval_spinner"
                             android:layout_width="0dp"
@@ -145,12 +145,44 @@
                             android:layout_marginEnd="10dp"
                             android:layout_weight="1"
                             android:drawSelectorOnTop="true"
+                            android:visibility="visible"
                             android:entries="@array/bt_time_interval">
 
                         </androidx.appcompat.widget.AppCompatSpinner>
 
 
                     </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/bt_schedule_cont_hideable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        >
+                        <TextView
+                            android:id="@+id/schedule_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/schedule"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+
+                        <ImageView
+                            android:id="@+id/schedule_ic_next_form"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_android_arrow_dropright"
+                            android:backgroundTint="@color/main_gray"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginEnd="22dp"
+
+                            />
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 

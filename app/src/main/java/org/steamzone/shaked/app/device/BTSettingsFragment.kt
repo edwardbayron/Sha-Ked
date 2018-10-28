@@ -48,10 +48,23 @@ class BTSettingsFragment: RxFragment(), AdapterView.OnItemSelectedListener {
                     bt_grouped_cont.visibility = View.GONE
                     geozone_cont_hideable.visibility = View.GONE
                 }
+
                 else{
                     bt_grouped_cont.visibility = View.VISIBLE
                     geozone_cont_hideable.visibility = View.VISIBLE
                 }
+
+                if(selectedItem == "Schedule"){
+                    bt_schedule_cont_hideable.visibility = View.VISIBLE
+                    bt_time_interval_cont_hideable.visibility = View.GONE
+                }
+
+                else{
+                    bt_schedule_cont_hideable.visibility = View.GONE
+                    bt_time_interval_cont_hideable.visibility = View.VISIBLE
+                }
+
+
             }
 
         }

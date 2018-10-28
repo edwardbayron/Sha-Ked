@@ -10,6 +10,7 @@ import android.widget.Toast
 import com.trello.rxlifecycle2.components.support.RxFragment
 import kotlinx.android.synthetic.main.fragment_bluetooth_settings.*
 import org.steamzone.shaked.R
+import org.steamzone.shaked.app.device.forms.GeozoneSettingsFormFragment
 import java.util.*
 
 
@@ -33,42 +34,55 @@ class BTSettingsFragment: RxFragment(), AdapterView.OnItemSelectedListener {
         val btActivityAdapter = ArrayAdapter(activity, android.R.layout.simple_spinner_dropdown_item, resources.getStringArray(R.array.bt_activity_interval))
         btActivityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         bt_activity_interval_spinner.adapter = btActivityAdapter
-
         bt_activity_interval_spinner.onItemSelectedListener
 
 
         bt_activity_interval_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-
-            }
-
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedItem = parent!!.getItemAtPosition(position).toString()
-                if(selectedItem == "Always ON" || selectedItem == "Button") {
-                    bt_grouped_cont.visibility = View.GONE
-                    geozone_cont_hideable.visibility = View.GONE
-                }
-
-                else{
-                    bt_grouped_cont.visibility = View.VISIBLE
-                    geozone_cont_hideable.visibility = View.VISIBLE
-                }
-
-                if(selectedItem == "Schedule"){
-                    bt_schedule_cont_hideable.visibility = View.VISIBLE
-                    bt_time_interval_cont_hideable.visibility = View.GONE
-                }
-
-                else{
-                    bt_schedule_cont_hideable.visibility = View.GONE
-                    bt_time_interval_cont_hideable.visibility = View.VISIBLE
-                }
-
-
+                mainModesInit(selectedItem)
+                scheduleContainerNextForm(selectedItem)
             }
-
         }
 
+        geozoneContainerNextForm()
+
+    }
+
+    fun geozoneContainerNextForm(){
+        geozone_main_cont_next_to_form.setOnClickListener {
+            activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.hide(this)
+                    ?.add(R.id.fragment_container, GeozoneSettingsFormFragment(), GeozoneSettingsFormFragment::class.java.name)
+                    ?.addToBackStack(GeozoneSettingsFormFragment::class.java.name)
+                    ?.commit()
+        }
+    }
+
+    fun scheduleContainerNextForm(selectedItem: String){
+        if(selectedItem == "Schedule"){
+            geozone_edit_tv.visibility = View.VISIBLE
+            bt_schedule_cont_hideable.visibility = View.VISIBLE
+            bt_time_interval_cont_hideable.visibility = View.GONE
+        }
+        else{
+            geozone_edit_tv.visibility = View.GONE
+            bt_schedule_cont_hideable.visibility = View.GONE
+            bt_time_interval_cont_hideable.visibility = View.VISIBLE
+        }
+    }
+
+    fun mainModesInit(selectedItem: String){
+        if(selectedItem == "Always ON" || selectedItem == "Button") {
+            bt_grouped_cont.visibility = View.GONE
+            geozone_cont_hideable.visibility = View.GONE
+        }
+        else{
+            bt_grouped_cont.visibility = View.VISIBLE
+            geozone_cont_hideable.visibility = View.VISIBLE
+        }
     }
 
 

@@ -355,6 +355,7 @@
                     android:background="@color/main_gray" />
 
                 <RelativeLayout
+                    android:id="@+id/geozone_main_cont_next_to_form"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     >
@@ -367,6 +368,19 @@
                         android:text="@string/geozone"
                         android:textSize="16dp"
                         android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/geozone_edit_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="EDIT"
+                        android:textStyle="bold"
+                        android:textSize="16dp"
+                        android:layout_marginEnd="8dp"
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        android:layout_toLeftOf="@+id/geozone_ic_next_form"
+                        />
 
                     <ImageView
                         android:id="@+id/geozone_ic_next_form"

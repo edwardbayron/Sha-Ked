@@ -90,4 +90,8 @@
     <string name="detect_low_memory">Detect low memory</string>
     <string name="button_enable">Button enable</string>
     <string name="led_mode">LED mode</string>
+    <string name="address">Address</string>
+    <string name="coordinate">Coordinate</string>
+    <string name="radius">Radius</string>
+    <string name="geozone_name">Geozone name</string>
 </resources>

@@ -82,6 +82,15 @@ class DeviceSettingsFragment : RxFragment() {
                     ?.commit()
         }
 
+        consumption_calculator_cont.setOnClickListener {
+            activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.hide(this)
+                    ?.add(R.id.fragment_container, ConsumptionCalculatorFragment(), ConsumptionCalculatorFragment::class.java.name)
+                    ?.addToBackStack(ConsumptionCalculatorFragment::class.java.name)
+                    ?.commit()
+        }
+
 
 
     }

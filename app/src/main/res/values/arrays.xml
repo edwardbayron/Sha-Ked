@@ -67,5 +67,21 @@
         <item>Always Off</item>
     </string-array>
 
+    <string-array name="bt_schedule_interval_spinner">
+        <item>Once</item>
+        <item>Everyday</item>
+        <item>Weekends</item>
+        <item>Work days</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+    </string-array>
+
+    <string-array name="bt_schedule_time_interval_spinner">
+        <item>28.08.18 3:30</item>
+    </string-array>
+
 
 </resources>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:id="@+id/schedules_main_cont"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="25dp"
+                    android:minHeight="45dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toLeftOf="@+id/settings_tex"
+
+                        android:tint="@color/main_gray"
+                        app:srcCompat="@drawable/ic_bluetooth_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/settings_tex"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/bt_activity_schedule"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/main_gray" />
+
+                <RelativeLayout
+                    android:id="@+id/geozone_main_cont_next_to_form"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/bt_schedule_interval_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:drawSelectorOnTop="true"
+                        android:entries="@array/bt_schedule_interval_spinner">
+
+                    </androidx.appcompat.widget.AppCompatSpinner>
+
+                    <ImageView
+                        android:id="@+id/geozone_ic_delete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_clear_black_24dp"
+                        android:backgroundTint="@color/main_gray"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toLeftOf="@id/bt_schedule_time_interval_spinner"
+                        />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/bt_schedule_time_interval_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:drawSelectorOnTop="true"
+                        android:entries="@array/bt_schedule_time_interval_spinner"
+                        android:layout_alignParentRight="true"
+                        >
+
+                    </androidx.appcompat.widget.AppCompatSpinner>
+
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/main_gray" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/schedule_add_btn"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/add"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center_horizontal"
+                />
+
+            <Button
+                android:id="@+id/schedule_save_config_btn"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:text="@string/save_config"
+                android:textColor="#FFFFFF"
+                android:layout_gravity="center_horizontal"
+                />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

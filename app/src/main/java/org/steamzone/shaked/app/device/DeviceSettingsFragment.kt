@@ -73,10 +73,29 @@ class DeviceSettingsFragment : RxFragment() {
 
         checkDBSettings()
         showSettingsDataDate(SettingsBox.get())
+        data_time_settings_cont.setOnClickListener {
+            activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.hide(this)
+                    ?.add(R.id.fragment_container, DateTimeSettingsFragment(), DateTimeSettingsFragment::class.java.name)
+                    ?.addToBackStack(DateTimeSettingsFragment::class.java.name)
+                    ?.commit()
 
         get_bt_settings.setOnClickListener {
             readBTSettings()
         }
+        }
+
+
+        logger_settings_cont.setOnClickListener {
+            activity?.supportFragmentManager
+                    ?.beginTransaction()
+                    ?.hide(this)
+                    ?.add(R.id.fragment_container, LoggerSettingsFragment(), LoggerSettingsFragment::class.java.name)
+                    ?.addToBackStack(LoggerSettingsFragment::class.java.name)
+                    ?.commit()
+        }
+
 
 
     }

@@ -99,4 +99,16 @@
     <string name="get_settings">Get Settings</string>
     <string name="last_read">Last read:</string>
     <string name="last_write">Last write:</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="timezone">Timezone</string>
+    <string name="use_gps_time">Use GPS time</string>
+    <string name="default_settings">Default settings</string>
+    <string name="erase_memory">Erase memory</string>
+    <string name="erase_log_after_upload">Erase LOG after upload</string>
+    <string name="enable_overwrite">Enable overwrite</string>
+    <string name="save_directory">Save directory</string>
+    <string name="bt_debugger">BT debugger</string>
+    <string name="encryption_aes_256">Encryption AES 256</string>
+    <string name="KEY">KEY</string>
 </resources>

@@ -95,6 +95,9 @@
         <item>9</item>
         <item>10</item>
     </string-array>
+    <string-array name="date_interval_array">
+        <item>26-08-2018</item>
+    </string-array>
 
 
     <string-array name="stationary_detect_time">
@@ -109,6 +112,18 @@
         <item>60</item>
         <item>180</item>
 
+    </string-array>
+
+
+    <string-array name="time_interval_array">
+        <item>20:45:10</item>
+    </string-array>
+
+    <string-array name="timezone_interval_array">
+        <item>UTC+05:00</item>
+    </string-array>
+    <string-array name="save_directory_array">
+        <item>SD card</item>
     </string-array>
 
 

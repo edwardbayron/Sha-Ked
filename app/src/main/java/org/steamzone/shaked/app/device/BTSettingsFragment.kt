@@ -18,11 +18,11 @@ import java.util.*
 
 class BTSettingsFragment: RxFragment(), AdapterView.OnItemSelectedListener {
     override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") //To change body of created functions use File | SettingsBox | File Templates.
     }
 
     override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") //To change body of created functions use File | SettingsBox | File Templates.
     }
 
 

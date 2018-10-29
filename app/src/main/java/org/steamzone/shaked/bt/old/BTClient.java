@@ -63,6 +63,16 @@ public class BTClient {
     public static final UUID CHARACTERESTIC_DATA_TRANSFER_UUID = UUID.fromString("F364ADDD-00B0-4240-BA50-05CA45Bf8ABC");
     public static final UUID CHARACTERESTIC_DATA_TRANSFER_GET_INFO_UUID = UUID.fromString("F364ADDA-00B0-4240-BA50-05CA45Bf8ABC");
 
+    public static final UUID SERVICE_LOGGER_SETTINGS_UUID   = UUID.fromString("F364A0C0-00B0-4240-BA50-05CA45BF8ABC");
+    public static final UUID CHAR_LOGGER_SETTINGS_UUID      = UUID.fromString("F364A0C1-00B0-4240-BA50-05CA45BF8ABC");
+    public static final UUID CHAR_RTC_TIME_UUID             = UUID.fromString("F364A0C4-00B0-4240-BA50-05CA45BF8ABC");
+    public static final UUID CHAR_ERASE_FLASH_UUID          = UUID.fromString("F364A0C5-00B0-4240-BA50-05CA45BF8ABC");
+    public static final UUID CHAR_ENCRYPTION_UUID           = UUID.fromString("F364A0C6-00B0-4240-BA50-05CA45BF8ABC");
+    public static final UUID CHAR_FLASH_INFO_UUID           = UUID.fromString("F364A0C7-00B0-4240-BA50-05CA45BF8ABC");
+
+    public static final UUID SERVICE_DATA_TRANSFER         = UUID.fromString("F364ADD0-00B0-4240-BA50-05CA45Bf8ABC");
+    public static final UUID CHAR_DATA_TRANSFER            = UUID.fromString("F364ADDD-00B0-4240-BA50-05CA45Bf8ABC");
+
 
     private final static int REQUEST_ENABLE_BT = 1;
 

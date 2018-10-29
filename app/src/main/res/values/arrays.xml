@@ -2,29 +2,29 @@
 <resources>
 
     <string-array name="array_time_interval">
-        <item>1 sec</item>
-        <item>5 sec</item>
-        <item>15 sec</item>
-        <item>30 sec</item>
-        <item>1 min</item>
-        <item>3 min</item>
-        <item>5 min</item>
+        <item>1</item>
+        <item>5</item>
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>300</item>
     </string-array>
 
     <string-array name="distance_interval">
-        <item>5 M</item>
-        <item>25 M</item>
-        <item>100 M</item>
-        <item>500 M</item>
-        <item>1 Km</item>
-        <item>2 Km</item>
+        <item>5</item>
+        <item>25</item>
+        <item>100</item>
+        <item>500</item>
+        <item>1000</item>
+        <item>2000</item>
     </string-array>
 
     <string-array name="speed_interval">
-        <item>5 KM/H</item>
-        <item>10 KM/H</item>
-        <item>50 KM/H</item>
-        <item>100 KM/H</item>
+        <item>5</item>
+        <item>10</item>
+        <item>50</item>
+        <item>100</item>
     </string-array>
 
     <string-array name="frame_flash_interval">
@@ -81,6 +81,34 @@
 
     <string-array name="bt_schedule_time_interval_spinner">
         <item>28.08.18 3:30</item>
+    </string-array>
+
+    <string-array name="sensetivityl_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+    </string-array>
+
+
+    <string-array name="stationary_detect_time">
+        <item>5</item>
+        <item>30</item>
+        <item>60</item>
+
+    </string-array>
+
+    <string-array name="motion_detect_time">
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+
     </string-array>
 
 

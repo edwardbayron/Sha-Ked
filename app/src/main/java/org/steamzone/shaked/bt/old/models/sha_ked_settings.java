@@ -3,7 +3,7 @@ package org.steamzone.shaked.bt.old.models;
 public class sha_ked_settings {
     //Const
     //settings IDX
-    //GPS Settings
+    //GPS SettingsBox
     private final static int   IDX_FS_GPS_WORK_MODE_TYPE = 0;		        //Work Mode
     private final static int   IDX_FS_PERIOD_BEETWEN_GPS_CYCLE_0 = 1;		//X time
     private final static int   IDX_FS_PERIOD_BEETWEN_GPS_CYCLE_1 = 2;		//X time
@@ -20,9 +20,9 @@ public class sha_ked_settings {
     private final static int   IDX_FS_MOTION_TIME_DETECT_2 = 11;
     private final static int   IDX_FS_IMP_MOTION_DETECT = 12;
     private final static int   IDX_FS_MIN_IMP_MOTION_DETECT = 13;
-    //RTC Settings
+    //RTC SettingsBox
     private final static int   IDX_FS_RTC_AUTO_UPD_FLAG = 14;
-    //BT Settings
+    //BT SettingsBox
     private final static int   IDX_FS_BT_WORK_MODE = 15;
     private final static int   IDX_FS_BT_TIME_EVERY_X_1 = 16;
     private final static int   IDX_FS_BT_TIME_EVERY_X_2 = 17;
@@ -33,7 +33,7 @@ public class sha_ked_settings {
 
 
     //Variable
-    //GPS Settings
+    //GPS SettingsBox
     public int work_mode_type;   					//Тип работы и сохранения данных во флеш
     //Настройки GPS
     public int 	period_between_gps_cycle;	        //Через сколько запускать следующий цикл сканирования GPS в секундах
@@ -50,7 +50,7 @@ public class sha_ked_settings {
     public int min_imp_motion_detect;			    //Минимальное количесвто импульсов (если счетчик не превышает это значение = нет движения
     //RTC settings
     public int rtc_auto_correct_witch_gps;
-    //BT Settings
+    //BT SettingsBox
     public int bt_work_mode;						//Тип включения BT
     //Настройки BT
     public int time_every_x;				        //Время Х (включать каждые Х секунд)

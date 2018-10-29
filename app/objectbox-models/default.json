@@ -5,7 +5,7 @@
   "entities": [
     {
       "id": "1:2064210247508392348",
-      "lastPropertyId": "3:2041637231896504908",
+      "lastPropertyId": "4:4290161305976650341",
       "name": "LoginBox",
       "properties": [
         {
@@ -19,6 +19,10 @@
         {
           "id": "3:2041637231896504908",
           "name": "password"
+        },
+        {
+          "id": "4:4290161305976650341",
+          "name": "offline"
         }
       ],
       "relations": []
@@ -83,9 +87,181 @@
         }
       ],
       "relations": []
+    },
+    {
+      "id": "4:3134562596104269200",
+      "lastPropertyId": "41:3371137856925080882",
+      "name": "SettingsBox",
+      "properties": [
+        {
+          "id": "1:7117223803812245405",
+          "name": "id"
+        },
+        {
+          "id": "2:8574746953857778247",
+          "name": "profileName"
+        },
+        {
+          "id": "3:3196182145456513200",
+          "name": "dateRead"
+        },
+        {
+          "id": "4:2014446701214865890",
+          "name": "dateWrite"
+        },
+        {
+          "id": "5:8030203065980891441",
+          "name": "gnss_time_interval_mode"
+        },
+        {
+          "id": "6:2494199375739612985",
+          "name": "gnss_time_interval_in_sec"
+        },
+        {
+          "id": "7:6321535336539457909",
+          "name": "gnss_distance_interval_mode"
+        },
+        {
+          "id": "8:871947562576408454",
+          "name": "gnss_distance_interval_val_in_meter"
+        },
+        {
+          "id": "9:6688764877297646467",
+          "name": "gnss_heading_mode"
+        },
+        {
+          "id": "10:429830846214123239",
+          "name": "gnss_heading_val_in_grad"
+        },
+        {
+          "id": "11:6275623936568993912",
+          "name": "motion_sensor_en"
+        },
+        {
+          "id": "12:7336040821614165871",
+          "name": "motion_sensetivity_lvl"
+        },
+        {
+          "id": "13:4630093346154409574",
+          "name": "stationary_detect_time_val_in_sec"
+        },
+        {
+          "id": "14:7383586656531554988",
+          "name": "motion_detect_time_val_in_sec"
+        },
+        {
+          "id": "15:7212494865552125874",
+          "name": "master_mode"
+        },
+        {
+          "id": "16:5825360948475212054",
+          "name": "gnss_always_power_on"
+        },
+        {
+          "id": "17:4222355242238165944",
+          "name": "distance_interval_filter"
+        },
+        {
+          "id": "18:5067930612594447851",
+          "name": "distance_interval_filter_val_in_meter"
+        },
+        {
+          "id": "19:4379001895886923693",
+          "name": "speed_filter"
+        },
+        {
+          "id": "20:2700504367405805877",
+          "name": "speed_filter_val_in_km_h"
+        },
+        {
+          "id": "21:5161031414520386833",
+          "name": "save_frame_to_flash_every"
+        },
+        {
+          "id": "22:2438161209911397791",
+          "name": "gnss_timeout"
+        },
+        {
+          "id": "23:5024062859143088554",
+          "name": "gnss_timeout_val_in_sec"
+        },
+        {
+          "id": "24:8128194617420730564",
+          "name": "gnss_ant_ctrl"
+        },
+        {
+          "id": "25:3126700053316465309",
+          "name": "bt_work_mode"
+        },
+        {
+          "id": "26:1354278974026927086",
+          "name": "bt_time_interval_val_in_sec"
+        },
+        {
+          "id": "27:2698953667466926643",
+          "name": "bt_work_time_val_in_sec"
+        },
+        {
+          "id": "28:3169442110537761287",
+          "name": "bt_enable_in_stop"
+        },
+        {
+          "id": "29:6179241929288724738",
+          "name": "bt_enable_in_geozone"
+        },
+        {
+          "id": "30:4112296689016071063",
+          "name": "bt_ant_ctrl"
+        },
+        {
+          "id": "31:2881565164318434417",
+          "name": "bt_pa_lna_mode"
+        },
+        {
+          "id": "32:4055499403991043936",
+          "name": "bt_hidden_mode"
+        },
+        {
+          "id": "33:9043204988718565307",
+          "name": "detect_gnss_jamming"
+        },
+        {
+          "id": "34:5803106054666775297",
+          "name": "detect_low_memory"
+        },
+        {
+          "id": "35:1331800493048628893",
+          "name": "button_en"
+        },
+        {
+          "id": "36:8916044287155958527",
+          "name": "led_work_mode"
+        },
+        {
+          "id": "37:3490196438973286627",
+          "name": "flash_overwrite_en"
+        },
+        {
+          "id": "38:7639376830385924817",
+          "name": "bt_debug_en"
+        },
+        {
+          "id": "39:2271514952052185940",
+          "name": "device_id"
+        },
+        {
+          "id": "40:4201266903711660865",
+          "name": "geozone_val"
+        },
+        {
+          "id": "41:3371137856925080882",
+          "name": "schedule_val"
+        }
+      ],
+      "relations": []
     }
   ],
-  "lastEntityId": "3:9053643509948344068",
+  "lastEntityId": "4:3134562596104269200",
   "lastIndexId": "1:5865450601092499716",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",

@@ -9,6 +9,7 @@ class LoginBox {
     var id: Long = 0
     var email: String? = null
     var password: String? = null
+    var offline:Boolean = false
 
     companion object {
         fun save(list: List<LoginBox>): List<LoginBox> {

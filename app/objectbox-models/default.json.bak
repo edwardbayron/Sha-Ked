@@ -1,0 +1,99 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:2064210247508392348",
+      "lastPropertyId": "3:2041637231896504908",
+      "name": "LoginBox",
+      "properties": [
+        {
+          "id": "1:222818129584993809",
+          "name": "id"
+        },
+        {
+          "id": "2:950875045673637620",
+          "name": "email"
+        },
+        {
+          "id": "3:2041637231896504908",
+          "name": "password"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:7312282693669423250",
+      "lastPropertyId": "2:1470932435059010821",
+      "name": "ServerSettingsBox",
+      "properties": [
+        {
+          "id": "1:7879707682891789742",
+          "name": "id"
+        },
+        {
+          "id": "2:1470932435059010821",
+          "name": "serverUrl"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:9053643509948344068",
+      "lastPropertyId": "9:7352848375129878553",
+      "name": "DeviceBox",
+      "properties": [
+        {
+          "id": "1:318282214812407865",
+          "name": "id"
+        },
+        {
+          "id": "2:6351960044837531543",
+          "indexId": "1:5865450601092499716",
+          "name": "hardwareId"
+        },
+        {
+          "id": "3:764435356010642849",
+          "name": "name"
+        },
+        {
+          "id": "4:7947729964244545132",
+          "name": "type"
+        },
+        {
+          "id": "5:4297001867406361668",
+          "name": "connected"
+        },
+        {
+          "id": "6:4271815164816794416",
+          "name": "rssi"
+        },
+        {
+          "id": "7:8728434459968167976",
+          "name": "distance"
+        },
+        {
+          "id": "8:5725524258423754579",
+          "name": "batteryInfo"
+        },
+        {
+          "id": "9:7352848375129878553",
+          "name": "batteryInfoVoltage"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "3:9053643509948344068",
+  "lastIndexId": "1:5865450601092499716",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

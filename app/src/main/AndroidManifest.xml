@@ -37,7 +37,7 @@
         <activity android:name=".app.home.HomeActivity" />
         <activity android:name=".app.login.ForgotPassword" />
         <activity android:name=".app.add.AddDeviceActivity"></activity>
-        <activity android:name=".app.device.DeviceActivity"></activity>
+        <activity android:name=".app.device.DeviceActivity" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

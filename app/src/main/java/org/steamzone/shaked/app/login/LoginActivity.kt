@@ -27,7 +27,7 @@ class LoginActivity : SActivity() {
         login_bt.setOnClickListener {
 
 
-//            var loginBox = LoginBox()
+            //            var loginBox = LoginBox()
 //            loginBox.id = 1
 //            loginBox.email = login_username_et.editText?.text.toString()
 //            loginBox.password = login_password_et.editText?.text.toString()
@@ -47,6 +47,14 @@ class LoginActivity : SActivity() {
         }
 
         without_login_bt.setOnClickListener {
+            var loginBox = LoginBox()
+            loginBox.id = 1
+            loginBox.email = "demo"
+            loginBox.password = "demo"
+            loginBox.offline = true
+            LoginBox.save(loginBox)
+            startHomeActivity()
+
         }
 
         server_settings.setOnClickListener {

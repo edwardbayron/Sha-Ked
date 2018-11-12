@@ -55,7 +55,7 @@ class DeviceActivity : SActivity() {
     private fun openMainFragment() {
         supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_container, DeviceFragment(), DeviceFragment::class.java.name)
-               // .addToBackStack(null)
+                // .addToBackStack(null)
                 .commit()
     }
 
@@ -198,7 +198,6 @@ class DeviceActivity : SActivity() {
         connectionDisposable = null
 
 
-
     }
 
     private fun triggerDisconnect() {
@@ -208,6 +207,16 @@ class DeviceActivity : SActivity() {
         }
     }
 
+
+    fun checkConnectionStatus(): Boolean {
+
+        return if (isConnected()) {
+            Snackbar.make(findViewById<View>(android.R.id.content)!!, getString(R.string.device_not_connected), Snackbar.LENGTH_SHORT).show()
+            true
+        } else {
+            false
+        }
+    }
 
 }
 

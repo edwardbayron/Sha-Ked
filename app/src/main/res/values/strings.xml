@@ -96,6 +96,9 @@
     <string name="geozone_name">Geozone name</string>
     <string name="bt_geozone">BT geozone</string>
     <string name="add">Add</string>
+    <string name="get_settings">Get Settings</string>
+    <string name="last_read">Last read:</string>
+    <string name="last_write">Last write:</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
     <string name="timezone">Timezone</string>

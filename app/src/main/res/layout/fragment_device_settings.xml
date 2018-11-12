@@ -432,27 +432,67 @@
 
                 <Button
                     android:id="@+id/save_profile_bt"
-                    android:text="@string/save_profile"
-                    android:layout_margin="20dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:textColor="#FFFFFF"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="@string/save_profile"
+                    android:textColor="#FFFFFF" />
 
 
                 <Button
-                    android:text="@string/send_settings"
                     android:id="@+id/send_settings_bt"
-                    android:layout_margin="20dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:textColor="#FFFFFF"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="@string/send_settings"
+                    android:textColor="#FFFFFF" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                android:weightSum="2">
+
+                <Button
+                    android:id="@+id/get_bt_settings"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="@string/get_settings"
+                    android:textColor="#FFFFFF" />
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/bt_settings_status_read_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+
+                        android:textColor="#000000" />
+                    <TextView
+                        android:id="@+id/bt_settings_status_write_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+
+                        android:textColor="#000000" />
+                </LinearLayout>
             </LinearLayout>
 
 

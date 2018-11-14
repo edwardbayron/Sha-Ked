@@ -68,7 +68,7 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            def project = "onoff"
+            def project = "sha-ked"
             def SEP = "_"
 
             def buildType = variant.variantData.variantConfiguration.buildType.name

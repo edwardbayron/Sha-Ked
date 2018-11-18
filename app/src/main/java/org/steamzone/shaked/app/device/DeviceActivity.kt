@@ -8,6 +8,7 @@ import com.orhanobut.logger.Logger
 import com.polidea.rxandroidble2.RxBleConnection
 import com.polidea.rxandroidble2.RxBleDevice
 import com.trello.rxlifecycle2.android.ActivityEvent
+import com.trello.rxlifecycle2.android.FragmentEvent
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -16,6 +17,10 @@ import org.steamzone.shaked.R
 import org.steamzone.shaked.app.SActivity
 import org.steamzone.shaked.app.SApplication
 import org.steamzone.shaked.box.DeviceBox
+import org.steamzone.shaked.box.SettingsBox
+import org.steamzone.shaked.bt.new_settings_item
+import org.steamzone.shaked.bt.old.BTClient
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -93,13 +98,11 @@ class DeviceActivity : SActivity() {
 
     }
 
-    private fun updateConnectionButton(state:String?) {
+    private fun updateConnectionButton(state: String?) {
         connect_bt.isEnabled = true
-        if( state != null) {
+        if (state != null) {
             connect_bt.text = state
-        }
-        else
-        {
+        } else {
             if (isConnected()) {
                 connect_bt.setText(R.string.connected)
 
@@ -163,6 +166,30 @@ class DeviceActivity : SActivity() {
         //TODO do stuff here with connection?
 
         // Snackbar.make(findViewById<View>(android.R.id.content), "Connection received", Snackbar.LENGTH_SHORT).show()
+
+        getSettings()
+
+    }
+
+    var settings: new_settings_item = new_settings_item()
+
+
+    @SuppressLint("CheckResult")
+    private fun getSettings() {
+
+        connectionBle?.readCharacteristic(BTClient.CHAR_LOGGER_SETTINGS_UUID)
+                ?.compose(bindUntilEvent(ActivityEvent.DESTROY))
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({
+                    settings.parse_data(it)
+                    var box = SettingsBox.dataRead(settings)
+                    box.dateRead = Date()
+                    SettingsBox.save(box)
+                    Logger.wtf("REad settings done")
+
+                }, {
+                    it.printStackTrace()
+                })
     }
 
     var connectionBle: RxBleConnection? = null

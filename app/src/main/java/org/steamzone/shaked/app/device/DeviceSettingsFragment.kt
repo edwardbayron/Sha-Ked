@@ -11,6 +11,7 @@ import com.orhanobut.logger.Logger
 import com.polidea.rxandroidble2.RxBleConnection
 import com.trello.rxlifecycle2.android.FragmentEvent
 import com.trello.rxlifecycle2.components.support.RxFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_device.*
 import kotlinx.android.synthetic.main.fragment_device_settings.*
@@ -29,7 +30,6 @@ class DeviceSettingsFragment : RxFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         gps_settings_cont.setOnClickListener {
 
             activity?.supportFragmentManager
@@ -81,9 +81,7 @@ class DeviceSettingsFragment : RxFragment() {
                     ?.addToBackStack(DateTimeSettingsFragment::class.java.name)
                     ?.commit()
 
-        get_bt_settings.setOnClickListener {
-            readBTSettings()
-        }
+
         }
 
 
@@ -114,6 +112,10 @@ class DeviceSettingsFragment : RxFragment() {
                     ?.commit()
         }
 
+        get_bt_settings.setOnClickListener {
+            Logger.wtf("Read settings 1")
+            readBTSettings()
+        }
 
 
     }
@@ -126,21 +128,21 @@ class DeviceSettingsFragment : RxFragment() {
 
     var readBtSettings: Disposable? = null
     private fun readBTSettings() {
-        if (readBtSettings != null) {
-            readBtSettings?.dispose()
-            readBtSettings = null
-        }
 
+        Logger.wtf("GET SETTINGS")
         if ((activity as DeviceActivity).checkConnectionStatus()) {
 
             readBtSettings = (activity as DeviceActivity)?.connectionBle?.readCharacteristic(BTClient.CHAR_LOGGER_SETTINGS_UUID)
                     ?.compose(bindUntilEvent(FragmentEvent.DESTROY_VIEW))
+                    ?.observeOn(AndroidSchedulers.mainThread())
                     ?.subscribe({
+
                         settings.parse_data(it)
                         var box = SettingsBox.dataRead(settings)
                         box.dateRead = Date()
                         SettingsBox.save(box)
                         showSettingsDataDate(box)
+                        Logger.wtf("REad settings done")
 
                     }, {
                         it.printStackTrace()
@@ -154,16 +156,16 @@ class DeviceSettingsFragment : RxFragment() {
     @SuppressLint("SetTextI18n")
     private fun showSettingsDataDate(box: SettingsBox?) {
         if (box?.dateRead != null) {
-            bt_settings_status_read_text.text = getString(R.string.last_read) + " " + box.dateRead.toString()
+            bt_settings_status_read_text?.text = getString(R.string.last_read) + " " + box.dateRead.toString()
         } else {
-            bt_settings_status_read_text.text = getString(R.string.last_read) + " null"
+            bt_settings_status_read_text?.text = getString(R.string.last_read) + " null"
         }
 
 
         if (box?.dateWrite != null) {
-            bt_settings_status_write_text.text = getString(org.steamzone.shaked.R.string.last_write) + " " + box.dateWrite.toString()
+            bt_settings_status_write_text?.text = getString(org.steamzone.shaked.R.string.last_write) + " " + box.dateWrite.toString()
         } else {
-            bt_settings_status_write_text.text = getString(org.steamzone.shaked.R.string.last_write) + " null"
+            bt_settings_status_write_text?.text = getString(org.steamzone.shaked.R.string.last_write) + " null"
         }
 
 

@@ -74,7 +74,7 @@ class DeviceActivity : SActivity() {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe(this::onConnectionStateChange, this::onConnectionFailure)
 
-        updateConnectionButton()
+        updateConnectionButton(null)
         if (isConnected()) {
             triggerConnect()
         }
@@ -87,24 +87,32 @@ class DeviceActivity : SActivity() {
     fun onConnectionStateChange(newState: RxBleConnection.RxBleConnectionState) {
         Logger.wtf("STATE change: " + newState.name)
         Snackbar.make(findViewById<View>(android.R.id.content), "STATE: " + newState.name, Snackbar.LENGTH_SHORT).show()
-        updateConnectionButton()
+        connect_bt.text = newState.name
+
+        updateConnectionButton(newState.name)
 
     }
 
-    private fun updateConnectionButton() {
+    private fun updateConnectionButton(state:String?) {
         connect_bt.isEnabled = true
-        if (isConnected()) {
-            connect_bt.setText(R.string.connected)
+        if( state != null) {
+            connect_bt.text = state
+        }
+        else
+        {
+            if (isConnected()) {
+                connect_bt.setText(R.string.connected)
 
-        } else {
-            connect_bt.setText(R.string.disconnected)
+            } else {
+                connect_bt.setText(R.string.disconnected)
+            }
         }
     }
 
     private fun setupClickListeners() {
 
         back_icon.setOnClickListener {
-            this@DeviceActivity.finish()
+            this@DeviceActivity.onBackPressed()
         }
 
         connect_bt.setOnClickListener {
@@ -211,9 +219,9 @@ class DeviceActivity : SActivity() {
     fun checkConnectionStatus(): Boolean {
 
         return if (isConnected()) {
-            Snackbar.make(findViewById<View>(android.R.id.content)!!, getString(R.string.device_not_connected), Snackbar.LENGTH_SHORT).show()
             true
         } else {
+            Snackbar.make(findViewById<View>(android.R.id.content)!!, getString(R.string.device_not_connected), Snackbar.LENGTH_SHORT).show()
             false
         }
     }

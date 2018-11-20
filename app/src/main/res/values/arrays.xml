@@ -36,10 +36,10 @@
     </string-array>
 
     <string-array name="timeout_interval">
-        <item>5 min</item>
-        <item>10 min</item>
-        <item>15 min</item>
-        <item>20 min</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
     </string-array>
 
     <string-array name="bt_activity_interval">

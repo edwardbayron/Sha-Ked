@@ -58,20 +58,26 @@ class GPSSettingsFragment : RxFragment() {
                 heading_mode_cont.visibility = View.GONE
         }
 
+        gps_timeout_checkbox.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked)
+                gps_timeout_cont.visibility = View.VISIBLE
+            else
+                gps_timeout_cont.visibility = View.GONE
+        }
+
 
         motion_sensor_checkbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 hmotion_sensor_cont_1.visibility = View.VISIBLE
-                hmotion_sensor_cont_2_hideable.visibility = View.VISIBLE
-                hmotion_sensor_cont_3_hideable.visibility = View.VISIBLE
+                hmotion_sensor_cont_2.visibility = View.VISIBLE
+                hmotion_sensor_cont_3.visibility = View.VISIBLE
             } else {
-                hmotion_sensor_cont_1_hideable.visibility = View.GONE
-                hmotion_sensor_cont_2_hideable.visibility = View.GONE
-                hmotion_sensor_cont_3_hideable.visibility = View.GONE
+                hmotion_sensor_cont_1.visibility = View.GONE
+                hmotion_sensor_cont_2.visibility = View.GONE
+                hmotion_sensor_cont_3.visibility = View.GONE
             }
         }
 
-        time_interval_spinner.selectedItem
 
         setData(SettingsBox.get())
         save_profile_bt.setOnClickListener {
@@ -139,8 +145,8 @@ class GPSSettingsFragment : RxFragment() {
         settings.speed_filter = speed_filter_checkbox.isChecked.toInt()
         settings.speed_filter_val_in_km_h = speed_spinner.selectedItem.toString().toInt()
 
-
-
+        settings.gnss_timeout  =  gps_timeout_checkbox.isChecked.toInt()
+        settings.gnss_timeout_val_in_sec = timeout_spinner.selectedItem.toString().toInt()*60;
 
         return settings
 
@@ -161,9 +167,18 @@ class GPSSettingsFragment : RxFragment() {
         }
     }
 
-    //TODO setup
     private fun setupGPSTimeOut(settings: SettingsBox) {
+        gps_timeout_checkbox.isChecked = settings.gnss_timeout == 1
 
+        var array = resources.getStringArray(R.array.speed_interval)
+        var index = 0
+        for (i in array.indices) {
+            var value = array[i]
+            if (settings.gnss_timeout_val_in_sec/60 == value.toInt()) {
+                index = i
+            }
+        }
+        timeout_spinner.setSelection(index, true)
     }
 
     private fun setupSpeedFilter(settings: SettingsBox) {

@@ -93,22 +93,30 @@ class BTSettingsFragment: RxFragment(), AdapterView.OnItemSelectedListener {
             geozone_edit_tv.visibility = View.VISIBLE
             bt_schedule_cont_hideable.visibility = View.VISIBLE
             bt_time_interval_cont_hideable.visibility = View.GONE
+            pa_mode_cont_hideable.visibility = View.GONE
+            ant_select_cont_hideable.visibility = View.GONE
         }
-        else{
-            geozone_edit_tv.visibility = View.GONE
-            bt_schedule_cont_hideable.visibility = View.GONE
-            bt_time_interval_cont_hideable.visibility = View.VISIBLE
-        }
+//        else{
+//            geozone_edit_tv.visibility = View.GONE
+//            bt_schedule_cont_hideable.visibility = View.GONE
+//            bt_time_interval_cont_hideable.visibility = View.VISIBLE
+//            pa_mode_cont_hideable.visibility = View.VISIBLE
+//            ant_select_cont_hideable.visibility = View.VISIBLE
+//        }
     }
 
     fun mainModesInit(selectedItem: String){
         if(selectedItem == "Always ON" || selectedItem == "Button") {
             bt_grouped_cont.visibility = View.GONE
             geozone_cont_hideable.visibility = View.GONE
+            pa_mode_cont_hideable.visibility = View.GONE
+            ant_select_cont_hideable.visibility = View.GONE
         }
         else{
             bt_grouped_cont.visibility = View.VISIBLE
             geozone_cont_hideable.visibility = View.VISIBLE
+            pa_mode_cont_hideable.visibility = View.VISIBLE
+            ant_select_cont_hideable.visibility = View.VISIBLE
         }
     }
 

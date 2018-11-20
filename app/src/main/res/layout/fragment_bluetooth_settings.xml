@@ -407,6 +407,119 @@
 
             </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/ant_select_cont_hideable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            tools:visibility="visible"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@color/main_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:visibility="visible"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:text="@string/ant_select"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/ant_select_bt_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:drawSelectorOnTop="true"
+                        android:entries="@array/ant_select_array">
+
+                    </androidx.appcompat.widget.AppCompatSpinner>
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/pa_mode_cont_hideable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:visibility="visible"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@color/main_gray" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    tools:visibility="visible"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:text="@string/pa_mode"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/pa_mode_bt_spinner"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_weight="1"
+                        android:drawSelectorOnTop="true"
+                        android:entries="@array/pa_mode_array">
+
+                    </androidx.appcompat.widget.AppCompatSpinner>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>

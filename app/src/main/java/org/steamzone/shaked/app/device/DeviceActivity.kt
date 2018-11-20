@@ -8,6 +8,7 @@ import com.orhanobut.logger.Logger
 import com.polidea.rxandroidble2.RxBleConnection
 import com.polidea.rxandroidble2.RxBleDevice
 import com.trello.rxlifecycle2.android.ActivityEvent
+import com.trello.rxlifecycle2.android.FragmentEvent
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -16,6 +17,10 @@ import org.steamzone.shaked.R
 import org.steamzone.shaked.app.SActivity
 import org.steamzone.shaked.app.SApplication
 import org.steamzone.shaked.box.DeviceBox
+import org.steamzone.shaked.box.SettingsBox
+import org.steamzone.shaked.bt.new_settings_item
+import org.steamzone.shaked.bt.old.BTClient
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -74,7 +79,7 @@ class DeviceActivity : SActivity() {
                 ?.observeOn(AndroidSchedulers.mainThread())
                 ?.subscribe(this::onConnectionStateChange, this::onConnectionFailure)
 
-        updateConnectionButton()
+        updateConnectionButton(null)
         if (isConnected()) {
             triggerConnect()
         }
@@ -87,24 +92,30 @@ class DeviceActivity : SActivity() {
     fun onConnectionStateChange(newState: RxBleConnection.RxBleConnectionState) {
         Logger.wtf("STATE change: " + newState.name)
         Snackbar.make(findViewById<View>(android.R.id.content), "STATE: " + newState.name, Snackbar.LENGTH_SHORT).show()
-        updateConnectionButton()
+        connect_bt.text = newState.name
+
+        updateConnectionButton(newState.name)
 
     }
 
-    private fun updateConnectionButton() {
+    private fun updateConnectionButton(state: String?) {
         connect_bt.isEnabled = true
-        if (isConnected()) {
-            connect_bt.setText(R.string.connected)
-
+        if (state != null) {
+            connect_bt.text = state
         } else {
-            connect_bt.setText(R.string.disconnected)
+            if (isConnected()) {
+                connect_bt.setText(R.string.connected)
+
+            } else {
+                connect_bt.setText(R.string.disconnected)
+            }
         }
     }
 
     private fun setupClickListeners() {
 
         back_icon.setOnClickListener {
-            this@DeviceActivity.finish()
+            this@DeviceActivity.onBackPressed()
         }
 
         connect_bt.setOnClickListener {
@@ -155,6 +166,30 @@ class DeviceActivity : SActivity() {
         //TODO do stuff here with connection?
 
         // Snackbar.make(findViewById<View>(android.R.id.content), "Connection received", Snackbar.LENGTH_SHORT).show()
+
+        getSettings()
+
+    }
+
+    var settings: new_settings_item = new_settings_item()
+
+
+    @SuppressLint("CheckResult")
+    private fun getSettings() {
+
+        connectionBle?.readCharacteristic(BTClient.CHAR_LOGGER_SETTINGS_UUID)
+                ?.compose(bindUntilEvent(ActivityEvent.DESTROY))
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({
+                    settings.parse_data(it)
+                    var box = SettingsBox.dataRead(settings)
+                    box.dateRead = Date()
+                    SettingsBox.save(box)
+                    Logger.wtf("REad settings done")
+
+                }, {
+                    it.printStackTrace()
+                })
     }
 
     var connectionBle: RxBleConnection? = null
@@ -211,9 +246,9 @@ class DeviceActivity : SActivity() {
     fun checkConnectionStatus(): Boolean {
 
         return if (isConnected()) {
-            Snackbar.make(findViewById<View>(android.R.id.content)!!, getString(R.string.device_not_connected), Snackbar.LENGTH_SHORT).show()
             true
         } else {
+            Snackbar.make(findViewById<View>(android.R.id.content)!!, getString(R.string.device_not_connected), Snackbar.LENGTH_SHORT).show()
             false
         }
     }

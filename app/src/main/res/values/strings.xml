@@ -115,4 +115,5 @@
     <string name="device_fw_version">Device FW version</string>
     <string name="import_fw">Import FW</string>
     <string name="new_fw_version">New FW version</string>
+    <string name="settings_writed">Settings was sent to device</string>
 </resources>

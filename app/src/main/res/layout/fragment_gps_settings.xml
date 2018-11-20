@@ -9,11 +9,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <RelativeLayout
@@ -47,6 +47,7 @@
 
 
             <LinearLayout
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -59,6 +60,7 @@
                     android:background="@color/main_gray" />
 
                 <LinearLayout
+                    android:layout_margin="3dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -88,6 +90,8 @@
 
 
             <LinearLayout
+                android:visibility="gone"
+                tools:visibility="visible"
                 android:id="@+id/time_interval_cont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,12 +105,12 @@
                     android:background="@color/main_gray" />
 
                 <LinearLayout
+                    android:layout_margin="3dp"
                     android:id="@+id/time_interval_cont_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:visibility="gone"
-                    tools:visibility="visible"
+
                     android:weightSum="2">
 
                     <TextView
@@ -179,6 +183,8 @@
             <LinearLayout
                 android:id="@+id/distance_mode_cont"
                 android:layout_width="match_parent"
+                android:visibility="gone"
+                tools:visibility="visible"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
@@ -193,8 +199,7 @@
                     android:id="@+id/distance_mode_cont_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    tools:visibility="visible"
+
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -269,6 +274,8 @@
                 android:id="@+id/heading_mode_cont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"
                 android:orientation="vertical">
 
                 <View
@@ -282,8 +289,7 @@
                     android:id="@+id/heading_mode_cont_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    tools:visibility="visible"
+
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -374,6 +380,8 @@
                 android:id="@+id/hmotion_sensor_cont_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"
                 android:orientation="vertical">
 
                 <View
@@ -387,8 +395,7 @@
                     android:id="@+id/hmotion_sensor_cont_1_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    tools:visibility="visible"
+
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -435,7 +442,6 @@
                     android:id="@+id/hmotion_sensor_cont_2_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     tools:visibility="visible"
                     android:orientation="horizontal"
                     android:weightSum="2">
@@ -482,7 +488,6 @@
                     android:id="@+id/hmotion_sensor_cont_3_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
                     tools:visibility="visible"
                     android:orientation="horizontal"
                     android:weightSum="2">
@@ -917,6 +922,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/gps_timeout_cont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">

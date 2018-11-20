@@ -86,7 +86,7 @@ class SettingsBox {
             return list
         }
 
-        fun save(box: SettingsBox): SettingsBox {
+        fun save(box: SettingsBox?): SettingsBox? {
             SBox.getBox(SettingsBox::class.java).put(box)
             return box
         }

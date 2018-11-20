@@ -80,10 +80,9 @@ class DeviceSettingsFragment : RxFragment() {
                     ?.add(R.id.fragment_container, DateTimeSettingsFragment(), DateTimeSettingsFragment::class.java.name)
                     ?.addToBackStack(DateTimeSettingsFragment::class.java.name)
                     ?.commit()
-
-        get_bt_settings.setOnClickListener {
-            readBTSettings()
-        }
+            get_bt_settings.setOnClickListener {
+                readBTSettings()
+            }
         }
 
 

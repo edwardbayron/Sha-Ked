@@ -13,6 +13,9 @@ import org.steamzone.shaked.R
 
 class LoggerSettingsFragment : RxFragment() {
 
+    lateinit var dialogSystem : AlertDialog.Builder
+    lateinit var inflater: LayoutInflater
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_logger_settings, container, false)
     }
@@ -20,21 +23,23 @@ class LoggerSettingsFragment : RxFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        dialogSystem = AlertDialog.Builder(activity)
+        inflater = activity!!.layoutInflater
+
         default_settings_cont.setOnClickListener {
 
 //            activity?.supportFragmentManager?.beginTransaction()?.hide(this)?.add(R.id.fragment_container, DefaultSettingsDialogFragment(), DefaultSettingsDialogFragment::class.java.name)
 //                    ?.addToBackStack(DefaultSettingsDialogFragment::class.java.name)
 //                    ?.commit()
 
-            var dialogSystem = AlertDialog.Builder(activity)
-            var inflater = activity?.layoutInflater
+
             dialogSystem.setCancelable(false).setView(inflater?.inflate(R.layout.dialog_system_view, null))
             dialogSystem.show()
         }
 
         key_settings_cont.setOnClickListener {
-            var dialogSystem = AlertDialog.Builder(activity)
-            var inflater = activity?.layoutInflater
+//            var dialogSystem = AlertDialog.Builder(activity)
+//            var inflater = activity?.layoutInflater
             dialogSystem.setCancelable(false).setView(inflater?.inflate(R.layout.dialog_big_system_view, null))
             dialogSystem.show()
         }

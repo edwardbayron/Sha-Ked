@@ -116,4 +116,6 @@
     <string name="import_fw">Import FW</string>
     <string name="new_fw_version">New FW version</string>
     <string name="settings_writed">Settings was sent to device</string>
+    <string name="auto_connect_to_device">Auto connect to device</string>
+    <string name="auto_download_log">Auto download log</string>
 </resources>

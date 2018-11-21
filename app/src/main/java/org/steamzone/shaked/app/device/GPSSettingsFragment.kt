@@ -123,7 +123,7 @@ class GPSSettingsFragment : RxFragment() {
         }
 
         settings.gnss_time_interval_mode = time_interval_checkbox.isChecked.toInt()
-        Logger.wtf(""+ time_interval_spinner.selectedItem.toString().toInt())
+        Logger.wtf("" + time_interval_spinner.selectedItem.toString().toInt())
         settings.gnss_time_interval_in_sec = time_interval_spinner.selectedItem.toString().toInt()
 
         settings.gnss_distance_interval_mode = distance_mode_checkbox.isChecked.toInt()
@@ -145,8 +145,8 @@ class GPSSettingsFragment : RxFragment() {
         settings.speed_filter = speed_filter_checkbox.isChecked.toInt()
         settings.speed_filter_val_in_km_h = speed_spinner.selectedItem.toString().toInt()
 
-        settings.gnss_timeout  =  gps_timeout_checkbox.isChecked.toInt()
-        settings.gnss_timeout_val_in_sec = timeout_spinner.selectedItem.toString().toInt()*60;
+        settings.gnss_timeout = gps_timeout_checkbox.isChecked.toInt()
+        settings.gnss_timeout_val_in_sec = timeout_spinner.selectedItem.toString().toInt() * 60;
 
         return settings
 
@@ -163,8 +163,13 @@ class GPSSettingsFragment : RxFragment() {
             setupMasterMode(settings)
             setupSpeedFilter(settings)
             setupGPSTimeOut(settings)
+            setupAntenna(settings)
 
         }
+    }
+
+    private fun setupAntenna(settings: SettingsBox) {
+
     }
 
     private fun setupGPSTimeOut(settings: SettingsBox) {
@@ -174,7 +179,7 @@ class GPSSettingsFragment : RxFragment() {
         var index = 0
         for (i in array.indices) {
             var value = array[i]
-            if (settings.gnss_timeout_val_in_sec/60 == value.toInt()) {
+            if (settings.gnss_timeout_val_in_sec / 60 == value.toInt()) {
                 index = i
             }
         }

@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import de.cketti.mailto.EmailIntentBuilder;
 
 public class logger_flash_data {
-
     //DATA TRANSFER
     public static int LOCAL_DUMP_SIZE = 34;            //Размер дампа
 
@@ -86,6 +85,25 @@ public class logger_flash_data {
     public static int IDX_TRIGGER_MOION = 33;
 
 
+
+    //DATA TRANSFER INFO CHAR IDX BUFF (TICI)
+    public static int IDX_TICI_BUFF_SECTOR_VAL_1 = 0;		//Количество секторов с данными
+    public static int IDX_TICI_BUFF_SECTOR_VAL_2 = 1;
+    public static int IDX_TICI_BUFF_SECTOR_VAL_3 = 2;
+    public static int IDX_TICI_BUFF_SECTOR_VAL_4 = 3;
+
+    public static int IDX_TICI_BUFF_FRAME_VAL_1	 = 4;		//Количество фреймов в памяти
+    public static int IDX_TICI_BUFF_FRAME_VAL_2	 = 5;
+    public static int IDX_TICI_BUFF_FRAME_VAL_3	 = 6;
+    public static int IDX_TICI_BUFF_FRAME_VAL_4	 = 7;
+
+    public static int IDX_TICI_BUFF_BT_PCK_SIZE	 = 8;		//Размер БТ пакета
+
+    public static int IDX_TICI_BUFF_FRAME_IN_BT_PCK	 = 9;	//Количество фреймов в пакете
+
+    public static int TICI_BUFF_LEN	 = 10;
+
+
     //Информация о загруженной информации
     boolean flag_downloading_start;
 
@@ -100,17 +118,16 @@ public class logger_flash_data {
     public float mean_speed;
     public float instant_speed;
 
-    //Status logger buf
-    public int frame_in_flash;                 //Количество фреймов в флеш памяти
+
+    public int frame_download;                  //Сколько фреймов скачали
 
     //flash info
-    public int flash_size;                     //Размер памяти
-    public int val_frame_in_one_page;          //Количество фреймов на 1 странице
-    public int frame_size;                     //Размер 1го фрейма
-
     public int flash_data_start_page;          //Начальная страница с данными
     public int flash_data_end_page;            //Конечная страница с данными
-
+    public int flash_data_last_page;           //Последняя загруженная страница с данными
+    public int frame_in_flash;                 //Количество фреймов в флеш памяти
+    public int pkt_length_info;                //размер БТ пакета
+    public int frame_in_pkt_info;              //Количество фреймов в БТ пакете
 
     //tmp
     public int transfCount;
@@ -128,6 +145,34 @@ public class logger_flash_data {
 
     public void update_flash_info(byte[] bt_buff) {
 
+        byte[] tmp4 = new byte[4];
+
+        tmp4[0] = bt_buff[IDX_TICI_BUFF_SECTOR_VAL_1];
+        tmp4[1] = bt_buff[IDX_TICI_BUFF_SECTOR_VAL_2];
+        tmp4[2] = bt_buff[IDX_TICI_BUFF_SECTOR_VAL_3];
+        tmp4[3] = bt_buff[IDX_TICI_BUFF_SECTOR_VAL_4];
+        flash_data_end_page = BytesToInt4(tmp4);
+
+        tmp4[0] = bt_buff[IDX_TICI_BUFF_FRAME_VAL_1];
+        tmp4[1] = bt_buff[IDX_TICI_BUFF_FRAME_VAL_2];
+        tmp4[2] = bt_buff[IDX_TICI_BUFF_FRAME_VAL_3];
+        tmp4[3] = bt_buff[IDX_TICI_BUFF_FRAME_VAL_4];
+        frame_in_flash = BytesToInt4(tmp4);
+
+
+        tmp4[0] = 0;
+        tmp4[1] = 0;
+        tmp4[2] = 0;
+        tmp4[3] = bt_buff[IDX_TICI_BUFF_BT_PCK_SIZE];
+        pkt_length_info = BytesToInt4(tmp4);
+
+        frame_in_pkt_info = bt_buff[IDX_TICI_BUFF_FRAME_IN_BT_PCK];
+
+
+        //t
+        float tmp_pkt_val = (float)frame_in_flash / (float)frame_in_pkt_info;
+        float tmp_download_size = tmp_pkt_val * (float) pkt_length_info;
+        size_of = (tmp_download_size / 1024) / 1024;
     }
 
     public void download_f(byte[] bt_buff) {
@@ -199,13 +244,14 @@ public class logger_flash_data {
         idx_buffer = IDX_FRAME_1_ID_IN_SECTOR;
 
 
+
         //FIXME проверка на количество фреймов и длину буффера
         //Разбор фреймов
         for (int i = 0; i < frame_in_pkt; i++) {
 
             logger_flash_data_item local_data_item = new logger_flash_data_item();
 
-            local_data_item.sysinfo_set(ids, sector_select, frame_id_in_sector);
+            local_data_item.sysinfo_set(ids, sector_select,frame_id_in_sector);
             ids++;
 
             local_data_item.pkt_type_set(buff[idx_buffer++]);
@@ -230,7 +276,8 @@ public class logger_flash_data {
             tmp4[3] = buff[idx_buffer++];
             xyz_scale = BytesToInt4(tmp4);
 
-            xyz = (double) xyz_val / (double) xyz_scale;
+            xyz = (double )xyz_val / (double ) xyz_scale;
+            if(Double.isNaN(xyz)){xyz = 0;}
             local_data_item.gnss_latitude_set(xyz);
 
 
@@ -246,8 +293,8 @@ public class logger_flash_data {
             tmp4[3] = buff[idx_buffer++];
             xyz_scale = BytesToInt4(tmp4);
 
-            xyz = (double) xyz_val / (double) xyz_scale;
-
+            xyz = (double )xyz_val / (double ) xyz_scale;
+            if(Double.isNaN(xyz)){xyz = 0;}
             local_data_item.gnss_longitude_set(xyz);
 
             tmp2[0] = buff[idx_buffer++];
@@ -258,11 +305,7 @@ public class logger_flash_data {
             tmp2[1] = buff[idx_buffer++];
             local_data_item.gnss_angle_set(BytesToInt2(tmp2));
 
-            if (buff[idx_buffer++] == 1) {
-                local_data_item.gnss_valid_data_set(true);
-            } else {
-                local_data_item.gnss_valid_data_set(false);
-            }
+            if(buff[idx_buffer++] == 1){local_data_item.gnss_valid_data_set(true);}else{local_data_item.gnss_valid_data_set(false);}
             local_data_item.gnss_fix_type_set(buff[idx_buffer++]);
             local_data_item.gnss_satellites_set(buff[idx_buffer++]);
             local_data_item.gnss_hdop_set(buff[idx_buffer++]);
@@ -274,6 +317,10 @@ public class logger_flash_data {
 
             logger_flash_data_items.add(local_data_item);
         }
+    }
+
+    public int get_val_frame_download(){
+        return logger_flash_data_items.size();
     }
 
     // packing an array of 4 bytes to an int, big endian
@@ -289,11 +336,12 @@ public class logger_flash_data {
 
     String jsonString;
 
-    public void test() {
+    public void test()
+    {
         logger_flash_data_items = new ArrayList<logger_flash_data_item>();
         logger_flash_data_item local_data_item;
 
-        for (int i = 0; i < 100; i++) {
+        for(int i=0; i<100; i++) {
             local_data_item = new logger_flash_data_item();
             local_data_item.sysinfo_set(0, 1, 5);
             local_data_item.timestamp_set(18, 8, 14, 18, 45, 10);

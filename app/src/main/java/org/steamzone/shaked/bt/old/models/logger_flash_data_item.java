@@ -30,9 +30,9 @@ public class logger_flash_data_item {
     public logger_flash_data_item(){}
 
     public void logger_flash_data_item_add(String sysinfo, int pkt_type, String timestamp,
-                                  double  gnss_latitude, double  gnss_longitude, double gnss_speed, double gnss_angle,
-                                  boolean gnss_valid_data, int gnss_fix_type, int gnss_satellites, int gnss_hdop,
-                                  int battery_level, int trigger_ext_power, int trigger_motion){
+                                           double  gnss_latitude, double  gnss_longitude, double gnss_speed, double gnss_angle,
+                                           boolean gnss_valid_data, int gnss_fix_type, int gnss_satellites, int gnss_hdop,
+                                           int battery_level, int trigger_ext_power, int trigger_motion){
 
         this.sysinfo = sysinfo;
         this.pkt_type = pkt_type;
@@ -93,7 +93,6 @@ public class logger_flash_data_item {
     public void trigger_ext_power_set(int trigger_ext_power){this.trigger_ext_power = trigger_ext_power;}
 
     public void trigger_motion_set(int trigger_motion){this.trigger_motion = trigger_motion;}
-
 
 
 }

@@ -3,9 +3,7 @@ package org.steamzone.shaked.box
 import com.polidea.rxandroidble2.RxBleConnection
 import com.polidea.rxandroidble2.RxBleDevice
 import com.polidea.rxandroidble2.scan.ScanResult
-import io.objectbox.annotation.Entity
-import io.objectbox.annotation.Id
-import io.objectbox.annotation.Index
+import io.objectbox.annotation.*
 import io.objectbox.query.Query
 import io.objectbox.query.QueryBuilder
 
@@ -15,7 +13,8 @@ class DeviceBox {
 
     @Id(assignable = true)
     var id: Long = 0
-    @Index
+    @Unique
+    @Index(type = IndexType.VALUE)
     var hardwareId: String? = null //macaddress
     var name: String? = null
     var type: String? = null
@@ -25,6 +24,10 @@ class DeviceBox {
     var distance: Double = -1.0
     var batteryInfo: String? = null
     var batteryInfoVoltage: String? = null
+
+    var autoConnect: Boolean = true
+    var liveDataEnable: Boolean = false
+    var connectionStatus: String? = null
 
 
     companion object {
@@ -38,7 +41,6 @@ class DeviceBox {
             var deviceBox = getDeviceBoxByMac(model.hardwareId)
             if (deviceBox != null) {
                 model.id = deviceBox.id
-
             }
             model.rssi = 0
             model.distance = 0.0
@@ -49,7 +51,7 @@ class DeviceBox {
         }
 
         fun getDeviceBoxByMac(hardwareId: String?): DeviceBox? {
-          return query().equal(DeviceBox_.hardwareId, hardwareId).build().findFirst()
+            return query().equal(DeviceBox_.hardwareId, hardwareId).build().findFirst()
         }
 
         fun delete(list: List<DeviceBox>): List<DeviceBox> {
@@ -73,7 +75,7 @@ class DeviceBox {
 
         }
 
-        fun getAll(): List<DeviceBox>? {
+        fun getAll(): List<DeviceBox> {
             return SBox.getBox(DeviceBox::class.java).query().build().find()
         }
 

@@ -19,9 +19,9 @@
     <application
         android:name=".app.SApplication"
         android:allowBackup="true"
-        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -39,7 +39,14 @@
         <activity android:name=".app.home.HomeActivity" />
         <activity android:name=".app.login.ForgotPassword" />
         <activity android:name=".app.add.AddDeviceActivity"></activity>
-        <activity android:name=".app.device.DeviceActivity" android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".app.device.DeviceActivity"
+            android:screenOrientation="portrait"></activity>
+
+        <service
+            android:name=".services.BTService"
+            android:enabled="true"
+            android:exported="true" />
     </application>
 
 </manifest>

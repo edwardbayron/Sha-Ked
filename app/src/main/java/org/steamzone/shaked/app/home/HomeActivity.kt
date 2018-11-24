@@ -26,6 +26,7 @@ import org.steamzone.shaked.app.home.list.MainBTViewHolder
 import org.steamzone.shaked.app.login.LoginActivity
 import org.steamzone.shaked.box.DeviceBox
 import org.steamzone.shaked.rx.DbUtil
+import org.steamzone.shaked.services.BTService
 
 
 class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -63,7 +64,7 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
             scanSubjectSubscanSubjectSub?.dispose()
         }
 
-        scanSubjectSubscanSubjectSub = scanResultBehaviorSubject.observeOn(AndroidSchedulers.mainThread()).subscribe(
+        scanSubjectSubscanSubjectSub = BTService.scanResultBehaviorSubject.observeOn(AndroidSchedulers.mainThread()).subscribe(
                 {
 
                     checkDevices(it)
@@ -131,7 +132,7 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
 
     private fun updateData(list: List<DeviceBox>) {
         adapterBt?.setupList(list)
-        checkDevices(scanMap.values)
+        checkDevices(BTService.scanMap.values)
 
     }
 

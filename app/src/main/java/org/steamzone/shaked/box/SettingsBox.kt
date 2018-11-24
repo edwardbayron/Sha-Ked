@@ -2,6 +2,7 @@ package org.steamzone.shaked.box
 
 import io.objectbox.annotation.Entity
 import io.objectbox.annotation.Id
+import io.objectbox.annotation.Unique
 import io.objectbox.query.QueryBuilder
 import org.steamzone.shaked.bt.new_settings_item
 import java.util.*
@@ -9,61 +10,64 @@ import java.util.*
 @Entity
 class SettingsBox {
 
-    @Id(assignable = true)
+    @Id
     var id: Long = 0
+    @Unique
+    var macAddres:String? = null
     var profileName: String? = null
     var dateRead: Date? = null
     var dateWrite: Date? = null
 
+
     //GPS settings
 
 
-    var gnss_time_interval_mode: Int = 0
-    var gnss_time_interval_in_sec: Int = 0
+    var gnss_time_interval_mode: Int = 1
+    var gnss_time_interval_in_sec: Int = 1
 
     var gnss_distance_interval_mode: Int = 0
-    var gnss_distance_interval_val_in_meter: Int = 0
+    var gnss_distance_interval_val_in_meter: Int = 100
 
     var gnss_heading_mode: Int = 0
-    var gnss_heading_val_in_grad: Int = 0
+    var gnss_heading_val_in_grad: Int = 30
 
-    var motion_sensor_en: Int = 0
-    var motion_sensetivity_lvl: Int = 0
-    var stationary_detect_time_val_in_sec: Int = 0
-    var motion_detect_time_val_in_sec: Int = 0
+    var motion_sensor_en: Int = 1
+    var motion_sensetivity_lvl: Int = 5
+    var stationary_detect_time_val_in_sec: Int = 120
+    var motion_detect_time_val_in_sec: Int = 10
 
     var master_mode: Int = 0
-    var gnss_always_power_on: Int = 0
+    var gnss_always_power_on: Int = 1
 
     var distance_interval_filter: Int = 0
-    var distance_interval_filter_val_in_meter: Int = 0
+    var distance_interval_filter_val_in_meter: Int = 10
 
     var speed_filter: Int = 0
-    var speed_filter_val_in_km_h: Int = 0
+    var speed_filter_val_in_km_h: Int = 10
 
-    var save_frame_to_flash_every: Int = 0
+    var save_frame_to_flash_every: Int = 120
 
-    var gnss_timeout: Int = 0
-    var gnss_timeout_val_in_sec: Int = 0
+    var gnss_timeout: Int = 1
+    var gnss_timeout_val_in_sec: Int = 180
 
     var gnss_ant_ctrl: Int = 0
 
     //BT
     var bt_work_mode: Int = 0
-    var bt_time_interval_val_in_sec: Int = 0
-    var bt_work_time_val_in_sec: Int = 0
+    var bt_time_interval_val_in_sec: Int = 60
+    var bt_work_time_val_in_sec: Int = 60
     var bt_enable_in_stop: Int = 0
     var bt_enable_in_geozone: Int = 0
-    var bt_ant_ctrl: Int = 0
+    var bt_ant_ctrl: Int = 1
     var bt_pa_lna_mode: Int = 0
     var bt_hidden_mode: Int = 0
 
     //Event
-    var detect_gnss_jamming: Int = 0
-    var detect_low_memory: Int = 0
+    var detect_gnss_jamming: Int = 1
+    var detect_low_memory: Int = 1
 
     //Button/Led
-    var button_en: Int = 0
+    var button_en: Int = 1
     var led_work_mode: Int = 0
 
     //Logger settings

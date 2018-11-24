@@ -3,8 +3,9 @@ package org.steamzone.shaked.bt;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-import static org.steamzone.shaked.bt.new_settings_idx.MAX_GEOZONE_VAL;
 import static org.steamzone.shaked.bt.new_settings_idx.*;
+
+
 
 public class new_settings_item {
 

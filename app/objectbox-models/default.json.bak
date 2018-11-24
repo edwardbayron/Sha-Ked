@@ -90,7 +90,7 @@
     },
     {
       "id": "4:3134562596104269200",
-      "lastPropertyId": "41:3371137856925080882",
+      "lastPropertyId": "42:4895452480505074762",
       "name": "SettingsBox",
       "properties": [
         {
@@ -256,13 +256,18 @@
         {
           "id": "41:3371137856925080882",
           "name": "schedule_val"
+        },
+        {
+          "id": "42:4895452480505074762",
+          "indexId": "2:4743590497085686037",
+          "name": "macAddres"
         }
       ],
       "relations": []
     }
   ],
   "lastEntityId": "4:3134562596104269200",
-  "lastIndexId": "1:5865450601092499716",
+  "lastIndexId": "2:4743590497085686037",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,

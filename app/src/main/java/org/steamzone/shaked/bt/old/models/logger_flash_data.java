@@ -3,18 +3,21 @@ package org.steamzone.shaked.bt.old.models;
 import android.content.Context;
 import android.os.Environment;
 
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.orhanobut.logger.Logger;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import de.cketti.mailto.EmailIntentBuilder;
-
 public class logger_flash_data {
+
     //DATA TRANSFER
     public static int LOCAL_DUMP_SIZE = 34;            //Размер дампа
 
@@ -305,7 +308,7 @@ public class logger_flash_data {
             tmp2[1] = buff[idx_buffer++];
             local_data_item.gnss_angle_set(BytesToInt2(tmp2));
 
-            if(buff[idx_buffer++] == 1){local_data_item.gnss_valid_data_set(true);}else{local_data_item.gnss_valid_data_set(false);}
+             if(buff[idx_buffer++] == 1){local_data_item.gnss_valid_data_set(true);}else{local_data_item.gnss_valid_data_set(false);}
             local_data_item.gnss_fix_type_set(buff[idx_buffer++]);
             local_data_item.gnss_satellites_set(buff[idx_buffer++]);
             local_data_item.gnss_hdop_set(buff[idx_buffer++]);
@@ -360,34 +363,24 @@ public class logger_flash_data {
         }
 
 
-        //FIXME: костыль. переполняеться если больше 100к фреймов.
+            //FIXME: костыль. переполняеться если больше 100к фреймов.
         jsonString = log_item_to_JSON_String(logger_flash_data_items, "test_dev_id");
     }
 
 
-    public void convert_data(Context context, String device_id, boolean sendasEmail) {
+
+    public void convert_data(Context context, String device_id)
+    {
         String json_string;
 
         json_string = log_item_to_JSON_String(logger_flash_data_items, device_id);
 
         create_log_file(context, json_string);
-        if(sendasEmail)
-        {
-            try {
-                boolean success = EmailIntentBuilder.from(context)
-                        .to("sha-ked@gedion.lt")
-                        .bcc("michael@steamzone.org")
-                        .subject("Logs" )
-                        .body(""+json_string)
-                        .start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
 
-    public String log_item_to_JSON_String(ArrayList<logger_flash_data_item> log_item_array, String device_id) {
+    public String log_item_to_JSON_String(ArrayList<logger_flash_data_item> log_item_array, String device_id)
+    {
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
 
@@ -401,18 +394,13 @@ public class logger_flash_data {
 
 
     public void create_log_file(Context context, String inp) {
-        final String FILE_NAME = "data.json";
+        final String FILE_NAME = "SHAKED_LogFile.json";
 
         FileOutputStream fileOutputStream = null;
 
         try {
             File myFile = new File(Environment.getExternalStorageDirectory().toString() + "/" + FILE_NAME);
-            if(myFile.exists())
-            {
-                myFile.delete();
-            }
-            myFile.createNewFile();
-            // Создается файл, если он не был создан
+            myFile.createNewFile();                                         // Создается файл, если он не был создан
             FileOutputStream outputStream = new FileOutputStream(myFile);   // После чего создаем поток для записи
             outputStream.write(inp.getBytes());                            // и производим непосредственно запись
             outputStream.close();
@@ -420,9 +408,6 @@ public class logger_flash_data {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
     }
 }
 

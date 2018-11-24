@@ -18,6 +18,9 @@ import com.polidea.rxandroidble2.RxBleDevice
 import org.steamzone.shaked.app.SApplication
 import org.steamzone.shaked.app.add.list.AddDeviceBTViewHolder
 import org.steamzone.shaked.app.add.list.AddDeviceBtAdapter
+import org.steamzone.shaked.services.BTService
+import androidx.recyclerview.widget.SimpleItemAnimator
+import androidx.recyclerview.widget.RecyclerView.ItemAnimator
 
 
 class AddDeviceActivity : SActivity() {
@@ -42,7 +45,7 @@ class AddDeviceActivity : SActivity() {
     @SuppressLint("CheckResult")
     private fun setupPublishListener() {
 
-        var scanSubjectSubscanSubjectSub = scanResultBehaviorSubject.observeOn(AndroidSchedulers.mainThread()).subscribe(
+        var scanSubjectSubscanSubjectSub = BTService.scanResultBehaviorSubject.observeOn(AndroidSchedulers.mainThread()).subscribe(
                 {
 
                     checkList(it)
@@ -95,10 +98,18 @@ class AddDeviceActivity : SActivity() {
             }
 
         })
-        adapterBt?.setupList(scanMap.values.toList())
+        if(BTService.scanMap.values.toList().isNotEmpty())
+        {
+            progress_list.visibility = View.GONE
+        }
+        adapterBt?.setupList(BTService.scanMap.values.toList())
 
         add_list.apply {
             setHasFixedSize(true)
+            val animator = itemAnimator
+            if (animator is SimpleItemAnimator) {
+                animator .supportsChangeAnimations = false
+            }
             layoutManager = viewManager
             adapter = adapterBt
         }

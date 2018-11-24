@@ -1,7 +1,10 @@
 package org.steamzone.shaked.bt.old.models;
 
+import android.util.Log;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.Locale;
 
 public class gps_data_frame {
@@ -174,7 +177,11 @@ public class gps_data_frame {
         tmp[2] = data_src[IDX_OSL_LATITUDE_SCALE3];
         tmp[3] = data_src[IDX_OSL_LATITUDE_SCALE4];
         latitude_scale = fromByteArray(tmp);
-        latitude = (double )latitude_value / (double ) latitude_scale;
+        //latitude = (double )latitude_value / (double ) latitude_scale;
+        int degrees = latitude_value / (latitude_scale * 100);
+        int minutes = latitude_value % (latitude_scale * 100);
+        latitude = (double) degrees + (double) minutes / (60 * latitude_scale);
+
 
         tmp[0] = data_src[IDX_OSL_LONGITUDE_VAL1];
         tmp[1] = data_src[IDX_OSL_LONGITUDE_VAL2];
@@ -186,7 +193,14 @@ public class gps_data_frame {
         tmp[2] = data_src[IDX_OSL_LONGITUDE_SCALE3];
         tmp[3] = data_src[IDX_OSL_LONGITUDE_SCALE4];
         longitude_scale = fromByteArray(tmp);
-        longitude = (double )longitude_value / (double ) longitude_scale;
+        //longitude = (double )longitude_value / (double ) longitude_scale;
+        degrees = longitude_value / (longitude_scale * 100);
+        minutes = longitude_value % (longitude_scale * 100);
+        longitude = (double) degrees + (double) minutes / (60 * longitude_scale);
+
+        Log.i("LiveData", "latitude_value:" + latitude_value + "longitude_value" + longitude_value);
+
+        Log.i("LiveData", "latitude:" + latitude + "longitude" + longitude);
 
         tmp2[0] = data_src[IDX_OSL_SPEED_VAL1];
         tmp2[1] = data_src[IDX_OSL_SPEED_VAL2];
@@ -224,6 +238,8 @@ public class gps_data_frame {
                 motion_trigger_status_inString = "MOTION_STOPED";
                 break;
         }
+
+        Log.i("LiveData", "trigger_motion:" + trigger_motion);
     }
 
     public int get_battery_Level(){return battery_level;}

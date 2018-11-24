@@ -45,7 +45,7 @@
     },
     {
       "id": "3:9053643509948344068",
-      "lastPropertyId": "9:7352848375129878553",
+      "lastPropertyId": "12:7915796830864775833",
       "name": "DeviceBox",
       "properties": [
         {
@@ -84,13 +84,25 @@
         {
           "id": "9:7352848375129878553",
           "name": "batteryInfoVoltage"
+        },
+        {
+          "id": "10:8389528850681497584",
+          "name": "autoConnect"
+        },
+        {
+          "id": "11:304515210421643419",
+          "name": "liveDataEnable"
+        },
+        {
+          "id": "12:7915796830864775833",
+          "name": "connectionStatus"
         }
       ],
       "relations": []
     },
     {
       "id": "4:3134562596104269200",
-      "lastPropertyId": "41:3371137856925080882",
+      "lastPropertyId": "42:4895452480505074762",
       "name": "SettingsBox",
       "properties": [
         {
@@ -256,13 +268,18 @@
         {
           "id": "41:3371137856925080882",
           "name": "schedule_val"
+        },
+        {
+          "id": "42:4895452480505074762",
+          "indexId": "2:4743590497085686037",
+          "name": "macAddres"
         }
       ],
       "relations": []
     }
   ],
   "lastEntityId": "4:3134562596104269200",
-  "lastIndexId": "1:5865450601092499716",
+  "lastIndexId": "2:4743590497085686037",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,

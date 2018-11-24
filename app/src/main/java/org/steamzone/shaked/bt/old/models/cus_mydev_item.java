@@ -4,6 +4,8 @@ import android.bluetooth.BluetoothDevice;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
+
 public class cus_mydev_item implements Parcelable
 {
     public enum devType
@@ -15,7 +17,7 @@ public class cus_mydev_item implements Parcelable
     public int RSSI;                //Последний принятый RSSI
     public double distance;         //Последнее измерение рссии и из него высчитанное расстояние
     public devType dev_type;        //Тип устройства
-    public boolean coonected;           //Статус подключения к устройству
+    public boolean coonected;       //Статус подключения к устройству
     public boolean listUpdateFlag;  //Флаг обновления данных
     public boolean rssi_valid;
 

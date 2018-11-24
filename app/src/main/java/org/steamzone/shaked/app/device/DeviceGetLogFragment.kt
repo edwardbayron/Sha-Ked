@@ -101,7 +101,7 @@ class DeviceGetLogFragment : RxFragment() {
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .subscribe({
                     if(it) {
-                        Logger_flash_data?.convert_data(activity, (activity as DeviceActivity)?.deviceMac, true)
+                        Logger_flash_data?.convert_data(activity, (activity as DeviceActivity)?.deviceMac)
                     }
                     else
                     {

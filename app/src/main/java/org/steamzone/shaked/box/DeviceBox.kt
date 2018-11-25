@@ -44,7 +44,7 @@ class DeviceBox {
             }
             model.rssi = 0
             model.distance = 0.0
-            model.connected = false
+
 
             SBox.getBox(DeviceBox::class.java).put(model)
             return model

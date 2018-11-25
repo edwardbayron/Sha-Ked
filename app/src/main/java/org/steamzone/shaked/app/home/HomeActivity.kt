@@ -8,7 +8,9 @@ import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.google.android.material.navigation.NavigationView
+import com.orhanobut.logger.Logger
 import io.objectbox.android.AndroidScheduler
 import io.objectbox.reactive.DataSubscription
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -27,6 +29,7 @@ import org.steamzone.shaked.app.login.LoginActivity
 import org.steamzone.shaked.box.DeviceBox
 import org.steamzone.shaked.rx.DbUtil
 import org.steamzone.shaked.services.BTService
+import org.steamzone.shaked.utils.JsonUtil
 
 
 class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -81,12 +84,13 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
         for (i in adapterBt?.list!!.indices) {
             val deviceBox = adapterBt?.list!![i]
             for (scannedDevicesBoxes in list?.toList()!!) {
+
                 if (scannedDevicesBoxes.hardwareId.equals(deviceBox.hardwareId)) {
                     deviceBox.rssi = scannedDevicesBoxes.rssi
                     deviceBox.distance = scannedDevicesBoxes.distance
                     deviceBox.batteryInfo = scannedDevicesBoxes.batteryInfo
                     deviceBox.batteryInfoVoltage = scannedDevicesBoxes.batteryInfoVoltage
-                    deviceBox.connected = scannedDevicesBoxes.connected
+                    //deviceBox.connected = scannedDevicesBoxes.connected
                     adapterBt?.notifyItemChanged(i)
 
                     break
@@ -115,6 +119,10 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
 
         home_bt_list.apply {
             setHasFixedSize(true)
+            val animator = itemAnimator
+            if (animator is SimpleItemAnimator) {
+                animator .supportsChangeAnimations = false
+            }
             layoutManager = viewManager
             adapter = adapterBt
         }
@@ -126,7 +134,10 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
 
         deviceBoxChangesListener = DeviceBox.query().build().subscribe()
                 .on(AndroidScheduler.mainThread())
-                .observer { updateData(it) }
+                .observer {
+                    Logger.wtf("Update DATA HOME")
+                    Logger.wtf(JsonUtil.gson.toJson(it))
+                    updateData(it) }
 
     }
 

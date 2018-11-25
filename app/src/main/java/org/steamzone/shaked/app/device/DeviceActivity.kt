@@ -20,6 +20,7 @@ import org.steamzone.shaked.box.DeviceBox
 import org.steamzone.shaked.box.SettingsBox
 import org.steamzone.shaked.bt.new_settings_item
 import org.steamzone.shaked.bt.old.BTClient
+import org.steamzone.shaked.services.BTService
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -137,18 +138,11 @@ class DeviceActivity : SActivity() {
     }
 
     private fun triggerConnect() {
-        Logger.wtf("Connect please")
-        connectionDisposable = bleDevice?.establishConnection(true)
-                ?.compose(bindUntilEvent(ActivityEvent.DESTROY))
-                ?.doFinally(this::dispose)
-//                ?.flatMap { rxBleConnection ->
-//                    // Set desired interval.
-//                    Observable.interval(2, TimeUnit.SECONDS).flatMapSingle{t: Long -> Single.just(rxBleConnection) }
-//
-//
-//                }
-                ?.observeOn(AndroidSchedulers.mainThread())
-                ?.subscribe(this::onConnectionReceived, this::onConnectionFailure)
+
+        BTService.deviceConnectedMap[deviceMac]?.let {
+            onConnectionReceived(it)
+        }
+
     }
 
     private fun onConnectionFailure(throwable: Throwable) {
@@ -167,7 +161,7 @@ class DeviceActivity : SActivity() {
 
         // Snackbar.make(findViewById<View>(android.R.id.content), "Connection received", Snackbar.LENGTH_SHORT).show()
 
-        getSettings()
+       // getSettings()
 
     }
 

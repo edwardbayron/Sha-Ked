@@ -36,6 +36,7 @@ class BTService : Service() {
         var scanResultBehaviorSubject: PublishRelay<MutableCollection<DeviceBox>> = PublishRelay.create()
         var scanMap: LinkedHashMap<String, DeviceBox> = LinkedHashMap()
         var deviceConnectedMap: LinkedHashMap<String, RxBleConnection?> = LinkedHashMap()
+        var deviceConnectedDisposableMap: LinkedHashMap<String, Disposable?> = LinkedHashMap()
         var connectonCompositeDisposable: CompositeDisposable = CompositeDisposable()
         var connectonStatusCompositeDisposable: CompositeDisposable = CompositeDisposable()
         var connectonStatusSubscriptionMap: LinkedHashMap<String, Disposable?> = LinkedHashMap()
@@ -81,12 +82,14 @@ class BTService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Logger.wtf("Destroy service")
         isBtServiceRunning = false
         EventBus.getDefault().unregister(this)
         scanSubscription?.dispose()
         deviceBoxSubscription.cancel()
         connectonStatusCompositeDisposable.clear()
         connectonCompositeDisposable.clear()
+        deviceConnectedDisposableMap.clear()
 
     }
 
@@ -224,11 +227,21 @@ class BTService : Service() {
 
             var subscription = bleDevice?.observeConnectionStateChanges()
                     ?.subscribe({
+                        Logger.wtf("YOLO connect status: " + it)
                         deviceBox.connectionStatus = it.name
                         if (it === RxBleConnection.RxBleConnectionState.CONNECTED) {
                             deviceBox.connected = true
                         } else if (it === RxBleConnection.RxBleConnectionState.DISCONNECTED) {
                             deviceBox.connected = false
+
+                            deviceConnectedDisposableMap[deviceBox.hardwareId!!]?.let { disposable ->
+                                connectonCompositeDisposable.remove(disposable)
+                                disposable.dispose()
+                            }
+                            deviceConnectedMap[deviceBox.hardwareId!!] = null
+
+
+                            triggerConnect(deviceBox, bleDevice, true)
                         }
                         DeviceBox.save(deviceBox)
 
@@ -240,32 +253,35 @@ class BTService : Service() {
             connectonStatusSubscriptionMap[deviceBox.hardwareId!!] = subscription
 
 
-            if (bleDevice?.connectionState == RxBleConnection.RxBleConnectionState.CONNECTED) {
-                triggerConnect(deviceBox, bleDevice, false)
-            } else {
-                triggerConnect(deviceBox, bleDevice, true)
-            }
+//            if (bleDevice?.connectionState == RxBleConnection.RxBleConnectionState.CONNECTED) {
+//                triggerConnect(deviceBox, bleDevice, false)
+//            } else {
+//                triggerConnect(deviceBox, bleDevice, true)
+//            }
+            triggerConnect(deviceBox, bleDevice, true)
 
         } else {
-            var bleDevice = deviceBox.hardwareId?.let {
-                SApplication.instance.rxBleClient.getBleDevice(it)
-
-            }
-
-            if (bleDevice?.connectionState == RxBleConnection.RxBleConnectionState.CONNECTED) {
-                triggerConnect(deviceBox, bleDevice, false)
-            } else {
-                triggerConnect(deviceBox, bleDevice, true)
-
-            }
+            Logger.wtf("CONNECT 3 GO ")
+//            var bleDevice = deviceBox.hardwareId?.let {
+//                SApplication.instance.rxBleClient.getBleDevice(it)
+//
+//            }
+//
+//            if (bleDevice?.connectionState == RxBleConnection.RxBleConnectionState.CONNECTED) {
+//                triggerConnect(deviceBox, bleDevice, false)
+//            } else {
+//                triggerConnect(deviceBox, bleDevice, true)
+//
+//            }
 
 
         }
     }
 
     private fun triggerConnect(deviceBox: DeviceBox, bleDevice: RxBleDevice?, autoConnect: Boolean) {
-        if (deviceConnectedMap[deviceBox.hardwareId!!] == null) {
-            Logger.wtf("Connect please")
+        Logger.wtf("Trigger connect: " + (deviceConnectedDisposableMap[deviceBox.hardwareId!!] == null))
+        if (deviceConnectedDisposableMap[deviceBox.hardwareId!!] == null) {
+            Logger.wtf("Connect please " + autoConnect + ", status: " + bleDevice?.connectionState)
 
             var connectionDisposable = bleDevice?.establishConnection(autoConnect)
 //                ?.flatMap { rxBleConnection ->
@@ -277,14 +293,15 @@ class BTService : Service() {
                     ?.observeOn(AndroidSchedulers.mainThread())
                     ?.subscribe({
                         Logger.wtf("YOLO connection?")
-                        deviceBox.connected = true
-                        deviceBox.connectionStatus = bleDevice.connectionState.name
-                        DeviceBox.save(deviceBox)
+                        var box = DeviceBox.getDeviceBoxByMac(deviceBox.hardwareId!!)
+                        box?.connected = true
+                        box?.connectionStatus = bleDevice.connectionState.name
+                        box?.let { it1 -> DeviceBox.save(it1) }
                         deviceConnectedMap[deviceBox.hardwareId!!] = it
                     }, {
                         it.printStackTrace()
                     })
-
+            deviceConnectedDisposableMap[deviceBox.hardwareId!!] = connectionDisposable
             connectonCompositeDisposable.add(connectionDisposable!!)
 
         }

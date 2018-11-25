@@ -37,6 +37,11 @@ class SApplication() : Application() {
 
     private fun setupBTE() {
         rxBleClient = RxBleClient.create(this)
+       // RxBle.init(getApplicationContext())
+        //RxBle.enableLog(true)
+        ///RxBle.markState()
+
+
         RxBleClient.setLogLevel(RxBleLog.VERBOSE)
         bluetooth = Bluetooth(this)
     }

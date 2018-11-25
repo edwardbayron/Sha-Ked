@@ -213,7 +213,8 @@ class BTService : Service() {
     }
 
     private fun connectDevice(deviceBox: DeviceBox) {
-        Logger.wtf("CONENCT")
+        Logger.wtf("CONENCT " + (connectonStatusSubscriptionMap[deviceBox.hardwareId!!] == null))
+
         if (connectonStatusSubscriptionMap[deviceBox.hardwareId!!] == null) {
             Logger.wtf("CONENCT 2")
             var bleDevice = deviceBox.hardwareId?.let {
@@ -239,18 +240,34 @@ class BTService : Service() {
             connectonStatusSubscriptionMap[deviceBox.hardwareId!!] = subscription
 
 
-            if (bleDevice?.connectionState === RxBleConnection.RxBleConnectionState.CONNECTED) {
-                triggerConnect(deviceBox, bleDevice)
+            if (bleDevice?.connectionState == RxBleConnection.RxBleConnectionState.CONNECTED) {
+                triggerConnect(deviceBox, bleDevice, false)
+            } else {
+                triggerConnect(deviceBox, bleDevice, true)
             }
+
+        } else {
+            var bleDevice = deviceBox.hardwareId?.let {
+                SApplication.instance.rxBleClient.getBleDevice(it)
+
+            }
+
+            if (bleDevice?.connectionState == RxBleConnection.RxBleConnectionState.CONNECTED) {
+                triggerConnect(deviceBox, bleDevice, false)
+            } else {
+                triggerConnect(deviceBox, bleDevice, true)
+
+            }
+
+
         }
-
-
     }
 
-    private fun triggerConnect(deviceBox: DeviceBox, bleDevice: RxBleDevice) {
+    private fun triggerConnect(deviceBox: DeviceBox, bleDevice: RxBleDevice?, autoConnect: Boolean) {
         if (deviceConnectedMap[deviceBox.hardwareId!!] == null) {
             Logger.wtf("Connect please")
-            var connectionDisposable = bleDevice?.establishConnection(true)
+
+            var connectionDisposable = bleDevice?.establishConnection(autoConnect)
 //                ?.flatMap { rxBleConnection ->
 //                    // Set desired interval.
 //                    Observable.interval(2, TimeUnit.SECONDS).flatMapSingle{t: Long -> Single.just(rxBleConnection) }
@@ -259,15 +276,17 @@ class BTService : Service() {
 //                }
                     ?.observeOn(AndroidSchedulers.mainThread())
                     ?.subscribe({
+                        Logger.wtf("YOLO connection?")
                         deviceBox.connected = true
                         deviceBox.connectionStatus = bleDevice.connectionState.name
                         DeviceBox.save(deviceBox)
                         deviceConnectedMap[deviceBox.hardwareId!!] = it
                     }, {
-
+                        it.printStackTrace()
                     })
 
             connectonCompositeDisposable.add(connectionDisposable!!)
+
         }
     }
 

@@ -30,6 +30,9 @@ import org.steamzone.shaked.box.DeviceBox
 import org.steamzone.shaked.rx.DbUtil
 import org.steamzone.shaked.services.BTService
 import org.steamzone.shaked.utils.JsonUtil
+import android.content.DialogInterface
+import android.os.Build
+import androidx.appcompat.app.AlertDialog
 
 
 class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -106,6 +109,10 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
         var viewManager = LinearLayoutManager(this)
 
         adapterBt = MainBTListAdapter(object : MainBTViewHolder.OnItemClickListener {
+            override fun onLongItemClick(item: DeviceBox) {
+                showDeleteDialogue(item)
+            }
+
             override fun onItemClick(item: DeviceBox) {
                 var intent = Intent(this@HomeActivity, DeviceActivity::class.java)
                 intent.putExtra(MAC_ADDRESS_EXTRA, item.hardwareId)
@@ -121,7 +128,7 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
             setHasFixedSize(true)
             val animator = itemAnimator
             if (animator is SimpleItemAnimator) {
-                animator .supportsChangeAnimations = false
+                animator.supportsChangeAnimations = false
             }
             layoutManager = viewManager
             adapter = adapterBt
@@ -135,9 +142,8 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
         deviceBoxChangesListener = DeviceBox.query().build().subscribe()
                 .on(AndroidScheduler.mainThread())
                 .observer {
-                    Logger.wtf("Update DATA HOME")
-                    Logger.wtf(JsonUtil.gson.toJson(it))
-                    updateData(it) }
+                    updateData(it)
+                }
 
     }
 
@@ -207,6 +213,31 @@ class HomeActivity : SActivity(), NavigationView.OnNavigationItemSelectedListene
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+
+    fun showDeleteDialogue(deviceBox: DeviceBox) {
+        val alertDialog: AlertDialog? = this?.let {
+            val builder = AlertDialog.Builder(it)
+            builder.apply {
+                setTitle("Delete entry")
+                setMessage("Are you sure you want to delete this entry?")
+                setTheme(R.style.Base_Theme_MaterialComponents_Dialog_Alert)
+                setPositiveButton(R.string.delete
+                ) { dialog, id ->
+                    DeviceBox.delete(deviceBox)
+                }
+                setNegativeButton(R.string.cancel
+                ) { dialog, id ->
+
+                }
+            }
+
+            builder.create()
+        }
+        alertDialog?.show()
+
+
     }
 
 

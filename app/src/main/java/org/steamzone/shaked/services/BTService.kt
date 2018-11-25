@@ -27,6 +27,7 @@ import org.steamzone.shaked.events.onConnectEvent
 import org.steamzone.shaked.utils.JsonUtil
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.collections.ArrayList
 import kotlin.collections.LinkedHashMap
 
 class BTService : Service() {
@@ -195,16 +196,60 @@ class BTService : Service() {
             handleDeviceBox(deviceBox)
         }
 
+
+        handleDeletedItem(data)
+
+    }
+
+    private fun handleDeletedItem(data: List<DeviceBox>) {
+
+        var deletedItem: MutableList<String> = mutableListOf<String>()
+        for ((key, value) in connectonStatusSubscriptionMap) {
+            var delete = true
+            for (deviceBox in data) {
+                if (deviceBox.hardwareId.equals(key)) {
+                    delete = false
+                    break
+                } else {
+                    delete = true
+                }
+
+            }
+            if (delete) {
+                deletedItem.add(key)
+            }
+        }
+
+        Logger.wtf("Delete items " + deletedItem.toString())
+        for (mac in deletedItem) {
+            disposeConnectionItem(mac)
+
+
+        }
+
+
+    }
+
+    private fun disposeConnectionItem(mac: String) {
+        connectonStatusSubscriptionMap[mac]?.let {
+            connectonStatusCompositeDisposable.remove(it)
+            it.dispose()
+        }
+        connectonStatusSubscriptionMap[mac] = null
+
+        deviceConnectedDisposableMap[mac]?.let { disposable ->
+            connectonCompositeDisposable.remove(disposable)
+            disposable.dispose()
+        }
+        deviceConnectedDisposableMap[mac] = null
+        deviceConnectedMap[mac] = null
     }
 
     private fun handleDeviceBox(deviceBox: DeviceBox) {
         Logger.wtf(JsonUtil.gson.toJson(deviceBox))
-        if (deviceBox.autoConnect && !deviceBox.connected
-        ) {
+        if (deviceBox.autoConnect) {
             connectDevice(deviceBox)
-
-        } else if (!deviceBox.autoConnect && deviceBox.connected) {
-
+        } else {
             disconnectDevice(deviceBox)
         }
 
@@ -238,6 +283,7 @@ class BTService : Service() {
                                 connectonCompositeDisposable.remove(disposable)
                                 disposable.dispose()
                             }
+                            deviceConnectedDisposableMap[deviceBox.hardwareId!!] = null
                             deviceConnectedMap[deviceBox.hardwareId!!] = null
 
 
@@ -261,18 +307,11 @@ class BTService : Service() {
             triggerConnect(deviceBox, bleDevice, true)
 
         } else {
-            Logger.wtf("CONNECT 3 GO ")
-//            var bleDevice = deviceBox.hardwareId?.let {
-//                SApplication.instance.rxBleClient.getBleDevice(it)
-//
-//            }
-//
-//            if (bleDevice?.connectionState == RxBleConnection.RxBleConnectionState.CONNECTED) {
-//                triggerConnect(deviceBox, bleDevice, false)
-//            } else {
-//                triggerConnect(deviceBox, bleDevice, true)
-//
-//            }
+            var bleDevice = deviceBox.hardwareId?.let {
+                SApplication.instance.rxBleClient.getBleDevice(it)
+
+            }
+            triggerConnect(deviceBox, bleDevice, true)
 
 
         }

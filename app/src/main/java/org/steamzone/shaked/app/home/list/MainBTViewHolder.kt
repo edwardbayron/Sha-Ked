@@ -18,6 +18,7 @@ open class MainBTViewHolder(override val containerView: View) : RecyclerView.Vie
 
     interface OnItemClickListener {
         fun onItemClick(item: DeviceBox)
+        fun onLongItemClick(item: DeviceBox)
     }
 
 
@@ -42,6 +43,12 @@ open class MainBTViewHolder(override val containerView: View) : RecyclerView.Vie
 
         containerView.setOnClickListener {
             onItemClickListener?.onItemClick(item)
+
+        }
+
+        containerView.setOnLongClickListener {
+            onItemClickListener?.onLongItemClick(item)
+            true
         }
 
 

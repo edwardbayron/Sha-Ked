@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.snackbar.Snackbar
-import com.jakewharton.rx.ReplayingShare
 import com.orhanobut.logger.Logger
 import com.polidea.rxandroidble2.RxBleConnection
 import com.tbruyelle.rxpermissions2.RxPermissions
@@ -19,7 +18,8 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.fragment_device_get_log.*
 import org.steamzone.shaked.R
-import org.steamzone.shaked.bt.old.models.logger_flash_data
+import org.steamzone.shaked.bt.new_log_item
+import org.steamzone.shaked.services.BTService
 import org.steamzone.shaked.utils.HexString
 import java.util.*
 
@@ -51,7 +51,7 @@ class DeviceGetLogFragment : RxFragment() {
             startDownloading()
 
         }
-        download_bt_send.setOnClickListener {
+        download_bt_save.setOnClickListener {
             writeDataToSDCard()
         }
 
@@ -67,11 +67,11 @@ class DeviceGetLogFragment : RxFragment() {
 
     @SuppressLint("CheckResult")
     private fun startDownloading() {
-        if ((activity as DeviceActivity)?.isConnected()) {
-            Observable.just((activity as DeviceActivity)?.connectionBle)
+        if ((activity as DeviceActivity)?.isConnected() && (activity as DeviceActivity)?.deviceMac != null) {
+            Observable.just(BTService.deviceConnectedMap[(activity as DeviceActivity)?.deviceMac])
                     ?.compose(bindUntilEvent<RxBleConnection>(FragmentEvent.DESTROY_VIEW))
-                   // ?.compose(ReplayingShare.instance())!!
-                  //  .takeUntil(disconnectTriggerSubject)
+                    // ?.compose(ReplayingShare.instance())!!
+                    //  .takeUntil(disconnectTriggerSubject)
                     ?.flatMap { t: RxBleConnection ->
                         t.setupNotification(CHARACTERESTIC_DATA_TRANSFER_UUID)
                     }
@@ -83,9 +83,7 @@ class DeviceGetLogFragment : RxFragment() {
                         writeDataToSDCard()
                     }
 
-        }
-        else
-        {
+        } else {
             Snackbar.make(activity?.findViewById<View>(android.R.id.content)!!, getString(R.string.device_not_connected), Snackbar.LENGTH_SHORT).show()
         }
     }
@@ -100,14 +98,13 @@ class DeviceGetLogFragment : RxFragment() {
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .subscribe({
-                    if(it) {
-                        Logger_flash_data?.convert_data(activity, (activity as DeviceActivity)?.deviceMac)
-                    }
-                    else
-                    {
+                    if (it) {
+                        logger_flash_data?.convert_data(activity, (activity as DeviceActivity)?.deviceMac)
+                        Snackbar.make(activity?.findViewById<View>(android.R.id.content)!!, "Saved to internal space.", Snackbar.LENGTH_SHORT).show()
+                    } else {
                         Snackbar.make(root_view, R.string.no_permission, Snackbar.LENGTH_LONG).show()
                     }
-                },{
+                }, {
                     it.printStackTrace()
                 })
 
@@ -119,19 +116,28 @@ class DeviceGetLogFragment : RxFragment() {
         Snackbar.make(activity?.findViewById<View>(android.R.id.content)!!, "Notifications has been set up", Snackbar.LENGTH_SHORT).show()
     }
 
-     var Logger_flash_data: logger_flash_data? = logger_flash_data()
+    var logger_flash_data: new_log_item = new_log_item()
 
     private fun onNotificationReceived(bytes: ByteArray) {
-        Logger_flash_data?.download_f(bytes)
+        logger_flash_data?.download_f(bytes)
 
         setSpeed()
+        setSize()
         Snackbar.make(activity?.findViewById<View>(android.R.id.content)!!, "Change: " + HexString.bytesToHex(bytes), Snackbar.LENGTH_SHORT).show()
     }
 
     @SuppressLint("SetTextI18n")
+    private fun setSize() {
+        logger_flash_data?.let {
+            downloading_text.text= "" + it.get_val_frame_download()+" "
+        }
+
+    }
+
+    @SuppressLint("SetTextI18n")
     private fun setSpeed() {
-        Logger_flash_data?.let {
-            internet_speed.text = ""+ it.instant_speed
+        logger_flash_data?.let {
+            internet_speed.text = "" + it.instant_speed
         }
     }
 

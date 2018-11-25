@@ -119,9 +119,9 @@ class DeviceActivity : SActivity() {
             this@DeviceActivity.onBackPressed()
         }
 
-        connect_bt.setOnClickListener {
-            disconnectOrConnect()
-        }
+//        connect_bt.setOnClickListener {
+//            disconnectOrConnect()
+//        }
 
     }
 

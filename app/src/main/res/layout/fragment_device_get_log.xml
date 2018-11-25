@@ -283,37 +283,38 @@
 
 
     <ProgressBar
-        android:layout_marginTop="40dp"
         android:id="@+id/progress"
         style="@android:style/Widget.Material.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="30dp"
         android:indeterminateTint="@color/colorPrimaryDark"
         android:max="100"
         android:progress="3"
-        android:progressTint="@color/colorPrimary" />
+        android:progressTint="@color/colorPrimary"
+        android:visibility="gone" />
 
 
     <Button
-        android:text="@string/download_log"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
         android:id="@+id/download_bt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
         android:backgroundTint="@color/colorPrimary"
+        android:text="@string/download_log"
         android:textColor="@color/colorAccent" />
 
     <Button
-        android:text="@string/send_log"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:id="@+id/download_bt_send"
+        android:id="@+id/download_bt_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
         android:backgroundTint="@color/colorPrimary"
+        android:text="@string/save_log"
         android:textColor="@color/colorAccent" />
 
 

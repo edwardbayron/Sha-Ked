@@ -9,7 +9,7 @@ buildscript {
                 supportLibVersion = "27.0.2"
                 toolsVersion = "28.0.3"
                 multidexVersion = "1.0.3"
-                kotlin_version = '1.2.71'
+                kotlin_version = '1.3.10'
                 gradlePlugin = '3.2.0'
                 arcComponents = '2.0.0'
                 gradlePlugin = '3.2.1'

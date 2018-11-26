@@ -110,8 +110,8 @@ dependencies {
         force = true
     }
     implementation "androidx.legacy:legacy-support-v4:$android_x"
-    implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
-    kapt "androidx.databinding:databinding-compiler:$dataBinding"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+   // kapt "androidx.databinding:databinding-compiler:$dataBinding"
     implementation "androidx.arch.core:core-common:$arcComponents"
 
     // ViewModel and LiveData

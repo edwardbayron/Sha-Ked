@@ -744,3 +744,5 @@ public static java.lang.String TABLENAME;
 #Counter-indication: you probably shouldn't use this option when processing code that is to be used as a library, since classes and class members that weren't designed to be public in the API may become public.
 -allowaccessmodification
 -dontusemixedcaseclassnames
+-keep class com.google.**
+-dontwarn com.google.**

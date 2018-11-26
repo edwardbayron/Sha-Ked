@@ -74,7 +74,7 @@
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/time_interval_checkbox"
+                        android:id="@+id/led_checkbox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
@@ -88,9 +88,11 @@
 
 
             <LinearLayout
-                android:id="@+id/time_interval_cont"
+                android:id="@+id/led_checkbox_cont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"
                 android:orientation="vertical">
 
                 <View
@@ -101,11 +103,9 @@
                     android:background="@color/main_gray" />
 
                 <LinearLayout
-                    android:id="@+id/time_interval_cont_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:visibility="gone"
                     android:weightSum="2"
                     tools:visibility="visible">
 
@@ -119,7 +119,7 @@
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/time_interval_spinner"
+                        android:id="@+id/led_mode_spinner"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
@@ -158,7 +158,7 @@
                     android:layout_margin="20dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/colorPrimary"
-                    android:text="@string/save_config"
+                    android:text="@string/send_settings"
                     android:textColor="#FFFFFF"
 
                     />

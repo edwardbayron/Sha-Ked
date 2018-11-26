@@ -10,13 +10,13 @@ import com.orhanobut.logger.Logger
 import com.trello.rxlifecycle2.android.FragmentEvent
 import com.trello.rxlifecycle2.components.support.RxFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.fragment_bluetooth_settings.*
 import kotlinx.android.synthetic.main.fragment_gps_settings.*
 import org.steamzone.shaked.R
-import org.steamzone.shaked.app.device.forms.GeozoneSettingsFormEditFragment
-import org.steamzone.shaked.box.SettingsBox
 import org.steamzone.shaked.bt.old.BTClient
-import java.util.*
+import android.app.ProgressDialog
+import org.steamzone.shaked.bt.new_settings_item
+import org.steamzone.shaked.services.BTService
+
 
 class GPSSettingsFragment : RxFragment() {
 
@@ -79,29 +79,61 @@ class GPSSettingsFragment : RxFragment() {
         }
 
 
-        setData(SettingsBox.get())
+
+        loadData()
+
         save_profile_bt.setOnClickListener {
             sendBtSettingsToDevice()
         }
 
     }
 
+    var settings: new_settings_item = new_settings_item()
+    var dialog: ProgressDialog? = null
     @SuppressLint("CheckResult")
-    private fun sendBtSettingsToDevice() {
+    private fun loadData() {
+        if (dialog != null) {
+            dialog?.dismiss()
+        }
+        dialog = ProgressDialog.show(activity, "",
+                "Loading. Please wait...", true)
 
-        if ((activity as DeviceActivity).checkConnectionStatus()) {
+        if ((activity as DeviceActivity)?.isConnected() && BTService.deviceConnectedMap[(activity as DeviceActivity)?.deviceMac] != null) {
 
-            var box: SettingsBox? = getBTSettingsUI()
-            var byte_settings = SettingsBox.converBoxToSettings(box)
-            (activity as DeviceActivity)?.connectionBle?.writeCharacteristic(BTClient.CHAR_LOGGER_SETTINGS_UUID, byte_settings.create_settings_bt_buff())
+
+            BTService.deviceConnectedMap[(activity as DeviceActivity)?.deviceMac]?.readCharacteristic(BTClient.CHAR_LOGGER_SETTINGS_UUID)
                     ?.compose(bindUntilEvent(FragmentEvent.DESTROY_VIEW))
                     ?.observeOn(AndroidSchedulers.mainThread())
                     ?.subscribe({
-                        box?.dateWrite = Date()
-                        SettingsBox.save(box)
 
+                        settings.parse_data(it)
+                        setData(settings)
+                        dialog?.dismiss()
+                    }, {
+                        dialog?.dismiss()
+                        it.printStackTrace()
+                    })
+
+
+        } else {
+            dialog?.dismiss()
+        }
+
+
+    }
+
+    @SuppressLint("CheckResult")
+    private fun sendBtSettingsToDevice() {
+
+        if ((activity as DeviceActivity)?.isConnected() && BTService.deviceConnectedMap[(activity as DeviceActivity)?.deviceMac] != null) {
+
+            var settings: new_settings_item = getBTSettingsUI()
+
+            (activity as DeviceActivity)?.connectionBle?.writeCharacteristic(BTClient.CHAR_LOGGER_SETTINGS_UUID, settings.create_settings_bt_buff())
+                    ?.compose(bindUntilEvent(FragmentEvent.DESTROY_VIEW))
+                    ?.observeOn(AndroidSchedulers.mainThread())
+                    ?.subscribe({
                         Snackbar.make(activity?.findViewById<View>(android.R.id.content)!!, getString(R.string.settings_writed), Snackbar.LENGTH_SHORT).show()
-
                     }, {
                         Snackbar.make(activity?.findViewById<View>(android.R.id.content)!!, "Error: " + it.message, Snackbar.LENGTH_SHORT).show()
 
@@ -115,12 +147,8 @@ class GPSSettingsFragment : RxFragment() {
     }
 
 
-    fun getBTSettingsUI(): SettingsBox {
-        var settings: SettingsBox? = SettingsBox.get()
-        if (settings == null) {
-            settings = SettingsBox()
-            settings.id = 1
-        }
+    fun getBTSettingsUI(): new_settings_item {
+
 
         settings.gnss_time_interval_mode = time_interval_checkbox.isChecked.toInt()
         Logger.wtf("" + time_interval_spinner.selectedItem.toString().toInt())
@@ -148,11 +176,13 @@ class GPSSettingsFragment : RxFragment() {
         settings.gnss_timeout = gps_timeout_checkbox.isChecked.toInt()
         settings.gnss_timeout_val_in_sec = timeout_spinner.selectedItem.toString().toInt() * 60;
 
+        settings.gnss_ant_ctrl = ant_select_spinner.selectedItemPosition
+
         return settings
 
     }
 
-    private fun setData(box: SettingsBox?) {
+    private fun setData(box: new_settings_item) {
         box?.let {
 
             var settings = it
@@ -168,11 +198,11 @@ class GPSSettingsFragment : RxFragment() {
         }
     }
 
-    private fun setupAntenna(settings: SettingsBox) {
-
+    private fun setupAntenna(settings: new_settings_item) {
+        ant_select_spinner.setSelection(settings.gnss_ant_ctrl)
     }
 
-    private fun setupGPSTimeOut(settings: SettingsBox) {
+    private fun setupGPSTimeOut(settings: new_settings_item) {
         gps_timeout_checkbox.isChecked = settings.gnss_timeout == 1
 
         var array = resources.getStringArray(R.array.speed_interval)
@@ -186,7 +216,7 @@ class GPSSettingsFragment : RxFragment() {
         timeout_spinner.setSelection(index, true)
     }
 
-    private fun setupSpeedFilter(settings: SettingsBox) {
+    private fun setupSpeedFilter(settings: new_settings_item) {
         speed_filter_checkbox.isChecked = settings.speed_filter == 1
 
         var array = resources.getStringArray(R.array.speed_interval)
@@ -202,7 +232,7 @@ class GPSSettingsFragment : RxFragment() {
 
     }
 
-    private fun setupMasterMode(settings: SettingsBox) {
+    private fun setupMasterMode(settings: new_settings_item) {
         master_mode_checkbox.isChecked = settings.master_mode == 1
         gps_always_on_checkbox.isChecked = settings.gnss_always_power_on == 1
         distance_interval_filter_checkbox.isChecked = settings.distance_interval_filter == 1
@@ -221,7 +251,7 @@ class GPSSettingsFragment : RxFragment() {
 
     }
 
-    private fun setupMotionMode(settings: SettingsBox) {
+    private fun setupMotionMode(settings: new_settings_item) {
         motion_sensor_checkbox.isChecked = settings.motion_sensor_en == 1
 
 
@@ -259,7 +289,7 @@ class GPSSettingsFragment : RxFragment() {
 
     }
 
-    private fun setupHeadingMode(settings: SettingsBox) {
+    private fun setupHeadingMode(settings: new_settings_item) {
         heading_mode_checkbox.isChecked = settings.gnss_heading_mode == 1
 
 
@@ -274,7 +304,7 @@ class GPSSettingsFragment : RxFragment() {
 //        distance_interval_spinner.setSelection(distanceIntervalIndex, true)
     }
 
-    private fun setupDistance(settings: SettingsBox) {
+    private fun setupDistance(settings: new_settings_item) {
         distance_mode_checkbox.isChecked = settings.gnss_distance_interval_mode == 1
 
 
@@ -289,7 +319,7 @@ class GPSSettingsFragment : RxFragment() {
         distance_interval_spinner.setSelection(distanceIntervalIndex, true)
     }
 
-    private fun setupTimeInterval(settings: SettingsBox) {
+    private fun setupTimeInterval(settings: new_settings_item) {
         time_interval_checkbox.isChecked = settings.gnss_time_interval_mode == 1
 
         val timeInterval = resources.getStringArray(R.array.array_time_interval)

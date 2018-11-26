@@ -122,4 +122,6 @@
     <string name="pa_mode">PA mode</string>
     <string name="delete">Delete</string>
     <string name="save_log">Save Log</string>
+    <string name="device_time">Device time:</string>
+    <string name="device_date">Device date:</string>
 </resources>

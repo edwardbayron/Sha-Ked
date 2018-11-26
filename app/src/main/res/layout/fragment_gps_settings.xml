@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,9 +59,9 @@
                     android:background="@color/main_gray" />
 
                 <LinearLayout
-                    android:layout_margin="3dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
                     android:orientation="horizontal"
                     android:weightSum="2">
 
@@ -78,10 +77,10 @@
                     <androidx.appcompat.widget.AppCompatCheckBox
                         android:id="@+id/time_interval_checkbox"
                         android:layout_width="0dp"
-                        android:buttonTint="@color/cb_appcompat_selector"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="10dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:buttonTint="@color/cb_appcompat_selector" />
 
 
                 </LinearLayout>
@@ -90,12 +89,12 @@
 
 
             <LinearLayout
-                android:visibility="gone"
-                tools:visibility="visible"
                 android:id="@+id/time_interval_cont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <View
                     android:layout_width="match_parent"
@@ -105,10 +104,10 @@
                     android:background="@color/main_gray" />
 
                 <LinearLayout
-                    android:layout_margin="3dp"
                     android:id="@+id/time_interval_cont_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
                     android:orientation="horizontal"
 
                     android:weightSum="2">
@@ -170,9 +169,9 @@
                         android:id="@+id/distance_mode_checkbox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:buttonTint="@color/cb_appcompat_selector"
                         android:layout_marginEnd="10dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:buttonTint="@color/cb_appcompat_selector" />
 
 
                 </LinearLayout>
@@ -183,10 +182,10 @@
             <LinearLayout
                 android:id="@+id/distance_mode_cont"
                 android:layout_width="match_parent"
-                android:visibility="gone"
-                tools:visibility="visible"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <View
                     android:layout_width="match_parent"
@@ -260,9 +259,9 @@
                         android:id="@+id/heading_mode_checkbox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:buttonTint="@color/cb_appcompat_selector"
                         android:layout_marginEnd="10dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:buttonTint="@color/cb_appcompat_selector" />
 
 
                 </LinearLayout>
@@ -274,9 +273,9 @@
                 android:id="@+id/heading_mode_cont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:visibility="gone"
-                tools:visibility="visible"
-                android:orientation="vertical">
+                tools:visibility="visible">
 
                 <View
                     android:layout_width="match_parent"
@@ -366,9 +365,9 @@
                         android:id="@+id/motion_sensor_checkbox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:buttonTint="@color/cb_appcompat_selector"
                         android:layout_marginEnd="10dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:buttonTint="@color/cb_appcompat_selector" />
 
 
                 </LinearLayout>
@@ -380,9 +379,9 @@
                 android:id="@+id/hmotion_sensor_cont_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
                 android:visibility="gone"
-                tools:visibility="visible"
-                android:orientation="vertical">
+                tools:visibility="visible">
 
                 <View
                     android:layout_width="match_parent"
@@ -442,9 +441,9 @@
                     android:id="@+id/hmotion_sensor_cont_2_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:visibility="visible"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:weightSum="2"
+                    tools:visibility="visible">
 
                     <TextView
                         android:layout_width="0dp"
@@ -488,9 +487,9 @@
                     android:id="@+id/hmotion_sensor_cont_3_hideable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:visibility="visible"
                     android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:weightSum="2"
+                    tools:visibility="visible">
 
                     <TextView
                         android:layout_width="0dp"
@@ -530,9 +529,9 @@
                 android:id="@+id/ant_select_cont"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:visibility="visible"
                 android:layout_marginTop="20dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:visibility="visible">
 
                 <View
                     android:layout_width="match_parent"
@@ -621,9 +620,9 @@
                         android:id="@+id/master_mode_checkbox"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:buttonTint="@color/cb_appcompat_selector"
                         android:layout_marginEnd="10dp"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:buttonTint="@color/cb_appcompat_selector" />
 
 
                 </LinearLayout>
@@ -637,387 +636,386 @@
 
             </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/master_mode_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible"
-            >
-
             <LinearLayout
-                android:id="@+id/master_mode_cont"
-                android:layout_width="match_parent"
+                android:id="@+id/master_mode_container"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:visibility="gone"
+                tools:visibility="visible">
 
-
-                <RelativeLayout
+                <LinearLayout
+                    android:id="@+id/master_mode_cont"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:minHeight="45dp">
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:tint="@color/main_gray"
-                        android:layout_toStartOf="@+id/master_mode_big_text"
-                        app:srcCompat="@drawable/ic_globe_24dp" />
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:minHeight="45dp">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toStartOf="@+id/master_mode_big_text"
+                            android:tint="@color/main_gray"
+                            app:srcCompat="@drawable/ic_globe_24dp" />
 
 
-                    <TextView
-                        android:id="@+id/master_mode_big_text"
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:id="@+id/master_mode_big_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginStart="10dp"
+                            android:text="@string/gps_settings_master_mode"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/main_gray" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginStart="10dp"
-                        android:text="@string/gps_settings_master_mode"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
-                </RelativeLayout>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/gps_always_on"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/gps_always_on_checkbox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/cb_appcompat_selector" />
 
 
-            </LinearLayout>
+                    </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/main_gray" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/distance_interval_filter"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/distance_interval_filter_checkbox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/cb_appcompat_selector" />
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/main_gray" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/distance_interval"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/distance_interval_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:drawSelectorOnTop="true"
+                            android:entries="@array/distance_interval">
+
+                        </androidx.appcompat.widget.AppCompatSpinner>
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="40dp"
                     android:layout_marginEnd="8dp"
                     android:background="@color/main_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="0dp"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/main_gray" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:text="@string/gps_always_on"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/gps_always_on_checkbox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/cb_appcompat_selector"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/speed_filter"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
 
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/speed_filter_checkbox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/cb_appcompat_selector" />
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/main_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="0dp"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/main_gray" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:text="@string/distance_interval_filter"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/distance_interval_filter_checkbox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/cb_appcompat_selector"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/speed"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
 
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/speed_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:drawSelectorOnTop="true"
+                            android:entries="@array/speed_interval">
+
+                        </androidx.appcompat.widget.AppCompatSpinner>
+                    </LinearLayout>
 
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/main_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="0dp"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/main_gray" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:text="@string/distance_interval"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/distance_interval_spinner"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1"
-                        android:drawSelectorOnTop="true"
-                        android:entries="@array/distance_interval">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/save_frame_flash_every"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
 
-                    </androidx.appcompat.widget.AppCompatSpinner>
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/save_frame_flash_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:drawSelectorOnTop="true"
+                            android:entries="@array/frame_flash_interval">
+
+                        </androidx.appcompat.widget.AppCompatSpinner>
+                    </LinearLayout>
+
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="8dp"
-                android:background="@color/main_gray" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/main_gray" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="0dp"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/main_gray" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:text="@string/speed_filter"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/speed_filter_checkbox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/cb_appcompat_selector"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1" />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/gps_timeout"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
 
+                        <androidx.appcompat.widget.AppCompatCheckBox
+                            android:id="@+id/gps_timeout_checkbox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:buttonTint="@color/cb_appcompat_selector" />
+
+
+                    </LinearLayout>
 
                 </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/main_gray" />
 
                 <LinearLayout
+                    android:id="@+id/gps_timeout_cont"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="0dp"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/main_gray" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:text="@string/speed"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/speed_spinner"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1"
-                        android:drawSelectorOnTop="true"
-                        android:entries="@array/speed_interval">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/timeout"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
 
-                    </androidx.appcompat.widget.AppCompatSpinner>
-                </LinearLayout>
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/timeout_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_weight="1"
+                            android:drawSelectorOnTop="true"
+                            android:entries="@array/timeout_interval">
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/main_gray" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:text="@string/save_frame_flash_every"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/save_frame_flash_spinner"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1"
-                        android:drawSelectorOnTop="true"
-                        android:entries="@array/frame_flash_interval">
-
-                    </androidx.appcompat.widget.AppCompatSpinner>
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/main_gray" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:text="@string/gps_timeout"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/gps_timeout_checkbox"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:buttonTint="@color/cb_appcompat_selector"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1" />
-
+                        </androidx.appcompat.widget.AppCompatSpinner>
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/gps_timeout_cont"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@color/main_gray" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:text="@string/timeout"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
-
-                    <androidx.appcompat.widget.AppCompatSpinner
-                        android:id="@+id/timeout_spinner"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:layout_weight="1"
-                        android:drawSelectorOnTop="true"
-                        android:entries="@array/timeout_interval">
-
-                    </androidx.appcompat.widget.AppCompatSpinner>
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -1030,32 +1028,32 @@
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:layout_margin="20dp"
                     android:layout_weight="1"
                     android:backgroundTint="@color/colorPrimary"
-                    android:text="@string/save_config"
+                    android:text="@string/send_settings"
                     android:textColor="#FFFFFF"
-                    android:layout_gravity="center_horizontal"
 
                     />
 
 
                 <!--<Button-->
-                    <!--android:id="@+id/send_settings_bt"-->
-                    <!--style="@style/Widget.MaterialComponents.Button.TextButton"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_margin="20dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:backgroundTint="@color/colorPrimary"-->
-                    <!--android:text="@string/send_settings"-->
-                    <!--android:textColor="#FFFFFF" />-->
+                <!--android:id="@+id/send_settings_bt"-->
+                <!--style="@style/Widget.MaterialComponents.Button.TextButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="20dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:backgroundTint="@color/colorPrimary"-->
+                <!--android:text="@string/send_settings"-->
+                <!--android:textColor="#FFFFFF" />-->
 
             </LinearLayout>
 
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

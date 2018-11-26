@@ -67,7 +67,7 @@ class DeviceGetLogFragment : RxFragment() {
 
     @SuppressLint("CheckResult")
     private fun startDownloading() {
-        if ((activity as DeviceActivity)?.isConnected() && (activity as DeviceActivity)?.deviceMac != null) {
+        if ((activity as DeviceActivity)?.isConnected() && BTService.deviceConnectedMap[(activity as DeviceActivity)?.deviceMac] != null) {
             Observable.just(BTService.deviceConnectedMap[(activity as DeviceActivity)?.deviceMac])
                     ?.compose(bindUntilEvent<RxBleConnection>(FragmentEvent.DESTROY_VIEW))
                     // ?.compose(ReplayingShare.instance())!!
